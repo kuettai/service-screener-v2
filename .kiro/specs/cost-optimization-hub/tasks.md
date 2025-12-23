@@ -4,6 +4,8 @@
 
 This implementation plan converts the Cost Optimization Hub design into a series of incremental coding tasks. Each task builds on previous work and focuses on delivering working functionality that can be tested and validated. The plan prioritizes core data collection and processing first, followed by UI components and integration.
 
+**Note**: As of the current implementation phase, the focus has shifted to Cloudscape UI for all user interface components. The legacy UI (CustomPage) implementation now serves as a simple redirect to inform users that the full Cost Optimization Hub experience is available in the Cloudscape UI version.
+
 ## Implementation Tasks
 
 - [x] 1. Set up COH project structure and core interfaces
@@ -126,45 +128,34 @@ This implementation plan converts the Cost Optimization Hub design into a series
     - **Property 14: Security and compliance integration**
     - **Validates: Requirements 6.1, 6.2, 6.3, 6.4, 6.5**
 
-- [ ] 8. Create COH page builder infrastructure
-  - [x] 8.1 Implement COHPageBuilder class
-    - Create HTML page generation logic using existing CustomPage patterns
-    - Implement responsive dashboard layout templates
-    - Add cost optimization data embedding functionality
-    - Create recommendation table and detail view templates
+- [x] 8. Create COH page builder infrastructure (Legacy UI - Cloudscape Redirect)
+  - [x] 8.1 Implement COHPageBuilder class with Cloudscape redirect
+    - Create simple HTML page that displays "This feature is only supported in Cloudscape UI"
+    - Add redirect message with link to Cloudscape UI version
+    - Maintain basic CustomPage integration for navigation
     - _Requirements: 1.1, 2.1_
 
-  - [-] 8.2 Create cost optimization visualizations
-    - Implement savings potential charts and graphs
-    - Create cost optimization opportunity matrix visualization
-    - Add progress tracking and trend charts
-    - Design interactive recommendation tables with sorting/filtering
+  - [x] 8.2 Legacy UI visualization placeholder
+    - Display message directing users to Cloudscape UI for visualizations
     - _Requirements: 3.3, 5.4_
 
-  - [ ] 8.3 Implement export functionality
-    - Add CSV/Excel export for cost recommendations
-    - Create executive summary report generation
-    - Implement cost optimization action plan export
-    - Integrate with existing Service Screener export infrastructure
+  - [x] 8.3 Legacy UI export placeholder  
+    - Display message directing users to Cloudscape UI for export functionality
     - _Requirements: 7.1, 7.2, 7.3_
 
-  - [ ] 8.4 Write property test for export functionality
-    - **Property 10: Combined export functionality**
-    - **Validates: Requirements 4.4, 7.1, 7.2, 7.3, 7.4, 7.5**
-
-- [ ] 9. Create React UI components
+- [ ] 9. Create Cloudscape UI components
   - [ ] 9.1 Implement CostOptimizationPage main component
-    - Create main page layout with navigation integration
-    - Implement data loading and error handling
+    - Create main page layout with Cloudscape Design System components
+    - Implement data loading and error handling using Cloudscape patterns
     - Add responsive design for different screen sizes
-    - Integrate with existing Service Screener styling
+    - Integrate with existing Service Screener Cloudscape styling
     - _Requirements: 4.1, 8.1_
 
   - [ ] 9.2 Create ExecutiveDashboard component
-    - Implement high-level metrics cards (total savings, recommendation counts)
-    - Add cost optimization trend visualizations
+    - Implement high-level metrics cards using Cloudscape Cards and KPI components
+    - Add cost optimization trend visualizations using Cloudscape Charts
     - Create executive summary export functionality
-    - Design executive-friendly data presentation
+    - Design executive-friendly data presentation with Cloudscape components
     - _Requirements: 3.1, 3.4_
 
   - [ ] 9.3 Write property test for executive report generation
@@ -172,10 +163,10 @@ This implementation plan converts the Cost Optimization Hub design into a series
     - **Validates: Requirements 3.4**
 
   - [ ] 9.4 Implement RecommendationTable component
-    - Create sortable, filterable recommendation table
-    - Add bulk selection and action capabilities
+    - Create sortable, filterable recommendation table using Cloudscape Table component
+    - Add bulk selection and action capabilities with Cloudscape patterns
     - Implement recommendation status tracking
-    - Add detailed recommendation modal/drawer views
+    - Add detailed recommendation modal/drawer views using Cloudscape Modal/SideNavigation
     - _Requirements: 2.1, 5.1, 5.4_
 
   - [ ] 9.5 Write property test for sorting and filtering
@@ -183,7 +174,7 @@ This implementation plan converts the Cost Optimization Hub design into a series
     - **Validates: Requirements 5.1, 5.4**
 
   - [ ] 9.6 Create RecommendationDetails component
-    - Implement detailed recommendation view with implementation steps
+    - Implement detailed recommendation view using Cloudscape Container and ColumnLayout
     - Add effort level, risk assessment, and resource information display
     - Create implementation tracking and notes functionality
     - Add integration with existing Service Screener workflows

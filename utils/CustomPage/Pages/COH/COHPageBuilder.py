@@ -28,118 +28,34 @@ class COHPageBuilder(CustomPageBuilder):
         self.error_message = ""
     
     def customPageInit(self):
-        """Initialize custom page with error checking"""
-        if hasattr(self.data, 'error_messages') and self.data.error_messages:
-            self.hasError = True
-            self.error_message = "; ".join(self.data.error_messages)
-        
-        # Check if we have any recommendations
-        if not hasattr(self.data, 'recommendations') or not self.data.recommendations:
-            if not self.hasError:
-                self.hasError = True
-                self.error_message = "No cost optimization recommendations found. This may be due to insufficient permissions, service not enabled, or no optimization opportunities available."
-        
-        # Add Chart.js library for visualizations
-        self.addJSLib('https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js')
-        self.addCSSLib('https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.11.3/css/dataTables.bootstrap5.min.css')
-        self.addJSLib('https://cdn.jsdelivr.net/npm/datatables.net@1.11.3/js/jquery.dataTables.min.js')
-        self.addJSLib('https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.11.3/js/dataTables.bootstrap5.min.js')
-        
+        """Initialize custom page - simplified for Cloudscape redirect"""
+        # No need for Chart.js or DataTables since we're redirecting to Cloudscape UI
         return
     
     def buildContentSummary_customPage(self):
-        """Build summary content for the COH page"""
-        if self.hasError:
-            return [f"<span class='text-danger'>{self.error_message}</span>"]
-        
-        if not hasattr(self.data, 'executive_summary') or not self.data.executive_summary:
-            return ["<span>No executive summary available</span>"]
-        
-        summary = self.data.executive_summary
-        
-        # Create executive summary cards using the framework's pattern
-        items = []
-        
-        # Total savings card
-        total_monthly = f"${summary.total_monthly_savings:,.2f}"
-        total_annual = f"${summary.total_annual_savings:,.2f}"
-        savings_card = f"""
-        <div class="info-box bg-success">
-            <span class="info-box-icon"><i class="fas fa-dollar-sign"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-text">Potential Savings</span>
-                <span class="info-box-number">{total_monthly}/month</span>
-                <span class="info-box-more">{total_annual}/year</span>
-            </div>
+        """Build summary content for the COH page - Cloudscape UI redirect"""
+        cloudscape_message = """
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-info-circle"></i> Feature Available in Cloudscape UI</h4>
+            <p>The Cost Optimization Hub is now available in our modern Cloudscape UI interface, which provides:</p>
+            <ul>
+                <li>Interactive dashboards and visualizations</li>
+                <li>Advanced filtering and sorting capabilities</li>
+                <li>Export functionality for recommendations</li>
+                <li>Enhanced user experience with modern design</li>
+            </ul>
+            <hr>
+            <p class="mb-0">
+                <strong>Please use the Cloudscape UI version for the full Cost Optimization Hub experience.</strong>
+            </p>
         </div>
         """
-        items.append([savings_card, ''])
         
-        # Total recommendations card
-        recommendations_card = f"""
-        <div class="info-box bg-info">
-            <span class="info-box-icon"><i class="fas fa-lightbulb"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-text">Recommendations</span>
-                <span class="info-box-number">{summary.total_recommendations}</span>
-                <span class="info-box-more">optimization opportunities</span>
-            </div>
-        </div>
-        """
-        items.append([recommendations_card, ''])
-        
-        # High priority recommendations card
-        high_priority_card = f"""
-        <div class="info-box bg-warning">
-            <span class="info-box-icon"><i class="fas fa-exclamation-triangle"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-text">High Priority</span>
-                <span class="info-box-number">{summary.high_priority_count}</span>
-                <span class="info-box-more">immediate actions</span>
-            </div>
-        </div>
-        """
-        items.append([high_priority_card, ''])
-        
-        # Data freshness card
-        freshness = summary.data_freshness.strftime('%Y-%m-%d %H:%M UTC')
-        freshness_card = f"""
-        <div class="info-box bg-secondary">
-            <span class="info-box-icon"><i class="fas fa-clock"></i></span>
-            <div class="info-box-content">
-                <span class="info-box-text">Last Updated</span>
-                <span class="info-box-number" style="font-size: 14px;">{freshness}</span>
-                <span class="info-box-more">data freshness</span>
-            </div>
-        </div>
-        """
-        items.append([freshness_card, ''])
-        
-        output = []
-        output.append(self.generateRowWithCol(size=3, items=items, rowHtmlAttr="data-context='executiveSummary'"))
-        
-        return output
+        return [cloudscape_message]
     
     def buildContentDetail_customPage(self):
-        """Build detailed content for the COH page"""
-        if self.hasError:
-            return []
-        
-        output = []
-        
-        # Build charts section
-        charts_section = self._build_charts_section()
-        output.extend(charts_section)
-        
-        # Build recommendations by priority
-        priority_sections = self._build_priority_sections()
-        output.extend(priority_sections)
-        
-        # Build recommendations by category
-        category_sections = self._build_category_sections()
-        output.extend(category_sections)
-        
-        return output
+        """Build detailed content for the COH page - Cloudscape UI redirect"""
+        return []
     
     def _build_charts_section(self):
         """Build charts section using the framework's chart methods"""
