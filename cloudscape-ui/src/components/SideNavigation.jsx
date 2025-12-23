@@ -47,8 +47,8 @@ const ServiceScreenerSideNav = ({ services = [], frameworks = [], customPages = 
   // Add custom pages section if custom pages exist
   const customPagesFromData = customPages || [];
   
-  // Always include 'ta' (Trusted Advisor) as it loads from separate ta.json
-  const allCustomPages = [...new Set([...customPagesFromData, 'ta'])];
+  // Always include 'ta' (Trusted Advisor) and 'coh' (Cost Optimization Hub) as they load from separate data
+  const allCustomPages = [...new Set([...customPagesFromData, 'ta', 'coh'])];
   
   if (allCustomPages.length > 0) {
     items.push({
@@ -59,8 +59,9 @@ const ServiceScreenerSideNav = ({ services = [], frameworks = [], customPages = 
       type: 'section',
       text: 'Pages',
       items: allCustomPages.map(page => {
-        // Format page name (e.g., "findings" -> "Findings", "ta" -> "TA")
+        // Format page name (e.g., "findings" -> "Findings", "ta" -> "TA", "coh" -> "Cost Optimization Hub")
         const pageName = page === 'ta' ? 'Trusted Advisor' : 
+                        page === 'coh' ? 'Cost Optimization Hub' :
                         page.charAt(0).toUpperCase() + page.slice(1);
         return {
           type: 'link',

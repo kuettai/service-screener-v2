@@ -8,6 +8,7 @@ import Table from '@cloudscape-design/components/table';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import FindingsPage from './FindingsPage';
 import TrustedAdvisorPage from './TrustedAdvisorPage';
+import CostOptimizationPage from './CostOptimizationPage';
 import SankeyDiagram from './SankeyDiagram';
 
 /**
@@ -29,11 +30,17 @@ const CustomPage = ({ data }) => {
   
   // Format page title
   const pageTitle = pageName === 'ta' ? 'Trusted Advisor' :
+                   pageName === 'coh' ? 'Cost Optimization Hub' :
                    pageName.charAt(0).toUpperCase() + pageName.slice(1);
   
   // Handle TA page separately (loads from ta.json)
   if (pageName === 'ta') {
     return <TrustedAdvisorPage />;
+  }
+  
+  // Handle Cost Optimization Hub page
+  if (pageName === 'coh') {
+    return <CostOptimizationPage />;
   }
   
   // Handle Findings page (uses data from api-full.json)

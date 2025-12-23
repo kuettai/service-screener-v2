@@ -331,7 +331,30 @@ for acctId, cred in rolesCred.items():
     Config.set('cli_regions', regions)
     Config.set('cli_frameworks', frameworks)
     
+    # Generate output using the existing method first
     Screener.generateScreenerOutput(contexts, hasGlobal, regions, uploadToS3)
+    
+    # If beta mode, also generate Cloudscape UI
+    beta_mode = Config.get('beta', False)
+    if beta_mode:
+        from utils.OutputGenerator import OutputGenerator
+        from utils.Tools import _info, _warn
+        _info("Beta mode enabled - Generating Cloudscape React UI...")
+        try:
+            generator = OutputGenerator(beta_mode=True)
+            generator.contexts = contexts
+            generator.regions = regions
+            generator.frameworks = frameworks
+            generator.account_id = Config.get('stsInfo')['Account']
+            generator.html_folder = Config.get('HTML_ACCOUNT_FOLDER_FULLPATH')
+            
+            success = generator._generate_cloudscape()
+            if success:
+                _info("Cloudscape UI generated successfully!")
+            else:
+                _warn("Cloudscape build failed. Only AdminLTE HTML is available.")
+        except Exception as e:
+            _warn(f"Cloudscape generation failed: {e}. Only AdminLTE HTML is available.")
     
     # os.chdir(_C.FORK_DIR)
     filetodel = _C.FORK_DIR + '/tail.txt'
