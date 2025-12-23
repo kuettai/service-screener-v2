@@ -54,6 +54,27 @@ export const getAccountId = (data) => {
     return data.__metadata.accountId;
   }
   
+  // Try to extract account ID from resource names
+  // Look for patterns like "956288449190" in resource names
+  for (const serviceName in data) {
+    if (serviceName.startsWith('__') || serviceName.startsWith('framework_') || serviceName.startsWith('customPage_')) {
+      continue;
+    }
+    
+    const service = data[serviceName];
+    if (service && service.detail) {
+      for (const region in service.detail) {
+        for (const resourceId in service.detail[region]) {
+          // Extract account ID from resource names like "Bucket::aws-athena-query-results-ap-southeast-1-956288449190"
+          const match = resourceId.match(/(\d{12})/);
+          if (match) {
+            return match[1];
+          }
+        }
+      }
+    }
+  }
+  
   return 'Unknown';
 };
 
