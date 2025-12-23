@@ -189,6 +189,12 @@ You can [download the file](https://docs.aws.amazon.com/cloudshell/latest/usergu
 
 Once downloaded, unzip the file and open 'index.html' in your browser. You should see a page like [this](https://dev.d11el1twchxpia.amplifyapp.com/961319563195/index.html).
 
+The new Cloudscape UI (enabled with `--beta 1`) includes:
+- **GuardDuty Special Handling** - Dedicated charts, settings, and grouped findings
+- **Cross-Service Findings** - Aggregated findings across all services with advanced filtering
+- **Modernization Recommendations** - Interactive Sankey diagrams showing modernization pathways
+- **Trusted Advisor Integration** - TA check results with pillar-based organization
+
 Ensure that you can see the service(s) run on listed on the left pane.
 You can navigate to the service(s) listed to see detailed findings on each service. 
 

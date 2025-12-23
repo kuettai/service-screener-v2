@@ -75,6 +75,51 @@ const ServiceDetail = () => {
     }
   };
   
+  const getSeverityCardStyle = (criticality) => {
+    switch (criticality) {
+      case 'H': 
+        return {
+          backgroundColor: '#d13212',
+          color: '#16191f',
+          headerTextColor: '#16191f',
+          categoryBgColor: '#d13212',
+          categoryTextColor: 'white'
+        };
+      case 'M': 
+        return {
+          backgroundColor: '#ff9900',
+          color: '#16191f',
+          headerTextColor: '#16191f',
+          categoryBgColor: '#ff9900',
+          categoryTextColor: 'white'
+        };
+      case 'L': 
+        return {
+          backgroundColor: '#0073bb',
+          color: '#16191f',
+          headerTextColor: '#16191f',
+          categoryBgColor: '#0073bb',
+          categoryTextColor: 'white'
+        };
+      case 'I': 
+        return {
+          backgroundColor: '#f2f3f3',
+          color: '#16191f',
+          headerTextColor: '#16191f',
+          categoryBgColor: '#545b64',
+          categoryTextColor: 'white'
+        };
+      default: 
+        return {
+          backgroundColor: '#f9f9f9',
+          color: '#16191f',
+          headerTextColor: '#16191f',
+          categoryBgColor: '#545b64',
+          categoryTextColor: 'white'
+        };
+    }
+  };
+  
   const getCategoryStyle = (category) => {
     const styles = {
       'S': { backgroundColor: '#d13212', color: 'white', label: 'Security' },
@@ -583,78 +628,112 @@ const ServiceDetail = () => {
               </Box>
             </Box>
           ) : (
-            <SpaceBetween size="m">
+            <ColumnLayout columns={2} variant="default" minColumnWidth={300}>
               {sortedFindings.map(finding => {
-              const categoryStyle = getCategoryStyle(finding.__categoryMain);
-              
-              return (
-                <ExpandableSection
-                  key={finding.ruleName}
-                  headerText={
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <span style={{ fontSize: '20px' }}>
-                        {getCriticalityIcon(finding.criticality)}
-                      </span>
-                      <span style={{
-                        backgroundColor: categoryStyle.backgroundColor,
-                        color: categoryStyle.color,
-                        padding: '4px 12px',
-                        borderRadius: '4px',
-                        fontSize: '12px',
-                        fontWeight: '500'
-                      }}>
-                        {categoryStyle.label}
-                      </span>
-                      <span style={{ fontWeight: '500' }}>
-                        {finding.ruleName}
-                      </span>
+                const categoryStyle = getCategoryStyle(finding.__categoryMain);
+                const severityStyle = getSeverityCardStyle(finding.criticality);
+                
+                return (
+                  <div
+                    key={finding.ruleName}
+                    style={{
+                      backgroundColor: severityStyle.backgroundColor,
+                      borderRadius: '8px',
+                      overflow: 'hidden'
+                    }}
+                  >
+                    <style>
+                      {`
+                        .awsui_main_2qdw9_1rr34_243:not(#\\ ) {
+                          display: block !important;
+                        }
+                      `}
+                    </style>
+                    <ExpandableSection
+                      headerText={
+                        <div style={{ 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'space-between',
+                          width: '100%',
+                          margin: 0,
+                          padding: 0
+                        }}>
+                          <span style={{ 
+                            fontWeight: '500',
+                            color: severityStyle.headerTextColor,
+                            flex: 1
+                          }}>
+                            {finding.ruleName}
+                          </span>
+                          <span style={{
+                            backgroundColor: categoryStyle.backgroundColor,
+                            color: categoryStyle.color,
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                            fontSize: '11px',
+                            fontWeight: '500',
+                            whiteSpace: 'nowrap',
+                            marginLeft: '12px',
+                            flexShrink: 0
+                          }}>
+                            {categoryStyle.label}
+                          </span>
+                        </div>
+                      }
+                      variant="container"
+                    >
+                    <div style={{ color: severityStyle.color }}>
+                      <SpaceBetween size="m">
+                        <div>
+                          <Box variant="awsui-key-label" color={severityStyle.color}>Description</Box>
+                          <Box variant="p" color={severityStyle.color}>
+                            <div dangerouslySetInnerHTML={renderHtml(finding['^description'] || finding.shortDesc)} />
+                          </Box>
+                        </div>
+                        
+                        {finding.__affectedResources && Object.keys(finding.__affectedResources).length > 0 && (
+                          <div>
+                            <Box variant="awsui-key-label" color={severityStyle.color}>
+                              Affected Resources ({countAffectedResources(finding.__affectedResources)})
+                            </Box>
+                            <SpaceBetween size="xs">
+                              {Object.entries(finding.__affectedResources).map(([region, resources]) => (
+                                <div key={region}>
+                                  <Box variant="small" fontWeight="bold" color={severityStyle.color}>{region}</Box>
+                                  <Box variant="small" color={severityStyle.color} style={{ opacity: 0.8 }}>
+                                    {Array.isArray(resources) ? resources.join(', ') : resources}
+                                  </Box>
+                                </div>
+                              ))}
+                            </SpaceBetween>
+                          </div>
+                        )}
+                        
+                        {finding.__links && finding.__links.length > 0 && (
+                          <div>
+                            <Box variant="awsui-key-label" color={severityStyle.color}>Documentation</Box>
+                            <SpaceBetween size="xs">
+                              {finding.__links.map((link, index) => (
+                                <Link 
+                                  key={index} 
+                                  href={link} 
+                                  external
+                                  color={severityStyle.color}
+                                >
+                                  Reference {index + 1}
+                                </Link>
+                              ))}
+                            </SpaceBetween>
+                          </div>
+                        )}
+                      </SpaceBetween>
                     </div>
-                  }
-                  variant="container"
-                >
-                  <SpaceBetween size="m">
-                    <div>
-                      <Box variant="awsui-key-label">Description</Box>
-                      <Box variant="p">
-                        <div dangerouslySetInnerHTML={renderHtml(finding['^description'] || finding.shortDesc)} />
-                      </Box>
-                    </div>
-                    
-                    {finding.__affectedResources && Object.keys(finding.__affectedResources).length > 0 && (
-                      <div>
-                        <Box variant="awsui-key-label">
-                          Affected Resources ({countAffectedResources(finding.__affectedResources)})
-                        </Box>
-                        <SpaceBetween size="xs">
-                          {Object.entries(finding.__affectedResources).map(([region, resources]) => (
-                            <div key={region}>
-                              <Box variant="small" fontWeight="bold">{region}</Box>
-                              <Box variant="small" color="text-body-secondary">
-                                {Array.isArray(resources) ? resources.join(', ') : resources}
-                              </Box>
-                            </div>
-                          ))}
-                        </SpaceBetween>
-                      </div>
-                    )}
-                    
-                    {finding.__links && finding.__links.length > 0 && (
-                      <div>
-                        <Box variant="awsui-key-label">Documentation</Box>
-                        <SpaceBetween size="xs">
-                          {finding.__links.map((link, index) => (
-                            <Link key={index} href={link} external>
-                              Reference {index + 1}
-                            </Link>
-                          ))}
-                        </SpaceBetween>
-                      </div>
-                    )}
-                  </SpaceBetween>
-                </ExpandableSection>
-              );
+                    </ExpandableSection>
+                  </div>
+                );
               })}
-            </SpaceBetween>
+            </ColumnLayout>
           )}
         </SpaceBetween>
       </Container>

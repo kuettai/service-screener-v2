@@ -16,11 +16,19 @@ python3 -c "
 import sys
 sys.path.insert(0, '.')
 from utils.OutputGenerator import OutputGenerator
+from utils.Config import Config
+
+# Set up config to get account ID
+Config.init()
 
 generator = OutputGenerator(beta_mode=True)
 generator.html_folder = 'adminlte/aws/956288449190'
-generator._generate_cloudscape()
-print('✅ Cloudscape HTML regenerated!')
+generator.account_id = '956288449190'  # Set account ID explicitly
+result = generator._generate_cloudscape()
+if result:
+    print('✅ Cloudscape HTML regenerated!')
+else:
+    print('❌ Failed to regenerate Cloudscape HTML')
 "
 
 echo "🎉 Quick rebuild complete!"

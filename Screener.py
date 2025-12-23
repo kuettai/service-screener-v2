@@ -272,6 +272,70 @@ class Screener:
         cp.resetPages()
         del cp
 
+        # Generate TA data for Cloudscape UI if beta mode is enabled
+        if Config.get('beta', False):
+            Screener.generateTAData(htmlFolder)
+
         # generate the full results in JSON format
         with open(htmlFolder + "/api-full.json", "w") as f:
             json.dump(apiResultArray, f)
+
+    @staticmethod
+    def generateTAData(htmlFolder):
+        """Generate TA data for Cloudscape UI"""
+        try:
+            from utils.CustomPage.Pages.TA.TA import TA
+            
+            # Create TA instance and build data
+            ta_instance = TA()
+            ta_instance.build()
+            
+            # Prepare TA data for Cloudscape UI
+            ta_data = {
+                'error': ta_instance.taError,
+                'pillars': {}
+            }
+            
+            # Process each pillar's findings
+            for pillar_name, pillar_data in ta_instance.taFindings.items():
+                if len(pillar_data) >= 3:
+                    rows = pillar_data[0]  # Row data
+                    headers = pillar_data[1]  # Table headers
+                    totals = pillar_data[2]  # Summary totals
+                    
+                    # Convert rows to structured data
+                    structured_rows = []
+                    for row in rows:
+                        if len(row) >= len(headers):
+                            row_dict = {}
+                            for i, header in enumerate(headers):
+                                if i < len(row):
+                                    row_dict[header] = row[i]
+                            # Add description (last item)
+                            if len(row) > len(headers):
+                                row_dict['Description'] = row[-1]
+                            structured_rows.append(row_dict)
+                    
+                    ta_data['pillars'][pillar_name] = {
+                        'headers': headers,
+                        'rows': structured_rows,
+                        'totals': totals
+                    }
+            
+            # Write TA data to separate JSON file
+            ta_file_path = os.path.join(htmlFolder, 'ta.json')
+            with open(ta_file_path, 'w') as f:
+                json.dump(ta_data, f, indent=2)
+            
+            print(f"TA data generated: {ta_file_path}")
+            
+        except Exception as e:
+            print(f"Error generating TA data: {str(e)}")
+            # Create empty TA data file
+            ta_data = {
+                'error': f'Failed to generate TA data: {str(e)}',
+                'pillars': {}
+            }
+            ta_file_path = os.path.join(htmlFolder, 'ta.json')
+            with open(ta_file_path, 'w') as f:
+                json.dump(ta_data, f, indent=2)

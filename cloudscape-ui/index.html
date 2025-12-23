@@ -23,23 +23,7 @@
         color: #856404;
       }
     </style>
-    <!-- Test data for development -->
-    <script>
-      // Load test data for development mode
-      if (!window.__REPORT_DATA__) {
-        fetch('/test-data.json')
-          .then(response => response.json())
-          .then(data => {
-            window.__REPORT_DATA__ = data;
-            console.log('Test data loaded for development');
-            // Trigger a custom event to notify the app that data is ready
-            window.dispatchEvent(new CustomEvent('reportDataReady'));
-          })
-          .catch(error => {
-            console.error('Failed to load test data:', error);
-          });
-      }
-    </script>
+    <!-- Data will be embedded by OutputGenerator -->
   </head>
   <body>
     <noscript>

@@ -1,0 +1,4361 @@
+{
+  "columns": [
+    "Region",
+    "Check",
+    "Type",
+    "ResourceID",
+    "Severity",
+    "Status"
+  ],
+  "findings": [
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::aws-athena-query-results-ap-southeast-1-956288449190",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::aws-cloudtrail-logs-956288449190-ffcc30ad",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-9pickle-assets-956288449190-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::cloudbridge-auth-1765786462",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::cloudbridge-manual-1765784228",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::config-bucket-956288449190",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::cw-syn-results-956288449190-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::do-not-delete-rds-custom-956288449190-ap-southeast-1-bed7d8",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::dojo-cf-resources",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-ron95",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-transfer-test",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-workdoc",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::ktcustlb",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::ktsgdrstest",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-ap-southeast-1-ssm",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-auth",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-bedrock",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-personal",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-rdsmssql",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-test-flowlogs",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::rekognition-video-console-demo-sin-956288449190-1753688484",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::samplev3-logbucket-urlidqlmuoyi",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authorization-a-s3bucket-oanl2s0zz5ex",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::servicescreenerautomation-exampleschedulerktktktc9-80mchtth0uye",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::textract-console-ap-southeast-1-79197a30-3694-46ec-b43f-e45d275",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-logging-0fcef071-3ed1-4ea7-b8ae-173908ddf",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-us-east-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdnweisindojocflog",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-us-east-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::dojo-cf-lab-s3bucket-secondary",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-useast-bedrock-kb",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-useast1-cur-demo",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-mssql",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-php-test",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authedgedeploymentbucket-fkeixeboczoi",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::stackset-ecsworkshop-inf-pipelinebuiltartifactbuc-115vd8jjld20x",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::test-athena-partition-demo",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLogging",
+      "Type": "Security",
+      "ResourceID": "Bucket::textract-console-us-east-1-30e91414-5280-43f2-901e-c449c36a00d7",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::aws-athena-query-results-ap-southeast-1-956288449190",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::aws-cloudtrail-logs-956288449190-ffcc30ad",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-9pickle-assets-956288449190-ap-southeast-1",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-ap-southeast-1",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-ap-southeast-1",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::cloudbridge-auth-1765786462",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::cloudbridge-manual-1765784228",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::config-bucket-956288449190",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::cw-syn-results-956288449190-ap-southeast-1",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::do-not-delete-rds-custom-956288449190-ap-southeast-1-bed7d8",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::dojo-cf-resources",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-ron95",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-transfer-test",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-workdoc",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::ktcustlb",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::ktsgdrstest",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-ap-southeast-1-ssm",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-auth",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-bedrock",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-personal",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-rdsmssql",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-test-flowlogs",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::rekognition-video-console-demo-sin-956288449190-1753688484",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::samplev3-logbucket-urlidqlmuoyi",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authorization-a-s3bucket-oanl2s0zz5ex",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::servicescreenerautomation-exampleschedulerktktktc9-80mchtth0uye",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::textract-console-ap-southeast-1-79197a30-3694-46ec-b43f-e45d275",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-33d1ee83-496f-4734-a397-e8b7770abda6",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-logging-0fcef071-3ed1-4ea7-b8ae-173908ddf",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-us-east-1",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdnweisindojocflog",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-us-east-1",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::cloudtrail-awslogs-956288449190-dbdym752-isengard-do-not-delete",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::dojo-cf-lab-s3bucket-secondary",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-useast-bedrock-kb",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-useast1-cur-demo",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-mssql",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-php-test",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authedgedeploymentbucket-fkeixeboczoi",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::stackset-ecsworkshop-inf-pipelinebuiltartifactbuc-115vd8jjld20x",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::test-athena-partition-demo",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MFADelete",
+      "Type": "Security",
+      "ResourceID": "Bucket::textract-console-us-east-1-30e91414-5280-43f2-901e-c449c36a00d7",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::aws-athena-query-results-ap-southeast-1-956288449190",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::aws-cloudtrail-logs-956288449190-ffcc30ad",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-9pickle-assets-956288449190-ap-southeast-1",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-ap-southeast-1",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-ap-southeast-1",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::cloudbridge-auth-1765786462",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::cloudbridge-manual-1765784228",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::config-bucket-956288449190",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::cw-syn-results-956288449190-ap-southeast-1",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::dojo-cf-resources",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-ron95",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-transfer-test",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-workdoc",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::ktcustlb",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::ktsgdrstest",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-ap-southeast-1-ssm",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-auth",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-bedrock",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-personal",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-rdsmssql",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-test-flowlogs",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::rekognition-video-console-demo-sin-956288449190-1753688484",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::samplev3-logbucket-urlidqlmuoyi",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authorization-a-s3bucket-oanl2s0zz5ex",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::servicescreenerautomation-exampleschedulerktktktc9-80mchtth0uye",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::textract-console-ap-southeast-1-79197a30-3694-46ec-b43f-e45d275",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-33d1ee83-496f-4734-a397-e8b7770abda6",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-logging-0fcef071-3ed1-4ea7-b8ae-173908ddf",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-us-east-1",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdnweisindojocflog",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-us-east-1",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::cloudtrail-awslogs-956288449190-dbdym752-isengard-do-not-delete",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::dojo-cf-lab-s3bucket-secondary",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-useast-bedrock-kb",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-useast1-cur-demo",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-mssql",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-php-test",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authedgedeploymentbucket-fkeixeboczoi",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::stackset-ecsworkshop-inf-pipelinebuiltartifactbuc-115vd8jjld20x",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::test-athena-partition-demo",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectLock",
+      "Type": "Security",
+      "ResourceID": "Bucket::textract-console-us-east-1-30e91414-5280-43f2-901e-c449c36a00d7",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::aws-athena-query-results-ap-southeast-1-956288449190",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::aws-cloudtrail-logs-956288449190-ffcc30ad",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-ap-southeast-1",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-ap-southeast-1",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::cloudbridge-auth-1765786462",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::cloudbridge-manual-1765784228",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::config-bucket-956288449190",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::cw-syn-results-956288449190-ap-southeast-1",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::do-not-delete-rds-custom-956288449190-ap-southeast-1-bed7d8",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::dojo-cf-resources",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-ron95",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-transfer-test",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-workdoc",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::ktcustlb",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::ktsgdrstest",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-ap-southeast-1-ssm",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-auth",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-bedrock",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-personal",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-rdsmssql",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-test-flowlogs",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::rekognition-video-console-demo-sin-956288449190-1753688484",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::samplev3-logbucket-urlidqlmuoyi",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authorization-a-s3bucket-oanl2s0zz5ex",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::servicescreenerautomation-exampleschedulerktktktc9-80mchtth0uye",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::textract-console-ap-southeast-1-79197a30-3694-46ec-b43f-e45d275",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-logging-0fcef071-3ed1-4ea7-b8ae-173908ddf",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-us-east-1",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdnweisindojocflog",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-us-east-1",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::dojo-cf-lab-s3bucket-secondary",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-useast-bedrock-kb",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-useast1-cur-demo",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-mssql",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-php-test",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authedgedeploymentbucket-fkeixeboczoi",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::stackset-ecsworkshop-inf-pipelinebuiltartifactbuc-115vd8jjld20x",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::test-athena-partition-demo",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "TlsEnforced",
+      "Type": "Security",
+      "ResourceID": "Bucket::textract-console-us-east-1-30e91414-5280-43f2-901e-c449c36a00d7",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::aws-athena-query-results-ap-southeast-1-956288449190",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::aws-cloudtrail-logs-956288449190-ffcc30ad",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cdk-9pickle-assets-956288449190-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cloudbridge-auth-1765786462",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cloudbridge-manual-1765784228",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::config-bucket-956288449190",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cw-syn-results-956288449190-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::do-not-delete-rds-custom-956288449190-ap-southeast-1-bed7d8",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::dojo-cf-resources",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kt-transfer-test",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::ktcustlb",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-auth",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-bedrock",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-personal",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-rdsmssql",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-test-flowlogs",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::rekognition-video-console-demo-sin-956288449190-1753688484",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::samplev3-logbucket-urlidqlmuoyi",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authorization-a-s3bucket-oanl2s0zz5ex",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::servicescreenerautomation-exampleschedulerktktktc9-80mchtth0uye",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-us-east-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cdnweisindojocflog",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cloudtrail-awslogs-956288449190-dbdym752-isengard-do-not-delete",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::dojo-cf-lab-s3bucket-secondary",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kt-useast-bedrock-kb",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kt-useast1-cur-demo",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-mssql",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-php-test",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authedgedeploymentbucket-fkeixeboczoi",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::test-athena-partition-demo",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "ObjectsInIntelligentTier",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::textract-console-us-east-1-30e91414-5280-43f2-901e-c449c36a00d7",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::aws-athena-query-results-ap-southeast-1-956288449190",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::aws-cloudtrail-logs-956288449190-ffcc30ad",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-9pickle-assets-956288449190-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::cloudbridge-auth-1765786462",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::cloudbridge-manual-1765784228",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::config-bucket-956288449190",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::cw-syn-results-956288449190-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::dojo-cf-resources",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-ron95",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-transfer-test",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-workdoc",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::ktcustlb",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::ktsgdrstest",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-ap-southeast-1-ssm",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-auth",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-bedrock",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-personal",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-rdsmssql",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-test-flowlogs",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::rekognition-video-console-demo-sin-956288449190-1753688484",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::samplev3-logbucket-urlidqlmuoyi",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authorization-a-s3bucket-oanl2s0zz5ex",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::servicescreenerautomation-exampleschedulerktktktc9-80mchtth0uye",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::textract-console-ap-southeast-1-79197a30-3694-46ec-b43f-e45d275",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-33d1ee83-496f-4734-a397-e8b7770abda6",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-logging-0fcef071-3ed1-4ea7-b8ae-173908ddf",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-us-east-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::cdnweisindojocflog",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-us-east-1",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::dojo-cf-lab-s3bucket-secondary",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-useast-bedrock-kb",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kt-useast1-cur-demo",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-mssql",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::kuettai-php-test",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authedgedeploymentbucket-fkeixeboczoi",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::test-athena-partition-demo",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "AccessControlList",
+      "Type": "Security",
+      "ResourceID": "Bucket::textract-console-us-east-1-30e91414-5280-43f2-901e-c449c36a00d7",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "MacieToEnable",
+      "Type": "Security",
+      "ResourceID": "Macie",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2DetailedMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-0a6cc2b64ac4d562b",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2DetailedMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-0e3c64458002bf787",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2DetailedMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-0806c63ddac563557",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2DetailedMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-0ead4a789ba728e3a",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2DetailedMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-09cceb41d67a5bf66",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "EC2DetailedMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-06ad36f9b7efbca3c",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2SubnetAutoPublicIP",
+      "Type": "Security",
+      "ResourceID": "EC2::i-0a6cc2b64ac4d562b",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2SubnetAutoPublicIP",
+      "Type": "Security",
+      "ResourceID": "EC2::i-0e3c64458002bf787",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2SubnetAutoPublicIP",
+      "Type": "Security",
+      "ResourceID": "EC2::i-0ead4a789ba728e3a",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2SubnetAutoPublicIP",
+      "Type": "Security",
+      "ResourceID": "EC2::i-09cceb41d67a5bf66",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "EC2SubnetAutoPublicIP",
+      "Type": "Security",
+      "ResourceID": "EC2::i-06ad36f9b7efbca3c",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2MemoryMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-0a6cc2b64ac4d562b",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2MemoryMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-0e3c64458002bf787",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2MemoryMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-0806c63ddac563557",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2MemoryMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-0ead4a789ba728e3a",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2MemoryMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-09cceb41d67a5bf66",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "EC2MemoryMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-06ad36f9b7efbca3c",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2DiskMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-0a6cc2b64ac4d562b",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2DiskMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-0e3c64458002bf787",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2DiskMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-0806c63ddac563557",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2DiskMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-0ead4a789ba728e3a",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2DiskMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-09cceb41d67a5bf66",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "EC2DiskMonitor",
+      "Type": "Performance Efficiency",
+      "ResourceID": "EC2::i-06ad36f9b7efbca3c",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2NewGen",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-0a6cc2b64ac4d562b",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2NewGen",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-0806c63ddac563557",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2NewGen",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-0ead4a789ba728e3a",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2LowUtilization",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-0a6cc2b64ac4d562b",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2LowUtilization",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-0e3c64458002bf787",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2LowUtilization",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-0806c63ddac563557",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2LowUtilization",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-0ead4a789ba728e3a",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "EC2LowUtilization",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-06ad36f9b7efbca3c",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2Graviton",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-0e3c64458002bf787",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2Graviton",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-0ead4a789ba728e3a",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2Graviton",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-09cceb41d67a5bf66",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "EC2Graviton",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-06ad36f9b7efbca3c",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2AMD",
+      "Type": "Cost Optimization",
+      "ResourceID": "EC2::i-0806c63ddac563557",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2IamProfile",
+      "Type": "Security",
+      "ResourceID": "EC2::i-0ead4a789ba728e3a",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2InstancePublicIP",
+      "Type": "Security",
+      "ResourceID": "EC2::i-09cceb41d67a5bf66",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EC2InstanceAutoPublicIP",
+      "Type": "Security",
+      "ResourceID": "EC2::i-09cceb41d67a5bf66",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSEncrypted",
+      "Type": "Security",
+      "ResourceID": "EBS::vol-095bfdd9f0f064a91",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSEncrypted",
+      "Type": "Security",
+      "ResourceID": "EBS::vol-05e233b3a5ce9beb4",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSEncrypted",
+      "Type": "Security",
+      "ResourceID": "EBS::vol-0e73726ac3d9a687e",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSEncrypted",
+      "Type": "Security",
+      "ResourceID": "EBS::vol-02561a56e968909b2",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSEncrypted",
+      "Type": "Security",
+      "ResourceID": "EBS::vol-0a6dcc1ab7511a549",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "EBSEncrypted",
+      "Type": "Security",
+      "ResourceID": "EBS::vol-0d3416fffd1b25f73",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSStoppedInstance",
+      "Type": "Cost Optimization",
+      "ResourceID": "EBS::vol-095bfdd9f0f064a91",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSStoppedInstance",
+      "Type": "Cost Optimization",
+      "ResourceID": "EBS::vol-05e233b3a5ce9beb4",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSStoppedInstance",
+      "Type": "Cost Optimization",
+      "ResourceID": "EBS::vol-0e73726ac3d9a687e",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSStoppedInstance",
+      "Type": "Cost Optimization",
+      "ResourceID": "EBS::vol-0a6dcc1ab7511a549",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "EBSStoppedInstance",
+      "Type": "Cost Optimization",
+      "ResourceID": "EBS::vol-0d3416fffd1b25f73",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSUpToDateSnapshot",
+      "Type": "Reliability",
+      "ResourceID": "EBS::vol-095bfdd9f0f064a91",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSLowUtilization",
+      "Type": "Cost Optimization",
+      "ResourceID": "EBS::vol-095bfdd9f0f064a91",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSLowUtilization",
+      "Type": "Cost Optimization",
+      "ResourceID": "EBS::vol-05e233b3a5ce9beb4",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSLowUtilization",
+      "Type": "Cost Optimization",
+      "ResourceID": "EBS::vol-0e73726ac3d9a687e",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSLowUtilization",
+      "Type": "Cost Optimization",
+      "ResourceID": "EBS::vol-0a6dcc1ab7511a549",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "EBSLowUtilization",
+      "Type": "Cost Optimization",
+      "ResourceID": "EBS::vol-0d3416fffd1b25f73",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSSnapshot",
+      "Type": "Reliability",
+      "ResourceID": "EBS::vol-05e233b3a5ce9beb4",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSSnapshot",
+      "Type": "Reliability",
+      "ResourceID": "EBS::vol-0e73726ac3d9a687e",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSSnapshot",
+      "Type": "Reliability",
+      "ResourceID": "EBS::vol-02561a56e968909b2",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSSnapshot",
+      "Type": "Reliability",
+      "ResourceID": "EBS::vol-0a6dcc1ab7511a549",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "EBSSnapshot",
+      "Type": "Reliability",
+      "ResourceID": "EBS::vol-0d3416fffd1b25f73",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSNewGen",
+      "Type": "Cost Optimization",
+      "ResourceID": "EBS::vol-0a6dcc1ab7511a549",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "EBSSnapshotDeletedVolume",
+      "Type": "Cost Optimization",
+      "ResourceID": "EBS::Snapshots",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGAllPortOpen",
+      "Type": "Security",
+      "ResourceID": "SG::sg-056f7aef84584d14b",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGAllPortOpen",
+      "Type": "Security",
+      "ResourceID": "SG::sg-0e2d3fcf7eb4b1544",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGAllPortOpen",
+      "Type": "Security",
+      "ResourceID": "SG::sg-0e2b6129188533ab3",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGAllPortOpen",
+      "Type": "Security",
+      "ResourceID": "SG::sg-89dbedfa",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "SGAllPortOpen",
+      "Type": "Security",
+      "ResourceID": "SG::sg-62ce3341",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "SGAllPortOpen",
+      "Type": "Security",
+      "ResourceID": "SG::sg-0fdf42ae7a2861136",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGDefaultInUsed",
+      "Type": "Security",
+      "ResourceID": "SG::sg-056f7aef84584d14b",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGSensitivePortOpenToAll",
+      "Type": "Security",
+      "ResourceID": "SG::sg-056f7aef84584d14b",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGSensitivePortOpenToAll",
+      "Type": "Security",
+      "ResourceID": "SG::sg-0799b39159bc6fc0e",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGSensitivePortOpenToAll",
+      "Type": "Security",
+      "ResourceID": "SG::sg-89dbedfa",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGDefaultDisallowTraffic",
+      "Type": "Security",
+      "ResourceID": "SG::sg-056f7aef84584d14b",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGDefaultDisallowTraffic",
+      "Type": "Security",
+      "ResourceID": "SG::sg-0e2d3fcf7eb4b1544",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGDefaultDisallowTraffic",
+      "Type": "Security",
+      "ResourceID": "SG::sg-0e2b6129188533ab3",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGDefaultDisallowTraffic",
+      "Type": "Security",
+      "ResourceID": "SG::sg-89dbedfa",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "SGDefaultDisallowTraffic",
+      "Type": "Security",
+      "ResourceID": "SG::sg-62ce3341",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "SGDefaultDisallowTraffic",
+      "Type": "Security",
+      "ResourceID": "SG::sg-0fdf42ae7a2861136",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGEncryptionInTransit",
+      "Type": "Security",
+      "ResourceID": "SG::sg-056f7aef84584d14b",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGEncryptionInTransit",
+      "Type": "Security",
+      "ResourceID": "SG::sg-019e06f5cf1210896",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGEncryptionInTransit",
+      "Type": "Security",
+      "ResourceID": "SG::sg-0e2d3fcf7eb4b1544",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGEncryptionInTransit",
+      "Type": "Security",
+      "ResourceID": "SG::sg-0e2b6129188533ab3",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGEncryptionInTransit",
+      "Type": "Security",
+      "ResourceID": "SG::sg-89dbedfa",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "SGEncryptionInTransit",
+      "Type": "Security",
+      "ResourceID": "SG::sg-62ce3341",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "SGEncryptionInTransit",
+      "Type": "Security",
+      "ResourceID": "SG::sg-0fdf42ae7a2861136",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "SGAllPortOpenToAll",
+      "Type": "Security",
+      "ResourceID": "SG::sg-89dbedfa",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "VPCFlowLogEnabled",
+      "Type": "Security",
+      "ResourceID": "VPC::vpc-94021cf3",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "VPCFlowLogEnabled",
+      "Type": "Security",
+      "ResourceID": "VPC::vpc-0314fbd3fa118bff9",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "VPCFlowLogEnabled",
+      "Type": "Security",
+      "ResourceID": "VPC::vpc-0effcc6f3622e248c",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "VPCFlowLogEnabled",
+      "Type": "Security",
+      "ResourceID": "VPC::vpc-006afb6800ad76010",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "VPCFlowLogEnabled",
+      "Type": "Security",
+      "ResourceID": "VPC::vpc-092c5452131adb8ab",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "us-east-1",
+      "Check": "VPCFlowLogEnabled",
+      "Type": "Security",
+      "ResourceID": "VPC::vpc-513c2a2b",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "NACLSensitivePort",
+      "Type": "Security",
+      "ResourceID": "NACL::acl-0a8315d40cc8ade3e",
+      "Severity": "High",
+      "Status": "New"
+    },
+    {
+      "service": "EC2",
+      "Region": "ap-southeast-1",
+      "Check": "NACLAssociated",
+      "Type": "Operation Excellence",
+      "ResourceID": "NACL::acl-0d20d4516c7f99672",
+      "Severity": "Low",
+      "Status": "New"
+    },
+    {
+      "service": "RDS",
+      "Region": "ap-southeast-1",
+      "Check": "Secret__NoRotation",
+      "Type": "Security",
+      "ResourceID": "SecretsManager::rds-db-credentials/cluster-M5D6KLWXKKYMI4Y4LU6WPP4XMA/admin",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "RDS",
+      "Region": "ap-southeast-1",
+      "Check": "Secret__NoRotation",
+      "Type": "Security",
+      "ResourceID": "SecretsManager::dev/ss/test",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "RDS",
+      "Region": "ap-southeast-1",
+      "Check": "Secret__NoRotation",
+      "Type": "Security",
+      "ResourceID": "SecretsManager::MyAuroraSecret",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "RDS",
+      "Region": "us-east-1",
+      "Check": "Secret__NoRotation",
+      "Type": "Security",
+      "ResourceID": "SecretsManager::github-token-ecsworkshop-ecsdemo-frontend",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "RDS",
+      "Region": "us-east-1",
+      "Check": "Secret__NoRotation",
+      "Type": "Security",
+      "ResourceID": "SecretsManager::LaunchWizard-v4-SQLServiceAccount",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "RDS",
+      "Region": "us-east-1",
+      "Check": "Secret__NoRotation",
+      "Type": "Security",
+      "ResourceID": "SecretsManager::LaunchWizard-v4-DomainAdmin",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "RDS",
+      "Region": "us-east-1",
+      "Check": "Secret__NoRotation",
+      "Type": "Security",
+      "ResourceID": "SecretsManager::dev/sstest",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "RDS",
+      "Region": "us-east-1",
+      "Check": "Secret__NoRotation",
+      "Type": "Security",
+      "ResourceID": "SecretsManager::OpenSearchSecret-advaned-rag-opensearch",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "defaultRootObject",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E2H3G074II36XX",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "defaultRootObject",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E1KZS646VNEAVK",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "defaultRootObject",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E3BL186OZSC7FX",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "defaultRootObject",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E3VC26BINO13HD",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "compressObjectsAutomatically",
+      "Type": "Performance Efficiency",
+      "ResourceID": "Cloudfront::E2H3G074II36XX",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "compressObjectsAutomatically",
+      "Type": "Performance Efficiency",
+      "ResourceID": "Cloudfront::E1AF64I4063LAN",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "compressObjectsAutomatically",
+      "Type": "Performance Efficiency",
+      "ResourceID": "Cloudfront::E3BL186OZSC7FX",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "originFailover",
+      "Type": "Reliability",
+      "ResourceID": "Cloudfront::E2H3G074II36XX",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "originFailover",
+      "Type": "Reliability",
+      "ResourceID": "Cloudfront::E1KZS646VNEAVK",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "originFailover",
+      "Type": "Reliability",
+      "ResourceID": "Cloudfront::E3BL186OZSC7FX",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "originFailover",
+      "Type": "Reliability",
+      "ResourceID": "Cloudfront::E3VC26BINO13HD",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "originFailover",
+      "Type": "Reliability",
+      "ResourceID": "Cloudfront::E2BKQURCYXNVK5",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "fieldLevelEncryption",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E2H3G074II36XX",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "fieldLevelEncryption",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E1AF64I4063LAN",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "fieldLevelEncryption",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E1KZS646VNEAVK",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "fieldLevelEncryption",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E3BL186OZSC7FX",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "fieldLevelEncryption",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E3VC26BINO13HD",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "fieldLevelEncryption",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E2BKQURCYXNVK5",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "viewerPolicyHttps",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E2H3G074II36XX",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "viewerPolicyHttps",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E1KZS646VNEAVK",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "viewerPolicyHttps",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E3BL186OZSC7FX",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "viewerPolicyHttps",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E2BKQURCYXNVK5",
+      "Severity": "Informational",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "WAFAssociation",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E2H3G074II36XX",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "WAFAssociation",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E1AF64I4063LAN",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "WAFAssociation",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E1KZS646VNEAVK",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "WAFAssociation",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E3BL186OZSC7FX",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "WAFAssociation",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E3VC26BINO13HD",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "WAFAssociation",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E2BKQURCYXNVK5",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "accessLogging",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E1AF64I4063LAN",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "accessLogging",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E3BL186OZSC7FX",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "accessLogging",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E3VC26BINO13HD",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "accessLogging",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E2BKQURCYXNVK5",
+      "Severity": "Medium",
+      "Status": "New"
+    },
+    {
+      "service": "CLOUDFRONT",
+      "Region": "GLOBAL",
+      "Check": "DeprecatedSSLProtocol",
+      "Type": "Security",
+      "ResourceID": "Cloudfront::E2BKQURCYXNVK5",
+      "Severity": "High",
+      "Status": "New"
+    }
+  ],
+  "suppressed": [
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::aws-athena-query-results-ap-southeast-1-956288449190",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::aws-cloudtrail-logs-956288449190-ffcc30ad",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-ap-southeast-1",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cloudbridge-auth-1765786462",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cloudbridge-manual-1765784228",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::config-bucket-956288449190",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cw-syn-results-956288449190-ap-southeast-1",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::dojo-cf-resources",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kt-ron95",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kt-transfer-test",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kt-workdoc",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::ktcustlb",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::ktsgdrstest",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-ap-southeast-1-ssm",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-auth",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-bedrock",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-personal",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-rdsmssql",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-test-flowlogs",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::rekognition-video-console-demo-sin-956288449190-1753688484",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::samplev3-logbucket-urlidqlmuoyi",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authorization-a-s3bucket-oanl2s0zz5ex",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::servicescreenerautomation-exampleschedulerktktktc9-80mchtth0uye",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-logging-0fcef071-3ed1-4ea7-b8ae-173908ddf",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-us-east-1",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cdnweisindojocflog",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-us-east-1",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::dojo-cf-lab-s3bucket-secondary",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kt-useast-bedrock-kb",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kt-useast1-cur-demo",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-mssql",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::kuettai-php-test",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authedgedeploymentbucket-fkeixeboczoi",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::stackset-ecsworkshop-inf-pipelinebuiltartifactbuc-115vd8jjld20x",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketLifecycle",
+      "Type": "Cost Optimization",
+      "ResourceID": "Bucket::test-athena-partition-demo",
+      "Severity": "Medium",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::aws-athena-query-results-ap-southeast-1-956288449190",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::aws-cloudtrail-logs-956288449190-ffcc30ad",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cloudbridge-auth-1765786462",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cloudbridge-manual-1765784228",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::config-bucket-956288449190",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cw-syn-results-956288449190-ap-southeast-1",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::dojo-cf-resources",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kt-ron95",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kt-transfer-test",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kt-workdoc",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::ktcustlb",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::ktsgdrstest",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-ap-southeast-1-ssm",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-auth",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-bedrock",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-personal",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-rdsmssql",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-test-flowlogs",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::rekognition-video-console-demo-sin-956288449190-1753688484",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::samplev3-logbucket-urlidqlmuoyi",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authorization-a-s3bucket-oanl2s0zz5ex",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::textract-console-ap-southeast-1-79197a30-3694-46ec-b43f-e45d275",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-33d1ee83-496f-4734-a397-e8b7770abda6",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-logging-0fcef071-3ed1-4ea7-b8ae-173908ddf",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cdnweisindojocflog",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-us-east-1",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cloudtrail-awslogs-956288449190-dbdym752-isengard-do-not-delete",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::dojo-cf-lab-s3bucket-secondary",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kt-useast-bedrock-kb",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kt-useast1-cur-demo",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-mssql",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-php-test",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authedgedeploymentbucket-fkeixeboczoi",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::test-athena-partition-demo",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketVersioning",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::textract-console-us-east-1-30e91414-5280-43f2-901e-c449c36a00d7",
+      "Severity": "Low",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::aws-athena-query-results-ap-southeast-1-956288449190",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::aws-cloudtrail-logs-956288449190-ffcc30ad",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cdk-9pickle-assets-956288449190-ap-southeast-1",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-ap-southeast-1",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-ap-southeast-1",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cloudbridge-auth-1765786462",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cloudbridge-manual-1765784228",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::config-bucket-956288449190",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cw-syn-results-956288449190-ap-southeast-1",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::do-not-delete-rds-custom-956288449190-ap-southeast-1-bed7d8",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::dojo-cf-resources",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kt-ron95",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kt-transfer-test",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kt-workdoc",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::ktcustlb",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::ktsgdrstest",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-ap-southeast-1-ssm",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-auth",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-bedrock",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-personal",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-rdsmssql",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-test-flowlogs",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::rekognition-video-console-demo-sin-956288449190-1753688484",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::samplev3-logbucket-urlidqlmuoyi",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authorization-a-s3bucket-oanl2s0zz5ex",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::servicescreenerautomation-exampleschedulerktktktc9-80mchtth0uye",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "ap-southeast-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::textract-console-ap-southeast-1-79197a30-3694-46ec-b43f-e45d275",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-33d1ee83-496f-4734-a397-e8b7770abda6",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::bedrock-bda-us-east-1-logging-0fcef071-3ed1-4ea7-b8ae-173908ddf",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cdk-hnb659fds-assets-956288449190-us-east-1",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cdnweisindojocflog",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cf-templates-5bb069g6q4ch-us-east-1",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::cloudtrail-awslogs-956288449190-dbdym752-isengard-do-not-delete",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::dojo-cf-lab-s3bucket-secondary",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kt-useast-bedrock-kb",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kt-useast1-cur-demo",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-mssql",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::kuettai-php-test",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::serverlessrepo-cloudfront-authedgedeploymentbucket-fkeixeboczoi",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::stackset-ecsworkshop-inf-pipelinebuiltartifactbuc-115vd8jjld20x",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::test-athena-partition-demo",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    },
+    {
+      "service": "S3",
+      "Region": "us-east-1",
+      "Check": "BucketReplication",
+      "Type": "Reliability",
+      "ResourceID": "Bucket::textract-console-us-east-1-30e91414-5280-43f2-901e-c449c36a00d7",
+      "Severity": "Informational",
+      "Status": "Suppressed"
+    }
+  ]
+}

@@ -25,6 +25,12 @@ The Cloudscape UI is a complete redesign of the Service Screener reporting inter
 - **Expandable Details** - Full descriptions, recommendations, and affected resources
 - **Search** - Real-time filtering of findings
 - **Priority Badges** - Color-coded High/Medium/Low indicators
+- **GuardDuty Special Handling** - Dedicated charts, settings, and grouped findings for GuardDuty
+
+### Custom Pages
+- **Cross-Service Findings** - Aggregated findings across all services with advanced filtering
+- **Modernization Recommendations** - Interactive Sankey diagrams showing modernization pathways
+- **Trusted Advisor Integration** - TA check results with pillar-based organization
 
 ### Framework Compliance
 - **Compliance Charts** - Pie charts showing compliance distribution
@@ -56,7 +62,11 @@ The Cloudscape UI is a complete redesign of the Service Screener reporting inter
 | **Mobile Support** | Limited | Fully responsive |
 | **Offline** | Requires local server | Works with file:// |
 | **Search/Filter** | Basic | Real-time with highlighting |
-| **Data Visualization** | Static | Interactive charts |
+| **Data Visualization** | Static | Interactive charts & Sankey diagrams |
+| **GuardDuty Support** | Basic findings list | Dedicated charts, settings, grouped findings |
+| **Cross-Service Analysis** | Not available | Aggregated findings with advanced filtering |
+| **Modernization Guidance** | Not available | Interactive Sankey diagrams |
+| **Trusted Advisor** | Not available | Integrated TA checks with pillar organization |
 
 ## Technology Stack
 
@@ -64,7 +74,7 @@ The Cloudscape UI is a complete redesign of the Service Screener reporting inter
 - **React Router** - Client-side routing with hash-based URLs
 - **AWS Cloudscape Design System** - Component library
 - **Vite** - Build tool with single-file plugin
-- **Recharts** - Chart library (via Cloudscape)
+- **Recharts** - Chart library for Sankey diagrams and data visualization
 
 ## Build Process
 
@@ -137,6 +147,48 @@ The UI expects data in `window.__REPORT_DATA__` with this structure:
     ]
   },
   
+  // Custom Page data
+  "customPage_findings": {
+    "findings": [
+      {
+        "service": "s3",
+        "Region": "us-east-1",
+        "Check": "BucketEncryption",
+        "Type": "Security",
+        "ResourceID": "my-bucket",
+        "Severity": "High"
+      }
+    ],
+    "suppressed": []
+  },
+  
+  "customPage_modernize": {
+    "Computes": {
+      "nodes": ["Resources (100)", "Computes (80)", "EC2 (75)", ...],
+      "links": [{"source": 0, "target": 1, "value": 80}, ...]
+    },
+    "Databases": {
+      "nodes": ["Resources (100)", "Databases (40)", "RDS (35)", ...],
+      "links": [{"source": 0, "target": 1, "value": 40}, ...]
+    }
+  },
+  
+  "customPage_ta": {
+    "error": null,
+    "pillars": {
+      "COST_OPTIMIZING": {
+        "checks": [
+          {
+            "name": "Low Utilization Amazon EC2 Instances",
+            "status": "warning",
+            "resources": ["i-1234567890abcdef0"],
+            "description": "EC2 instances with low utilization"
+          }
+        ]
+      }
+    }
+  },
+  
   // Metadata
   "__metadata": {
     "accountId": "123456789012",
@@ -172,6 +224,11 @@ src/
 │   ├── Dashboard.jsx      # Landing page with KPIs
 │   ├── ServiceDetail.jsx  # Service findings page
 │   ├── FrameworkDetail.jsx # Framework compliance page
+│   ├── GuardDutyDetail.jsx # GuardDuty special handling
+│   ├── CustomPage.jsx     # Custom page router
+│   ├── FindingsPage.jsx   # Cross-service findings
+│   ├── SankeyDiagram.jsx  # Modernization Sankey diagrams
+│   ├── TrustedAdvisorPage.jsx # Trusted Advisor integration
 │   ├── TopNavigation.jsx  # Top nav bar
 │   ├── SideNavigation.jsx # Left sidebar
 │   ├── SuppressionModal.jsx # Suppression details
@@ -190,7 +247,11 @@ The UI uses hash-based routing for `file://` protocol compatibility:
 
 - `#/` - Dashboard
 - `#/service/:serviceName` - Service detail (e.g., `#/service/s3`)
+- `#/service/guardduty` - GuardDuty special handling with charts and settings
 - `#/framework/:frameworkName` - Framework detail (e.g., `#/framework/MSR`)
+- `#/page/findings` - Cross-service findings aggregation
+- `#/page/modernize` - Modernization recommendations with Sankey diagrams
+- `#/page/ta` - Trusted Advisor integration
 
 ## Browser Support
 
