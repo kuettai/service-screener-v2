@@ -8,6 +8,15 @@ import TopNavigation from '@cloudscape-design/components/top-navigation';
 const ServiceScreenerTopNav = ({ accountId, hasSuppressions, onSuppressionClick }) => {
   const utilities = [];
   
+  // Add GitHub link
+  utilities.push({
+    type: 'button',
+    text: 'Visit GitHub',
+    href: 'https://github.com/aws-samples/service-screener-v2',
+    external: true,
+    iconName: 'external'
+  });
+  
   // Add suppression indicator if suppressions are active
   if (hasSuppressions) {
     utilities.push({

@@ -85,18 +85,12 @@ class Evaluator():
 
         cnt = len(filteredMethods)
 
-        isBeta = Config.get('beta', False)
-        if isBeta:
-            with cf.ThreadPoolExecutor() as executor:
-                futures = [executor.submit(runSingleCheck, self, method) for method in filteredMethods]
-                
-                for future in cf.as_completed(futures):
-                    if future.result() == 'OK':
-                        continue
-                    else:
-                        emsg.append(future.result())
-                        ecnt += 1
-        else:
+        # Use concurrent execution by default for better performance
+        # Fall back to sequential if explicitly requested via --sequential flag
+        use_sequential = Config.get('sequential', False)
+        
+        if use_sequential:
+            # Sequential execution (for debugging or compatibility)
             for method in methods:
                 if not rules or str.lower(method[6:]) in rules:
                     try:
@@ -121,6 +115,17 @@ class Evaluator():
                         ecnt += 1
                         print(traceback.format_exc())
                         emsg.append(traceback.format_exc())
+        else:
+            # Concurrent execution (default for better performance)
+            with cf.ThreadPoolExecutor() as executor:
+                futures = [executor.submit(runSingleCheck, self, method) for method in filteredMethods]
+                
+                for future in cf.as_completed(futures):
+                    if future.result() == 'OK':
+                        continue
+                    else:
+                        emsg.append(future.result())
+                        ecnt += 1
             
         if emsg:
             with open(_C.FORK_DIR + '/error.txt', 'a+') as f:

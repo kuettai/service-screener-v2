@@ -79,7 +79,7 @@ class ArguParser:
         'beta': {
             "required": False,
             "default": False,
-            "help": "Enable Beta features"
+            "help": "Enable Beta features (API Buttons, Cloudscape UI)"
         },
         'suppress_file': {
             "required": False,
@@ -89,7 +89,7 @@ class ArguParser:
         'sequential': {
             "required": False,
             "default": False,
-            "help": "Run checks sequentially instead of parallel (fixes macOS hanging issues)"
+            "help": "Run checks sequentially instead of concurrent (default: concurrent for better performance)"
         }
     }
 

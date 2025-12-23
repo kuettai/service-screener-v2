@@ -272,9 +272,8 @@ class Screener:
         cp.resetPages()
         del cp
 
-        # Generate TA data for Cloudscape UI if beta mode is enabled
-        if Config.get('beta', False):
-            Screener.generateTAData(htmlFolder)
+        # Generate TA data for enhanced UI features
+        Screener.generateTAData(htmlFolder)
 
         # generate the full results in JSON format
         with open(htmlFolder + "/api-full.json", "w") as f:

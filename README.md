@@ -6,6 +6,30 @@ An open source guidance tool for the AWS environment. Click [here](https://dev.d
 
 This version of Service Screener may not compatible with the Greater China region. Our community folks have made it work [here](https://github.com/lijh-aws-tools/service-screener-cn). 
 
+## 🎉 NEW: Enhanced Beta Features (v2.1.0-beta)
+
+**Enable beta features with `--beta 1`!**
+
+### Latest Beta Features:
+- **🆕 AWS Cloudscape Design System UI**: Modern React-based interface
+  - 90% smaller file size (2.2MB vs 20MB+)
+  - Enhanced GuardDuty reporting with interactive charts
+  - Cross-service findings aggregation with advanced filtering
+  - Interactive modernization recommendations (Sankey diagrams)
+  - Trusted Advisor integration with pillar-based organization
+  - Framework compliance reporting with visualizations
+  - Accessibility compliant (WCAG 2.1 Level AA)
+  - Mobile responsive design
+
+- **🔧 API Buttons**: Interactive API call functionality in service pages
+
+### Standard Features (Always Enabled):
+- **⚡ Concurrent Mode**: Parallel check execution for better performance (use `--sequential` to disable)
+- **📊 Enhanced TA Data**: Advanced Trusted Advisor data generation
+- **🔍 Comprehensive Scanning**: All AWS services with Well-Architected best practices
+
+Enable beta features with: `--beta 1` (legacy AdminLTE remains default for backward compatibility)
+
 ## Overview
 Service Screener is a tool that runs automated checks on AWS environments and provides recommendations based on AWS and community best practices. 
 
@@ -52,12 +76,12 @@ When running Service Screener, you will need to specify the regions and services
 
 We recommend running it in all regions where you have workloads deployed in. Adjust the commands below to suit your needs then copy and paste it into CloudShell to run Service Screener. 
 
-**Example 1: (Recommended) Run in the Singapore region, check all services with beta features enabled**
+**Example 1: (Recommended) Run in the Singapore region, check all services with NEW Cloudscape UI enabled**
 ``` bash
 screener --regions ap-southeast-1 --beta 1
 ``` 
 
-**Example 1a: Run in the Singapore region, check all services on stable releases**
+**Example 1a: Run in the Singapore region, check all services with legacy AdminLTE UI**
 ``` bash
 screener --regions ap-southeast-1
 ```

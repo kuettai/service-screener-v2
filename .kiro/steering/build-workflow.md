@@ -4,7 +4,7 @@
 
 When working on this Service Screener project, use the appropriate build command based on the type of changes:
 
-### UI-Related Changes
+### UI-Related Changes (Cloudscape)
 **Use: `./quick_rebuild.sh`**
 
 For any changes to the Cloudscape UI components, React code, or frontend-related modifications:
@@ -39,17 +39,53 @@ For changes to the Python backend, data collection, or core service logic:
 - Validates backend changes with real data
 - Generates both API data and HTML output
 
+### Testing the New Cloudscape UI (Beta)
+**Use `--beta 1` for testing the new UI:**
+
+```bash
+# UI Development (fast iteration)
+./quick_rebuild.sh
+
+# Core Engine Development (full pipeline) - NEW CLOUDSCAPE UI
+python3 main.py \
+  --regions ap-southeast-1,us-east-1 \
+  --services s3,cloudfront,ec2,rds,guardduty \
+  --beta 1 \
+  --suppress_file ./suppressions.json
+
+# Performance Testing (concurrent mode is now default)
+# Use --sequential if you need to test sequential execution
+python3 main.py \
+  --regions ap-southeast-1,us-east-1 \
+  --services s3,cloudfront,ec2,rds,guardduty \
+  --sequential \
+  --suppress_file ./suppressions.json
+```
+
 ## Quick Reference Commands
 
 ```bash
 # UI Development (fast iteration)
 ./quick_rebuild.sh
 
-# Core Engine Development (full pipeline)
+# Core Engine Development (full pipeline) - NEW CLOUDSCAPE UI (BETA)
 python3 main.py \
   --regions ap-southeast-1,us-east-1 \
   --services s3,cloudfront,ec2,rds,guardduty \
   --beta 1 \
+  --suppress_file ./suppressions.json
+
+# Legacy AdminLTE UI (backward compatibility)
+python3 main.py \
+  --regions ap-southeast-1,us-east-1 \
+  --services s3,cloudfront,ec2,rds,guardduty \
+  --suppress_file ./suppressions.json
+
+# Sequential execution (if concurrent mode causes issues)
+python3 main.py \
+  --regions ap-southeast-1,us-east-1 \
+  --services s3,cloudfront,ec2,rds,guardduty \
+  --sequential \
   --suppress_file ./suppressions.json
 ```
 
@@ -57,4 +93,5 @@ python3 main.py \
 - UI Components: `cloudscape-ui/src/components/`
 - Core Engine: `services/*/` and `main.py`
 - Quick Build Script: `./quick_rebuild.sh`
-- Generated Output: `adminlte/aws/*/index.html`
+- Generated Output (Cloudscape): `adminlte/aws/*/index.html`
+- Generated Output (Legacy): `adminlte/aws/*/legacy/index.html`

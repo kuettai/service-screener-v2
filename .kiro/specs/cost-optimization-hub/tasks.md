@@ -126,7 +126,7 @@ This implementation plan converts the Cost Optimization Hub design into a series
     - **Property 14: Security and compliance integration**
     - **Validates: Requirements 6.1, 6.2, 6.3, 6.4, 6.5**
 
-- [-] 8. Create COH page builder infrastructure
+- [ ] 8. Create COH page builder infrastructure
   - [x] 8.1 Implement COHPageBuilder class
     - Create HTML page generation logic using existing CustomPage patterns
     - Implement responsive dashboard layout templates
@@ -134,7 +134,7 @@ This implementation plan converts the Cost Optimization Hub design into a series
     - Create recommendation table and detail view templates
     - _Requirements: 1.1, 2.1_
 
-  - [ ] 8.2 Create cost optimization visualizations
+  - [-] 8.2 Create cost optimization visualizations
     - Implement savings potential charts and graphs
     - Create cost optimization opportunity matrix visualization
     - Add progress tracking and trend charts

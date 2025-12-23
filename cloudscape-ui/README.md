@@ -48,6 +48,11 @@ The Cloudscape UI is a complete redesign of the Service Screener reporting inter
 - **Keyboard Navigation** - Full keyboard support with skip-to-content link
 - **ARIA Labels** - Screen reader compatible
 - **Responsive Design** - Works on desktop, tablet, and mobile
+
+### Community Features
+- **⭐ GitHub Star Integration** - Easy access to star the repository directly from the UI
+- **Issue Reporting** - Quick link to raise issues on GitHub
+- **Community Links** - Direct access to project repository and documentation
 - **Focus Indicators** - Clear visual focus states
 
 ## Differences from AdminLTE UI

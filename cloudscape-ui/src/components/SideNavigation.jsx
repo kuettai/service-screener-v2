@@ -92,6 +92,30 @@ const ServiceScreenerSideNav = ({ services = [], frameworks = [], customPages = 
     });
   }
   
+  // Add "Others" section with GitHub star link
+  items.push({
+    type: 'divider'
+  });
+  
+  items.push({
+    type: 'section',
+    text: 'Others',
+    items: [
+      {
+        type: 'link',
+        text: '⭐ Give us a Star ⭐',
+        href: 'https://github.com/aws-samples/service-screener-v2',
+        external: true
+      },
+      {
+        type: 'link',
+        text: 'Raise Issues',
+        href: 'https://github.com/aws-samples/service-screener-v2/issues',
+        external: true
+      }
+    ]
+  });
+  
   // Determine active href based on current location
   const getActiveHref = () => {
     const hash = location.hash || window.location.hash;
@@ -110,8 +134,16 @@ const ServiceScreenerSideNav = ({ services = [], frameworks = [], customPages = 
   const handleFollow = (event) => {
     event.preventDefault();
     
-    // Extract path from href (remove #)
     const href = event.detail.href;
+    
+    // Handle external links
+    if (href.startsWith('http')) {
+      window.open(href, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    
+    // Handle internal navigation
+    // Extract path from href (remove #)
     const path = href.startsWith('#') ? href.substring(1) : href;
     
     navigate(path);
