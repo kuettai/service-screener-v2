@@ -33,9 +33,17 @@ def diagnose_issues():
         print("✅ Cost Explorer permissions OK")
     except ClientError as e:
         error_code = e.response['Error']['Code']
+        error_message = e.response['Error']['Message']
         if error_code == 'AccessDeniedException':
-            issues.append("Cost Explorer access denied")
-            solutions.append("Add IAM permission: ce:GetRightsizingRecommendation")
+            if 'opt-in only feature' in error_message:
+                print("ℹ️  Cost Explorer Rightsizing is opt-in feature (not enabled)")
+                # This is expected - not an error
+            else:
+                issues.append("Cost Explorer access denied")
+                solutions.append("Add IAM permission: ce:GetRightsizingRecommendation")
+        else:
+            issues.append(f"Cost Explorer error: {error_code}")
+            solutions.append("Check Cost Explorer service availability")
         print(f"❌ Cost Explorer: {error_code}")
     
     # Issue 2: Cost Optimization Hub API Parameters
@@ -73,19 +81,27 @@ def diagnose_issues():
         # Test utilization (this was failing)
         try:
             ce_client = boto3.client('ce', region_name='us-east-1')
+            
+            # Use recent dates (within 13 months)
+            from datetime import datetime, timedelta
+            end_date = datetime.now().strftime('%Y-%m-%d')
+            start_date = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
+            
             response = ce_client.get_savings_plans_utilization(
                 TimePeriod={
-                    'Start': '2024-01-01',
-                    'End': '2024-01-31'
+                    'Start': start_date,
+                    'End': end_date
                 }
             )
             print("✅ Savings Plans utilization OK")
         except ClientError as e:
+            error_code = e.response['Error']['Code']
+            error_message = e.response['Error']['Message']
             if e.response['Error']['Code'] == 'DataUnavailableException':
                 issues.append("No Savings Plans data available")
                 solutions.append("Account needs active Savings Plans or historical data")
             else:
-                issues.append(f"Savings Plans utilization error: {e.response['Error']['Code']}")
+                issues.append(f"Savings Plans utilization error: {error_code} - {error_message}")
                 solutions.append("Check Savings Plans API parameters")
                 
     except Exception as e:
@@ -95,25 +111,32 @@ def diagnose_issues():
     print("\n4️⃣ Testing RI Coverage API...")
     try:
         ce_client = boto3.client('ce', region_name='us-east-1')
+        
+        # Use recent dates (within 13 months)
+        from datetime import datetime, timedelta
+        end_date = datetime.now().strftime('%Y-%m-%d')
+        start_date = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
+        
         response = ce_client.get_reservation_coverage(
             TimePeriod={
-                'Start': '2024-01-01',
-                'End': '2024-01-31'
+                'Start': start_date,
+                'End': end_date
             },
             GroupBy=[
                 {
                     'Type': 'DIMENSION',
-                    'Key': 'SERVICE'
+                    'Key': 'REGION'  # Use supported dimension
                 }
             ]
         )
         print("✅ RI Coverage API OK")
     except ClientError as e:
         error_code = e.response['Error']['Code']
+        error_message = e.response['Error']['Message']
         if error_code == 'ValidationException':
-            issues.append("RI Coverage API parameter validation failed")
+            issues.append(f"RI Coverage API parameter validation failed: {error_message}")
             solutions.append("Fix GroupBy parameter - use supported dimensions only")
-        print(f"❌ RI Coverage: {error_code}")
+        print(f"❌ RI Coverage: {error_code} - {error_message}")
     
     # Issue 5: Configuration Issues
     print("\n5️⃣ Checking Configuration Issues...")
@@ -133,7 +156,7 @@ def diagnose_issues():
                 issues.append("COH client not properly initialized")
                 solutions.append("Fix COH client initialization in COH.__init__()")
                 
-            if hasattr(coh, 'cost_explorer_client') and coh.cost_explorer_client:
+            if hasattr(coh, 'ce_client') and coh.ce_client:
                 print("✅ Cost Explorer client initialized")
             else:
                 issues.append("Cost Explorer client not properly initialized")

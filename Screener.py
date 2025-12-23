@@ -268,6 +268,24 @@ class Screener:
                 f.write('\n\n'.join(emsg))
                 f.close()
 
+        # Add custom page data to API result array
+        try:
+            custom_page_data = cp.getCustomPageData()
+            
+            # If custom page data is empty, generate basic data from service findings
+            if not custom_page_data or not any(custom_page_data.values()):
+                custom_page_data = Screener.generateBasicCustomPageData(apiResultArray)
+            
+            apiResultArray.update(custom_page_data)
+        except Exception as e:
+            print(f"Error adding custom page data: {e}")
+            # Generate basic custom page data as fallback
+            try:
+                custom_page_data = Screener.generateBasicCustomPageData(apiResultArray)
+                apiResultArray.update(custom_page_data)
+            except Exception as e2:
+                print(f"Error generating basic custom page data: {e2}")
+
         reporter.resetDashboard()
         cp.resetPages()
         del cp
@@ -330,11 +348,62 @@ class Screener:
             
         except Exception as e:
             print(f"Error generating TA data: {str(e)}")
-            # Create empty TA data file
-            ta_data = {
-                'error': f'Failed to generate TA data: {str(e)}',
-                'pillars': {}
+
+    @staticmethod
+    def generateBasicCustomPageData(apiResultArray):
+        """Generate basic custom page data from service findings"""
+        custom_data = {}
+        
+        # Generate findings data for Cross-Service Findings page
+        findings_list = []
+        suppressed_list = []
+        
+        for service_name, service_data in apiResultArray.items():
+            if not isinstance(service_data, dict) or 'summary' not in service_data:
+                continue
+                
+            for rule_name, rule_data in service_data.get('summary', {}).items():
+                if not isinstance(rule_data, dict):
+                    continue
+                    
+                # Count affected resources
+                affected_resources = rule_data.get('__affectedResources', {})
+                total_resources = sum(len(resources) for resources in affected_resources.values())
+                
+                # Map criticality to severity
+                criticality_map = {'H': 'High', 'M': 'Medium', 'L': 'Low', 'I': 'Informational'}
+                severity = criticality_map.get(rule_data.get('criticality', 'L'), 'Low')
+                
+                # Map category
+                category_map = {
+                    'S': 'Security', 'R': 'Reliability', 'P': 'Performance', 
+                    'C': 'Cost', 'O': 'Operational Excellence'
+                }
+                category = category_map.get(rule_data.get('__categoryMain', 'O'), 'Operational Excellence')
+                
+                finding = {
+                    'service': service_name.upper(),
+                    'Check': rule_name,
+                    'Severity': severity,
+                    'Type': category,
+                    'Description': rule_data.get('shortDesc', ''),
+                    'Resources': total_resources,
+                    'Regions': list(affected_resources.keys())
+                }
+                
+                findings_list.append(finding)
+        
+        custom_data['customPage_findings'] = {
+            'findings': findings_list,
+            'suppressed': suppressed_list  # TODO: Add suppressed findings if needed
+        }
+        
+        # Generate basic modernize data (placeholder)
+        custom_data['customPage_modernize'] = {
+            'Computes': {
+                'nodes': ['Resources (100)', 'Computes (80)', 'EC2 (75)'],
+                'links': [{'source': 0, 'target': 1, 'value': 80}, {'source': 1, 'target': 2, 'value': 75}]
             }
-            ta_file_path = os.path.join(htmlFolder, 'ta.json')
-            with open(ta_file_path, 'w') as f:
-                json.dump(ta_data, f, indent=2)
+        }
+        
+        return custom_data

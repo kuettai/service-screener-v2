@@ -88,3 +88,17 @@ class CustomPage():
             
             pbObj.loadData(pObj)
             pbObj.buildPage()
+            
+        # Store the built data for JSON export
+        self.builtData = {}
+        for cname, classObj in self.Pages.items():
+            pObj, pbObj = classObj
+            # Get the built data from the object
+            if hasattr(pObj, 'getBuiltData'):
+                self.builtData[f'customPage_{cname.lower()}'] = pObj.getBuiltData()
+            elif hasattr(pObj, 'data'):
+                self.builtData[f'customPage_{cname.lower()}'] = pObj.data
+    
+    def getCustomPageData(self):
+        """Get all custom page data for JSON export"""
+        return getattr(self, 'builtData', {})
