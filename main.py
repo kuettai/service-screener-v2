@@ -366,11 +366,8 @@ for acctId, cred in rolesCred.items():
     else:
         _info("Processing CustomPage data collection...")
         try:
-            # Write CustomPage output for each service
-            for service in services:
-                customPage.writeOutput(service)
-            
-            # Build CustomPage pages (including COH)
+            # Build CustomPage pages (TA and COH will collect data here, after all services are scanned)
+            _info("Building CustomPage data (TA, COH) - this happens after all service scans are complete")
             customPage.buildPage()
             _info("CustomPage processing completed successfully")
             

@@ -835,12 +835,15 @@ class COH(CustomObject):
         """
         Print info method required by CustomPage framework
         Returns JSON data for the COH service
+        
+        NOTE: COH data is account-wide, not service-specific, so we don't build here.
+        Build happens later in buildPage() after all services are scanned.
         """
         try:
-            # Ensure build() has been called if no data exists
+            # Return None to skip per-service file generation
+            # COH data will be generated once during buildPage()
             if not self.recommendations and not self.data_already_collected:
-                _pr("COH printInfo called before build(), calling build() now...")
-                self.build()
+                return None
             
             # Return the data formatted for UI consumption
             return json.dumps(self.get_data_for_ui(), indent=2, default=str)

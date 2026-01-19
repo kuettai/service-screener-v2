@@ -257,6 +257,9 @@ class TA(CustomObject):
         """
         Return TA data in JSON format for CustomPage system.
         This method is called by CustomPage.writeOutput() to save TA data.
+        
+        NOTE: TA data is account-wide, not service-specific, so we don't build here.
+        Build happens later in buildPage() after all services are scanned.
         """
         # Check cache first to avoid duplicate builds
         from utils.Config import Config
@@ -270,10 +273,10 @@ class TA(CustomObject):
             self.taFindings = cached_data.get('taFindings', {})
             self.taError = cached_data.get('taError', '')
         
-        # Ensure build() has been called (only if no cache and no data)
+        # Return None to skip per-service file generation
+        # TA data will be generated once during buildPage()
         if not self.taFindings and not self.taError:
-            print("TA printInfo called before build(), calling build() now...")
-            self.build()
+            return None
         
         if self.taError:
             # Return error data structure for Cloudscape UI
