@@ -59,11 +59,11 @@ Running this tool is free as it is covered under the AWS Free Tier. If you have 
 Service Screener creates a temporary, empty CloudFormation stack during each run for audit and compliance purposes. This stack:
 
 - **Contains no actual resources** - It's an empty "marker" stack that incurs no cost
-- **Provides audit trail** - Creates a record in AWS CloudTrail of when Service Screener was executed
+- **Provides audit trail** - Creates a record in CloudFormation history of when Service Screener was executed
 - **Enables compliance tracking** - Allows organizations to track security assessment activities
 - **Supports partner integrations** - Enables tracking for AWS Partner evaluations (MPE)
 
-The stack is automatically created at the start of each run with a unique name (format: `ssv2-xxxxxxxxxxxx`) and can be safely deleted after the assessment is complete. This approach leverages AWS's built-in audit capabilities without requiring additional logging infrastructure.
+The stack is automatically created at the start of each run with a unique name (format: `ssv2-xxxxxxxxxxxx`) and is automatically deleted when the assessment completes. The stack remains visible in CloudFormation history (when viewing "Deleted" stacks) for audit purposes. This approach leverages AWS's built-in audit capabilities without requiring additional logging infrastructure.
 
 ## Installing service-screener V2
 1. [Log in to your AWS account](https://docs.aws.amazon.com/cloudshell/latest/userguide/getting-started.html#start-session) using the IAM User with sufficient permissions described above. 
