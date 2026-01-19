@@ -25,7 +25,19 @@ class FindingsPageBuilder(CustomPageBuilder):
     ]
     
     def customPageInit(self):
-        self.wb = openpyxl.load_workbook(_C.ROOT_DIR + '/' + Config.get('HTML_ACCOUNT_FOLDER_PATH') + '/workItem.xlsx')
+        excel_path = _C.ROOT_DIR + '/' + Config.get('HTML_ACCOUNT_FOLDER_PATH') + '/workItem.xlsx'
+        
+        # Check if Excel file exists before trying to load it
+        # The file is generated during OutputGenerator, which runs after CustomPage.buildPage()
+        if not os.path.exists(excel_path):
+            from utils.Tools import _warn
+            _warn(f"FindingsPageBuilder: workItem.xlsx not found at {excel_path}, skipping Excel-based page generation")
+            self.wb = None
+            self.initCSS()
+            self.initJSLib()
+            return
+        
+        self.wb = openpyxl.load_workbook(excel_path)
         self.initCSS()
         self.initJSLib()
         return
@@ -41,6 +53,9 @@ class FindingsPageBuilder(CustomPageBuilder):
             self.addCSSLib(pref + css)
     
     def getSheetTitle(self):
+        if self.wb is None:
+            return []
+        
         columnTitles = ['Service']
         wb = self.wb
         for sheetName in wb.sheetnames:
@@ -61,6 +76,9 @@ class FindingsPageBuilder(CustomPageBuilder):
             table_id: ID for the table element
             filter_suppressed: None (all), True (suppressed only), False (non-suppressed only)
         """
+        if self.wb is None:
+            return ''
+        
         wb = self.wb
         columnTitles = self.getSheetTitle()
         
