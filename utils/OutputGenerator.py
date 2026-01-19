@@ -157,6 +157,12 @@ class OutputGenerator:
         # Build Excel summary
         excel_obj.buildSummaryPage(summary)
         excel_obj._save()
+        _info("Excel workItem.xlsx generation complete")
+        
+        # Now build Findings page (requires workItem.xlsx to exist)
+        from utils.CustomPage.CustomPage import CustomPage
+        cp = CustomPage()
+        cp.buildFindingsPage()
         
         # Generate framework pages and add framework data to API
         if len(self.frameworks) > 0:

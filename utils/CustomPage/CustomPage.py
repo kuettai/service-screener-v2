@@ -80,6 +80,11 @@ class CustomPage():
         arr = {}
         prefix = 'CustomPage.'
         for cname, classObj in self.Pages.items():
+            # Skip Findings page during buildPage() - it will be built later after Excel generation
+            if cname == 'Findings':
+                _pr(f"Skipping {cname} page during buildPage() - will be built after Excel generation")
+                continue
+                
             pObj, pbObj = classObj
             arr[cname] = {}
             toMatch = prefix + cname + '.'
@@ -101,6 +106,8 @@ class CustomPage():
         # Store the built data for JSON export
         self.builtData = {}
         for cname, classObj in self.Pages.items():
+            if cname == 'Findings':
+                continue
             pObj, pbObj = classObj
             # Get the built data from the object
             if hasattr(pObj, 'getBuiltData'):
@@ -111,3 +118,26 @@ class CustomPage():
     def getCustomPageData(self):
         """Get all custom page data for JSON export"""
         return getattr(self, 'builtData', {})
+    
+    def buildFindingsPage(self):
+        """
+        Build Findings page separately after Excel generation.
+        This must be called after workItem.xlsx is created.
+        """
+        if Config.get('disable_custom_pages', False):
+            return
+            
+        if 'Findings' not in self.Pages:
+            return
+            
+        _pr("Building Findings page (after Excel generation)...")
+        try:
+            pObj, pbObj = self.Pages['Findings']
+            pObj.setData({})
+            pObj.build()
+            pbObj.loadData(pObj)
+            pbObj.buildPage()
+            _pr("Findings page built successfully")
+        except Exception as e:
+            from utils.Tools import _warn
+            _warn(f"Failed to build Findings page: {e}")
