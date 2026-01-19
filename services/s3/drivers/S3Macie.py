@@ -24,4 +24,10 @@ class S3Macie(Evaluator):
         except self.macieV2Client.exceptions.AccessDeniedException as e:
             self.results['MacieToEnable'] = [-1, None]
         except botocore.exceptions.EndpointConnectionError as connErr:
-            _warn(str(connErr))
+            # Handle regions where Macie2 is not available
+            _warn(f"Macie2 service not available in this region: {str(connErr)}")
+            self.results['MacieNotAvailable'] = [-1, None]
+        except Exception as e:
+            # Handle any other unexpected errors
+            _warn(f"Error checking Macie2 status: {str(e)}")
+            self.results['MacieError'] = [-1, None]

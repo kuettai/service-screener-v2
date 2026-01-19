@@ -167,19 +167,19 @@ const TrustedAdvisorPage = () => {
     return (
       <ColumnLayout columns={4} variant="text-grid">
         <div>
-          <Box variant="awsui-key-label">Total Checks</Box>
+          <Box variant="awsui-key-label">Total Resources Checked</Box>
           <Box variant="h2" color="text-status-info">
             {totalCounts.Error + totalCounts.Warning + totalCounts.OK}
           </Box>
         </div>
         <div>
-          <Box variant="awsui-key-label">Issues Found</Box>
+          <Box variant="awsui-key-label">Resources with Issues</Box>
           <Box variant="h2" color="text-status-error">
             {totalCounts.Error}
           </Box>
         </div>
         <div>
-          <Box variant="awsui-key-label">Warnings</Box>
+          <Box variant="awsui-key-label">Resources with Warnings</Box>
           <Box variant="h2" color="text-status-warning">
             {totalCounts.Warning}
           </Box>

@@ -40,7 +40,7 @@ const CustomPage = ({ data }) => {
   
   // Handle Cost Optimization Hub page
   if (pageName === 'coh') {
-    return <CostOptimizationPage />;
+    return <CostOptimizationPage data={data} />;
   }
   
   // Handle Findings page (uses data from api-full.json)
@@ -87,29 +87,8 @@ const CustomPage = ({ data }) => {
  */
 const renderModernizePage = (pageData, pageTitle) => {
   // Check if we have Sankey data
-  const computesData = pageData.Computes;
-  const databasesData = pageData.Databases;
-  
-  if (!computesData && !databasesData) {
-    return (
-      <Container header={<Header variant="h1">{pageTitle}</Header>}>
-        <Alert type="info" header="No modernization data available">
-          <Box variant="p">
-            Modernization recommendations are not available for this scan. 
-            This could be because:
-          </Box>
-          <ul>
-            <li>No EC2 instances, RDS databases, or other modernizable resources were found</li>
-            <li>The services containing modernizable resources were not scanned</li>
-            <li>The modernization analysis has not been generated yet</li>
-          </ul>
-          <Box variant="p">
-            To see modernization recommendations, ensure you scan services like EC2, RDS, Lambda, and EKS.
-          </Box>
-        </Alert>
-      </Container>
-    );
-  }
+  const computesData = pageData?.Computes;
+  const databasesData = pageData?.Databases;
   
   return (
     <SpaceBetween size="l">
@@ -148,7 +127,33 @@ const renderModernizePage = (pageData, pageTitle) => {
             <Box>
               <Box variant="h3">Compute Resources</Box>
               <Box variant="p">
-                Found {computesData.nodes?.length || 0} compute resource types with {computesData.links?.length || 0} modernization pathways.
+                {(() => {
+                  // Count modernization pathways (links that end with modernization targets)
+                  const modernizationPathways = computesData.links?.filter(link => {
+                    const targetNode = computesData.nodes?.[link.target];
+                    return targetNode && targetNode.startsWith('_');
+                  }).length || 0;
+                  
+                  // Count actual AWS resources (nodes that don't start with '_' and are leaf sources)
+                  const sourceResourceIndices = new Set();
+                  const targetResourceIndices = new Set();
+                  
+                  computesData.links?.forEach(link => {
+                    sourceResourceIndices.add(link.source);
+                    targetResourceIndices.add(link.target);
+                  });
+                  
+                  // Find nodes that are only sources (never targets) - these are the root AWS resources
+                  const rootResourceIndices = [...sourceResourceIndices].filter(index => 
+                    !targetResourceIndices.has(index)
+                  );
+                  
+                  const resourceCount = rootResourceIndices.length;
+                  const resourceText = resourceCount === 1 ? 'resource' : 'resources';
+                  const pathwayText = modernizationPathways === 1 ? 'pathway' : 'pathways';
+                  
+                  return `Found ${resourceCount} compute ${resourceText} with ${modernizationPathways} modernization ${pathwayText}.`;
+                })()}
               </Box>
             </Box>
           )}
@@ -157,7 +162,33 @@ const renderModernizePage = (pageData, pageTitle) => {
             <Box>
               <Box variant="h3">Database Resources</Box>
               <Box variant="p">
-                Found {databasesData.nodes?.length || 0} database resource types with {databasesData.links?.length || 0} modernization pathways.
+                {(() => {
+                  // Count modernization pathways (links that end with modernization targets)
+                  const modernizationPathways = databasesData.links?.filter(link => {
+                    const targetNode = databasesData.nodes?.[link.target];
+                    return targetNode && targetNode.startsWith('_');
+                  }).length || 0;
+                  
+                  // Count actual AWS resources (nodes that don't start with '_' and are leaf sources)
+                  const sourceResourceIndices = new Set();
+                  const targetResourceIndices = new Set();
+                  
+                  databasesData.links?.forEach(link => {
+                    sourceResourceIndices.add(link.source);
+                    targetResourceIndices.add(link.target);
+                  });
+                  
+                  // Find nodes that are only sources (never targets) - these are the root AWS resources
+                  const rootResourceIndices = [...sourceResourceIndices].filter(index => 
+                    !targetResourceIndices.has(index)
+                  );
+                  
+                  const resourceCount = rootResourceIndices.length;
+                  const resourceText = resourceCount === 1 ? 'resource' : 'resources';
+                  const pathwayText = modernizationPathways === 1 ? 'pathway' : 'pathways';
+                  
+                  return `Found ${resourceCount} database ${resourceText} with ${modernizationPathways} modernization ${pathwayText}.`;
+                })()}
               </Box>
             </Box>
           )}

@@ -116,7 +116,7 @@ All 15 project requirements have been validated and met:
 
 ### 📚 Documentation
 
-- **[Migration Guide](./MIGRATION_GUIDE.md)**: Step-by-step transition instructions
+- **[Migration Guide](./docs/MIGRATION_GUIDE.md)**: Step-by-step transition instructions
 - **[File Protocol Limitations](./FILE_PROTOCOL_LIMITATIONS.md)**: Browser compatibility guide
 - **[Cloudscape UI README](./cloudscape-ui/README.md)**: Technical implementation details
 - **[Browser Testing Guide](./cloudscape-ui/BROWSER_TESTING_GUIDE.md)**: Comprehensive testing procedures

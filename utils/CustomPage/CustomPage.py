@@ -55,6 +55,10 @@ class CustomPage():
                     _pr(f"Deleted: {file_path}")
     
     def writeOutput(self, service):
+        # Check if CustomPage processing is disabled
+        if Config.get('disable_custom_pages', False):
+            return
+            
         ## TODO: save that particular service only
         serv = service.lower()
         for cname, classObj in self.Pages.items():
@@ -68,6 +72,11 @@ class CustomPage():
                 f.write(s)
                 
     def buildPage(self):
+        # Check if CustomPage processing is disabled
+        if Config.get('disable_custom_pages', False):
+            self.builtData = {}
+            return
+            
         arr = {}
         prefix = 'CustomPage.'
         for cname, classObj in self.Pages.items():

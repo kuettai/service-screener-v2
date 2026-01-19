@@ -14,6 +14,8 @@ import Select from '@cloudscape-design/components/select';
 import TextFilter from '@cloudscape-design/components/text-filter';
 import Grid from '@cloudscape-design/components/grid';
 import Table from '@cloudscape-design/components/table';
+import Button from '@cloudscape-design/components/button';
+import Checkbox from '@cloudscape-design/components/checkbox';
 
 import { 
   loadReportData,
@@ -38,6 +40,86 @@ const ServiceDetail = () => {
   const [searchText, setSearchText] = useState('');
   const [severityFilter, setSeverityFilter] = useState({ label: 'All Severities', value: 'all' });
   const [categoryFilter, setCategoryFilter] = useState({ label: 'All Categories', value: 'all' });
+  const [showQuickWins, setShowQuickWins] = useState(false);
+  const [expandedFindings, setExpandedFindings] = useState(new Set());
+
+  // Expand/Collapse All functions
+  const expandAllFindings = () => {
+    const allFindingIds = filteredFindings.map(finding => finding.ruleName);
+    setExpandedFindings(new Set(allFindingIds));
+  };
+
+  const collapseAllFindings = () => {
+    setExpandedFindings(new Set());
+  };
+
+  const toggleFinding = (findingId) => {
+    const newExpanded = new Set(expandedFindings);
+    if (newExpanded.has(findingId)) {
+      newExpanded.delete(findingId);
+    } else {
+      newExpanded.add(findingId);
+    }
+    setExpandedFindings(newExpanded);
+  };
+
+  // Quick Win logic (formerly low-hanging fruit)
+  const isQuickWin = (finding) => {
+    return finding.downtime === 0 && 
+           finding.additionalCost === 0 && 
+           finding.needFullTest === 0;
+  };
+
+  // Impact indicators helper
+  const getImpactIndicators = (finding) => {
+    const indicators = [];
+    
+    if (finding.downtime !== 0) {
+      indicators.push({
+        type: 'downtime',
+        label: 'Downtime Required',
+        color: 'red',
+        icon: '⏱️'
+      });
+    }
+    
+    if (finding.additionalCost === 1) {
+      indicators.push({
+        type: 'cost',
+        label: 'Additional Cost',
+        color: 'orange',
+        icon: '💰'
+      });
+    } else if (finding.additionalCost === -1) {
+      indicators.push({
+        type: 'savings',
+        label: 'Cost Savings',
+        color: 'green',
+        icon: '💰'
+      });
+    }
+    
+    if (finding.needFullTest !== 0) {
+      const testLabel = finding.needFullTest === 1 ? 'Testing Required' : 'Testing Maybe Required';
+      indicators.push({
+        type: 'testing',
+        label: testLabel,
+        color: 'blue',
+        icon: '🧪'
+      });
+    }
+    
+    if (finding.slowness !== 0) {
+      indicators.push({
+        type: 'performance',
+        label: 'Performance Impact',
+        color: 'purple',
+        icon: '⚡'
+      });
+    }
+    
+    return indicators;
+  };
   
   // Load report data
   useEffect(() => {
@@ -137,20 +219,21 @@ const ServiceDetail = () => {
     
     const stats = serviceData.stats || {};
     const totalFindings = findings.length;
-    const uniqueRules = new Set(findings.map(f => f.ruleName)).size;
+    const quickWinCount = findings.filter(finding => isQuickWin(finding)).length;
     
     const formatTime = (seconds) => {
       if (!seconds || seconds === 0) return '0.00s';
-      return `${parseFloat(seconds).toFixed(2)}s`;
+      return `${parseFloat(seconds).toFixed(3)}s`;
     };
     
     return {
       resources: stats.resources || 0,
       totalFindings,
       rulesExecuted: stats.rules || 0,
-      uniqueRules,
+      uniqueRules: stats.checksCount || 0,  // Use checksCount from stats, not calculated from findings
       suppressed: stats.suppressed || 0,
-      timespent: formatTime(stats.timespent)
+      timespent: formatTime(stats.timespent),
+      quickWins: quickWinCount
     };
   }, [serviceData, findings]);
   
@@ -178,8 +261,13 @@ const ServiceDetail = () => {
       filtered = filtered.filter(finding => finding.__categoryMain === categoryFilter.value);
     }
     
+    // Apply quick wins filter
+    if (showQuickWins) {
+      filtered = filtered.filter(finding => isQuickWin(finding));
+    }
+    
     return filtered;
-  }, [findings, searchText, severityFilter, categoryFilter]);
+  }, [findings, searchText, severityFilter, categoryFilter, showQuickWins]);
   
   const sortedFindings = useMemo(() => {
     const criticalityOrder = { 'H': 0, 'M': 1, 'L': 2, 'I': 3 };
@@ -396,7 +484,7 @@ const ServiceDetail = () => {
           </Header>
         }
       >
-        <ColumnLayout columns={6} variant="default" minColumnWidth={120}>
+        <ColumnLayout columns={7} variant="default" minColumnWidth={120}>
           <Box padding="l" backgroundColor="background-container-content" borderRadius="s">
             <SpaceBetween size="xs">
               <Box variant="awsui-key-label">Resources</Box>
@@ -438,6 +526,15 @@ const ServiceDetail = () => {
               <Box variant="awsui-key-label">Suppressed</Box>
               <Box fontSize="display-l" fontWeight="bold" color="text-status-inactive">
                 {metrics.suppressed}
+              </Box>
+            </SpaceBetween>
+          </Box>
+          
+          <Box padding="l" backgroundColor="background-container-content" borderRadius="s">
+            <SpaceBetween size="xs">
+              <Box variant="awsui-key-label">Quick Wins</Box>
+              <Box fontSize="display-l" fontWeight="bold" color="text-status-success">
+                {metrics.quickWins}
               </Box>
             </SpaceBetween>
           </Box>
@@ -581,6 +678,24 @@ const ServiceDetail = () => {
             variant="h2" 
             counter={`(${sortedFindings.length})`}
             description="Filter and expand findings to view detailed information"
+            actions={
+              <SpaceBetween direction="horizontal" size="xs">
+                <Button 
+                  variant="normal" 
+                  onClick={expandAllFindings}
+                  disabled={sortedFindings.length === 0}
+                >
+                  Expand All
+                </Button>
+                <Button 
+                  variant="normal" 
+                  onClick={collapseAllFindings}
+                  disabled={sortedFindings.length === 0}
+                >
+                  Collapse All
+                </Button>
+              </SpaceBetween>
+            }
           >
             Findings
           </Header>
@@ -617,12 +732,124 @@ const ServiceDetail = () => {
             />
           </Grid>
           
+          {/* Quick Wins Filter */}
+          <Checkbox
+            checked={showQuickWins}
+            onChange={({ detail }) => setShowQuickWins(detail.checked)}
+          >
+            Show quick wins only ({metrics?.quickWins || 0} available)
+          </Checkbox>
+          
+          {/* Impact Indicators Legend */}
+          <Container
+            header={
+              <Header variant="h3">
+                Impact Indicators Legend
+              </Header>
+            }
+          >
+            <Grid
+              gridDefinition={[
+                { colspan: { default: 12, xs: 6, s: 4, m: 3, l: 2 } },
+                { colspan: { default: 12, xs: 6, s: 4, m: 3, l: 2 } },
+                { colspan: { default: 12, xs: 6, s: 4, m: 3, l: 2 } },
+                { colspan: { default: 12, xs: 6, s: 4, m: 3, l: 2 } },
+                { colspan: { default: 12, xs: 6, s: 4, m: 3, l: 2 } },
+                { colspan: { default: 12, xs: 6, s: 4, m: 3, l: 2 } }
+              ]}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{
+                  backgroundColor: '#d4edda',
+                  color: '#155724',
+                  padding: '4px 8px',
+                  borderRadius: '4px',
+                  fontSize: '12px',
+                  fontWeight: '600'
+                }}>
+                  🍃 Quick Win
+                </span>
+                <Box variant="small">No downtime, cost, or testing required</Box>
+              </div>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{
+                  backgroundColor: '#f8d7da',
+                  color: '#721c24',
+                  padding: '4px 8px',
+                  borderRadius: '4px',
+                  fontSize: '12px',
+                  fontWeight: '500'
+                }}>
+                  ⏱️
+                </span>
+                <Box variant="small">Requires service downtime</Box>
+              </div>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{
+                  backgroundColor: '#fff3cd',
+                  color: '#856404',
+                  padding: '4px 8px',
+                  borderRadius: '4px',
+                  fontSize: '12px',
+                  fontWeight: '500'
+                }}>
+                  💰
+                </span>
+                <Box variant="small">Additional costs incurred</Box>
+              </div>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{
+                  backgroundColor: '#d4edda',
+                  color: '#155724',
+                  padding: '4px 8px',
+                  borderRadius: '4px',
+                  fontSize: '12px',
+                  fontWeight: '500'
+                }}>
+                  💰
+                </span>
+                <Box variant="small">Potential cost savings</Box>
+              </div>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{
+                  backgroundColor: '#cce5ff',
+                  color: '#004085',
+                  padding: '4px 8px',
+                  borderRadius: '4px',
+                  fontSize: '12px',
+                  fontWeight: '500'
+                }}>
+                  🧪
+                </span>
+                <Box variant="small">Testing required</Box>
+              </div>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{
+                  backgroundColor: '#e2d9f3',
+                  color: '#5a2d82',
+                  padding: '4px 8px',
+                  borderRadius: '4px',
+                  fontSize: '12px',
+                  fontWeight: '500'
+                }}>
+                  ⚡
+                </span>
+                <Box variant="small">Performance impact</Box>
+              </div>
+            </Grid>
+          </Container>
+          
           {/* Findings List */}
           {sortedFindings.length === 0 ? (
             <Box textAlign="center" padding={{ vertical: 'l' }}>
               <Box variant="h3" color="text-status-inactive">No findings</Box>
               <Box variant="p" color="text-status-inactive">
-                {searchText || severityFilter.value !== 'all' || categoryFilter.value !== 'all' 
+                {searchText || severityFilter.value !== 'all' || categoryFilter.value !== 'all' || showQuickWins
                   ? 'No findings match your filter criteria.' 
                   : 'This service has no findings.'}
               </Box>
@@ -632,6 +859,8 @@ const ServiceDetail = () => {
               {sortedFindings.map(finding => {
                 const categoryStyle = getCategoryStyle(finding.__categoryMain);
                 const severityStyle = getSeverityCardStyle(finding.criticality);
+                const impactIndicators = getImpactIndicators(finding);
+                const isLHF = isQuickWin(finding);
                 
                 return (
                   <div
@@ -659,13 +888,57 @@ const ServiceDetail = () => {
                           margin: 0,
                           padding: 0
                         }}>
-                          <span style={{ 
-                            fontWeight: '500',
-                            color: severityStyle.headerTextColor,
-                            flex: 1
-                          }}>
-                            {finding.ruleName}
-                          </span>
+                          <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
+                            <span style={{ 
+                              fontWeight: '500',
+                              color: severityStyle.headerTextColor,
+                              marginRight: '8px'
+                            }}>
+                              {finding.ruleName}
+                            </span>
+                            
+                            {/* Low-Hanging Fruit Badge */}
+                            {isLHF && (
+                              <span style={{
+                                backgroundColor: '#d4edda',
+                                color: '#155724',
+                                padding: '2px 6px',
+                                borderRadius: '4px',
+                                fontSize: '10px',
+                                fontWeight: '600',
+                                marginRight: '4px'
+                              }}>
+                                🍃 Quick Win
+                              </span>
+                            )}
+                            
+                            {/* Impact Indicators */}
+                            {impactIndicators.map((indicator, idx) => (
+                              <span
+                                key={idx}
+                                style={{
+                                  backgroundColor: indicator.color === 'red' ? '#f8d7da' : 
+                                                 indicator.color === 'orange' ? '#fff3cd' :
+                                                 indicator.color === 'green' ? '#d4edda' :
+                                                 indicator.color === 'blue' ? '#cce5ff' : '#e2d9f3',
+                                  color: indicator.color === 'red' ? '#721c24' : 
+                                         indicator.color === 'orange' ? '#856404' :
+                                         indicator.color === 'green' ? '#155724' :
+                                         indicator.color === 'blue' ? '#004085' : '#5a2d82',
+                                  padding: '2px 6px',
+                                  borderRadius: '4px',
+                                  fontSize: '10px',
+                                  fontWeight: '500',
+                                  marginRight: '4px',
+                                  whiteSpace: 'nowrap'
+                                }}
+                                title={indicator.label}
+                              >
+                                {indicator.icon}
+                              </span>
+                            ))}
+                          </div>
+                          
                           <span style={{
                             backgroundColor: categoryStyle.backgroundColor,
                             color: categoryStyle.color,
@@ -674,7 +947,6 @@ const ServiceDetail = () => {
                             fontSize: '11px',
                             fontWeight: '500',
                             whiteSpace: 'nowrap',
-                            marginLeft: '12px',
                             flexShrink: 0
                           }}>
                             {categoryStyle.label}
@@ -682,6 +954,18 @@ const ServiceDetail = () => {
                         </div>
                       }
                       variant="container"
+                      expanded={expandedFindings.has(finding.ruleName)}
+                      onChange={({ detail }) => {
+                        if (detail.expanded) {
+                          setExpandedFindings(prev => new Set([...prev, finding.ruleName]));
+                        } else {
+                          setExpandedFindings(prev => {
+                            const newSet = new Set(prev);
+                            newSet.delete(finding.ruleName);
+                            return newSet;
+                          });
+                        }
+                      }}
                     >
                     <div style={{ color: severityStyle.color }}>
                       <SpaceBetween size="m">
@@ -714,16 +998,55 @@ const ServiceDetail = () => {
                           <div>
                             <Box variant="awsui-key-label" color={severityStyle.color}>Documentation</Box>
                             <SpaceBetween size="xs">
-                              {finding.__links.map((link, index) => (
-                                <Link 
-                                  key={index} 
-                                  href={link} 
-                                  external
-                                  color={severityStyle.color}
-                                >
-                                  Reference {index + 1}
-                                </Link>
-                              ))}
+                              {finding.__links.map((link, index) => {
+                                // Parse HTML anchor tag to extract href and title
+                                const parseLink = (htmlLink) => {
+                                  const parser = new DOMParser();
+                                  const doc = parser.parseFromString(htmlLink, 'text/html');
+                                  const anchor = doc.querySelector('a');
+                                  if (anchor) {
+                                    const href = anchor.getAttribute('href');
+                                    const title = anchor.textContent || anchor.innerText;
+                                    
+                                    // Extract domain from URL
+                                    let domain = '';
+                                    try {
+                                      const url = new URL(href);
+                                      domain = url.hostname;
+                                      // Remove 'www.' prefix for cleaner display
+                                      if (domain.startsWith('www.')) {
+                                        domain = domain.substring(4);
+                                      }
+                                    } catch (e) {
+                                      // If URL parsing fails, don't show domain
+                                      domain = '';
+                                    }
+                                    
+                                    return {
+                                      href: href,
+                                      title: domain ? `(${domain}) ${title}` : title
+                                    };
+                                  }
+                                  // Fallback if not HTML anchor tag
+                                  return {
+                                    href: htmlLink,
+                                    title: `Reference ${index + 1}`
+                                  };
+                                };
+                                
+                                const parsedLink = parseLink(link);
+                                
+                                return (
+                                  <Link 
+                                    key={index} 
+                                    href={parsedLink.href} 
+                                    external
+                                    color={severityStyle.color}
+                                  >
+                                    {parsedLink.title}
+                                  </Link>
+                                );
+                              })}
                             </SpaceBetween>
                           </div>
                         )}

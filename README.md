@@ -54,10 +54,21 @@ Running this tool is free as it is covered under the AWS Free Tier. If you have 
 4. (Optional) If you need to run cross-account operations, additional permissions are required:
    - iam:SetSecurityTokenServicePreferences
 
+### Why CloudFormation Permissions Are Required
+
+Service Screener creates a temporary, empty CloudFormation stack during each run for audit and compliance purposes. This stack:
+
+- **Contains no actual resources** - It's an empty "marker" stack that incurs no cost
+- **Provides audit trail** - Creates a record in AWS CloudTrail of when Service Screener was executed
+- **Enables compliance tracking** - Allows organizations to track security assessment activities
+- **Supports partner integrations** - Enables tracking for AWS Partner evaluations (MPE)
+
+The stack is automatically created at the start of each run with a unique name (format: `ssv2-xxxxxxxxxxxx`) and can be safely deleted after the assessment is complete. This approach leverages AWS's built-in audit capabilities without requiring additional logging infrastructure.
+
 ## Installing service-screener V2
 1. [Log in to your AWS account](https://docs.aws.amazon.com/cloudshell/latest/userguide/getting-started.html#start-session) using the IAM User with sufficient permissions described above. 
 2. Launch [AWS CloudShell](https://docs.aws.amazon.com/cloudshell/latest/userguide/getting-started.html#launch-region-shell) in any region. 
-3. In the AWS CloudShell terminal, run this script this to install the dependencies:
+3. In the AWS CloudShell terminal, run this script to install the dependencies:
    ``` bash
    cd /tmp
    python3 -m venv .
@@ -68,8 +79,19 @@ Running this tool is free as it is covered under the AWS Free Tier. If you have 
    cd service-screener-v2
    pip install -r requirements.txt
    python3 unzip_botocore_lambda_runtime.py
+   
+   # Build Cloudscape UI (required for --beta 1 mode)
+   cd cloudscape-ui
+   npm install
+   npm run build
+   cd ..
+   
    alias screener='python3 $(pwd)/main.py'
    ```
+
+   **Note:** AWS CloudShell comes with Node.js pre-installed. The Cloudscape UI build takes approximately 30-60 seconds.
+   
+   **Important:** If you skip the Cloudscape UI build step, the `--beta 1` flag will still work but will only generate the legacy AdminLTE UI. To use the new Cloudscape UI features, you must complete the build step above.
 
 ## Using Service Screener
 When running Service Screener, you will need to specify the regions and services you would like it to run on. For the full list of services currently supported, please see "SERVICES_IDENTIFIER_MAPPING" in [Config.py](./utils/Config.py).
@@ -114,6 +136,37 @@ screener --regions ALL
 **Example 7: Run with suppression file to ignore specific findings**
 ``` bash
 screener --regions us-east-1 --services s3 --suppress_file ./suppressions.json
+```
+
+## Performance Options
+
+### Disable Custom Pages
+For faster scans focused on core AWS service analysis, you can disable custom pages processing:
+
+``` bash
+screener --regions ap-southeast-1 --services ec2,s3,rds --disable-custom-pages 1
+```
+
+This skips processing of:
+- **Cost Optimization Hub (COH)** - AWS cost optimization recommendations
+- **Trusted Advisor (TA)** - TA check results and pillar organization  
+- **Findings aggregation** - Cross-service findings analysis
+- **Modernize recommendations** - Modernization pathway analysis
+
+**Performance benefits:**
+- **Time savings:** ~2-3 minutes per scan
+- **Faster execution:** Focuses only on core service security checks
+- **Reduced API calls:** Skips COH, TA, and aggregation APIs
+
+**Use cases:**
+- CI/CD pipeline integration where speed is critical
+- Quick security validation checks
+- Development and testing environments
+- Core service analysis without additional insights
+
+**Example: Fast security scan**
+``` bash
+screener --regions us-east-1 --services ec2,iam,s3 --disable-custom-pages 1 --beta 1
 ```
 
 ## Other parameters

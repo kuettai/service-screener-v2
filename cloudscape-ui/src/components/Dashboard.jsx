@@ -23,6 +23,7 @@ import {
 } from '../utils/formatters';
 import EmptyState from './EmptyState';
 import CategoryCard from './CategoryCard';
+import ContentEnrichment from './ContentEnrichment';
 
 /**
  * KPI Card component for displaying key metrics
@@ -281,6 +282,9 @@ const Dashboard = ({ data }) => {
           );
         })()}
       </div>
+      
+      {/* Content Enrichment Section */}
+      <ContentEnrichment data={data} />
       
       {/* Service Cards */}
       <Container

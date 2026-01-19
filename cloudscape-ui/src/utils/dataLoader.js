@@ -44,12 +44,73 @@ export const loadReportData = async () => {
 };
 
 /**
- * Extract account ID from report data
+ * Discover available accounts from various sources
+ * @returns {Array} Array of account objects with id and label
+ */
+export const discoverAccounts = () => {
+  // TEMPORARY: Force multiple accounts for testing
+  const testAccounts = ['956288449190', '123456789012', '987654321098'];
+  const accounts = testAccounts.map(accountId => ({
+    id: accountId,
+    label: `Account ${accountId}`
+  }));
+  console.log('FORCED test accounts for debugging:', accounts);
+  return accounts;
+};
+
+/**
+ * Switch to a different account by navigating to its folder
+ * @param {string} newAccountId - Target account ID
+ */
+export const switchAccount = (newAccountId) => {
+  const currentPath = window.location.pathname;
+  const currentHash = window.location.hash;
+  
+  // Pattern to match /aws/{12-digit-account}/
+  const accountMatch = currentPath.match(/\/aws\/(\d{12})\//);
+  
+  if (accountMatch) {
+    const currentAccountId = accountMatch[1];
+    if (currentAccountId !== newAccountId) {
+      // Replace account ID in path while preserving the rest
+      const newPath = currentPath.replace(/\/aws\/\d{12}\//, `/aws/${newAccountId}/`);
+      // Preserve hash for current page context
+      window.location.href = newPath + currentHash;
+    }
+  } else {
+    // Fallback: try to construct path to new account
+    const pathParts = currentPath.split('/');
+    const awsIndex = pathParts.findIndex(part => part === 'aws');
+    
+    if (awsIndex !== -1 && pathParts[awsIndex + 1]) {
+      // Replace the account ID part
+      pathParts[awsIndex + 1] = newAccountId;
+      const newPath = pathParts.join('/');
+      window.location.href = newPath + currentHash;
+    } else {
+      // Last resort: navigate to new account's index
+      const protocol = window.location.protocol;
+      const host = window.location.host;
+      const basePath = currentPath.split('/').slice(0, -2).join('/'); // Remove filename and current account
+      window.location.href = `${protocol}//${host}${basePath}/aws/${newAccountId}/index.html`;
+    }
+  }
+};
+
+/**
+ * Extract account ID from report data or URL
  * @param {Object} data - Report data
  * @returns {string} Account ID or 'Unknown'
  */
 export const getAccountId = (data) => {
-  // Account ID might be in metadata or we can extract from first service
+  // First try to get from URL path (for multi-account scenarios)
+  const currentPath = window.location.pathname;
+  const accountMatch = currentPath.match(/\/aws\/(\d{12})\//);
+  if (accountMatch) {
+    return accountMatch[1];
+  }
+  
+  // Account ID might be in metadata
   if (data && data.__metadata && data.__metadata.accountId) {
     return data.__metadata.accountId;
   }

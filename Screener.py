@@ -227,10 +227,41 @@ class Screener:
                 excelObj.generateWorkSheet(service, reporter.cardSummary, suppressedCardSummary)
 
             if not service in apiResultArray:
-                apiResultArray[service] = {'summary': {}, 'detail': {}}
+                apiResultArray[service] = {'summary': {}, 'detail': {}, 'stats': {}}
             
             apiResultArray[service]['summary'] = reporter.getCard()
             apiResultArray[service]['detail'] = reporter.getDetail()
+            
+            # Add service statistics from stat.json file
+            stat_file = os.path.join(_C.FORK_DIR, f'{service}.stat.json')
+            if os.path.exists(stat_file):
+                try:
+                    with open(stat_file, 'r') as f:
+                        stat_data = json.load(f)
+                        # Add suppressed count from reporter
+                        stat_data['suppressed'] = reporter.suppressedCount
+                        # Add checksCount (unique rules) from reporter
+                        stat_data['checksCount'] = reporter.stats.get('checksCount', 0)
+                        apiResultArray[service]['stats'] = stat_data
+                except Exception as e:
+                    print(f"Failed to load stats for {service}: {e}")
+                    apiResultArray[service]['stats'] = {
+                        'resources': 0,
+                        'rules': 0,
+                        'exceptions': 0,
+                        'timespent': 0,
+                        'suppressed': reporter.suppressedCount,
+                        'checksCount': 0
+                    }
+            else:
+                apiResultArray[service]['stats'] = {
+                    'resources': 0,
+                    'rules': 0,
+                    'exceptions': 0,
+                    'timespent': 0,
+                    'suppressed': reporter.suppressedCount,
+                    'checksCount': 0
+                }
 
         # serviceStat = Config.get('cli_services')
         # print(serviceStat)

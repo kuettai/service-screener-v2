@@ -209,6 +209,18 @@ class OutputGenerator:
         with open(json_path, "w") as f:
             json.dump(api_result_array, f)
         _info("api-full.json written successfully")
+        
+        # Generate TA data for Cloudscape UI (skip if custom pages disabled)
+        if Config.get('disable_custom_pages', False):
+            _info("TA data generation skipped (disabled via --disable-custom-pages)")
+        else:
+            _info("Generating TA data for Cloudscape UI...")
+            try:
+                from Screener import Screener
+                Screener.generateTAData(self.html_folder)
+                _info("TA data generated successfully")
+            except Exception as e:
+                _warn(f"Failed to generate TA data: {e}")
     
     def _generate_cloudscape(self):
         """
@@ -432,7 +444,23 @@ class OutputGenerator:
         data_script = f'''<script>
 window.__REPORT_DATA__ = {escaped_json};
 window.__TA_DATA__ = {escaped_ta_data};
-window.__ACCOUNT_ID__ = "{self.account_id}";
+window.__ACCOUNT_ID__ = "{self.account_id}";'''
+        
+        # Add content enrichment data if available (Task 4.1)
+        enriched_content_data = Config.get('enriched_content_data', None)
+        if enriched_content_data:
+            try:
+                # Parse and re-serialize to ensure proper escaping
+                import json
+                parsed_content_data = json.loads(enriched_content_data)
+                escaped_content_data = json.dumps(parsed_content_data, separators=(',', ':'))
+                data_script += f'''
+window.__CONTENT_ENRICHMENT_DATA__ = {escaped_content_data};'''
+                _info("Content enrichment data embedded for Cloudscape UI")
+            except json.JSONDecodeError as e:
+                _warn(f"Failed to embed content enrichment data: {str(e)}")
+        
+        data_script += '''
 </script>'''
         
         # Insert before closing </head> tag
@@ -449,6 +477,16 @@ window.__ACCOUNT_ID__ = "{self.account_id}";
         Add CustomPage data to api_result_array for Cloudscape UI.
         Extracts data from Excel and JSON files.
         """
+        # Check if CustomPage processing is disabled
+        if Config.get('disable_custom_pages', False):
+            _info("CustomPage data extraction skipped (disabled via --disable-custom-pages)")
+            # Set empty data structures for Cloudscape UI compatibility
+            api_result_array['customPage_findings'] = {'error': 'CustomPage processing disabled', 'findings': []}
+            api_result_array['customPage_modernize'] = {'error': 'CustomPage processing disabled', 'computes': {}, 'databases': {}}
+            api_result_array['customPage_ta'] = {'error': 'CustomPage processing disabled', 'pillars': {}}
+            api_result_array['customPage_coh'] = {'error': 'CustomPage processing disabled', 'executive_summary': {}, 'recommendations': []}
+            return
+        
         try:
             # Extract CPFindings from Excel
             _info("Extracting CPFindings from Excel...")
@@ -461,6 +499,10 @@ window.__ACCOUNT_ID__ = "{self.account_id}";
             # Extract CPTA from JSON files
             _info("Extracting CPTA from JSON files...")
             api_result_array['customPage_ta'] = self._extract_ta_data()
+            
+            # Extract COH (Cost Optimization Hub) data from JSON files
+            _info("Extracting COH data from JSON files...")
+            api_result_array['customPage_coh'] = self._extract_coh_data()
             
             _info("CustomPage data added successfully")
         except Exception as e:
@@ -627,12 +669,19 @@ window.__ACCOUNT_ID__ = "{self.account_id}";
                 try:
                     with open(file_path, 'r') as f:
                         data = json.load(f)
-                        # Merge data from all files into pillars
-                        ta_data['pillars'].update(data)
+                        # The data is already in the correct format: {"error": "", "pillars": {...}}
+                        if 'error' in data and data['error']:
+                            ta_data['error'] = data['error']
+                        if 'pillars' in data:
+                            ta_data['pillars'].update(data['pillars'])
                 except Exception as e:
                     _warn(f"Failed to read {file_path}: {e}")
             
             # Check if there's an error in the TA data
+            if ta_data['error']:
+                _info(f"TA data contains error: {ta_data['error']}")
+                return ta_data
+            
             if not ta_data['pillars']:
                 _info("TA data contains no pillars")
                 return {'error': 'No Trusted Advisor data available', 'pillars': {}}
@@ -646,3 +695,71 @@ window.__ACCOUNT_ID__ = "{self.account_id}";
             import traceback
             traceback.print_exc()
             return {'error': f'Failed to load Trusted Advisor data: {str(e)}', 'pillars': {}}
+
+    def _extract_coh_data(self):
+        """
+        Extract Cost Optimization Hub data from CustomPage.COH.*.json files.
+        Returns dict with COH recommendations and executive summary.
+        """
+        try:
+            import glob
+            
+            coh_files = glob.glob(_C.FORK_DIR + '/CustomPage.COH.*.json')
+            
+            if not coh_files:
+                _info("No COH JSON files found")
+                return {
+                    'executive_summary': {},
+                    'recommendations': [],
+                    'error_messages': ['No Cost Optimization Hub data available'],
+                    'data_collection_time': None
+                }
+            
+            # COH data should be aggregated from all service files
+            all_coh_data = {}
+            
+            for file_path in coh_files:
+                try:
+                    with open(file_path, 'r') as f:
+                        service_data = json.load(f)
+                        # Extract service name from filename
+                        service_name = os.path.basename(file_path).split('.')[2]
+                        all_coh_data[service_name] = service_data
+                        _info(f"Loaded COH data for {service_name}")
+                except Exception as e:
+                    _warn(f"Failed to read {file_path}: {e}")
+            
+            if not all_coh_data:
+                _info("No valid COH data found")
+                return {
+                    'executive_summary': {},
+                    'recommendations': [],
+                    'error_messages': ['Failed to load Cost Optimization Hub data'],
+                    'data_collection_time': None
+                }
+            
+            # Import and use the COH class to get the processed data
+            from utils.CustomPage.Pages.COH.COH import COH
+            
+            # Create COH instance and get the built data
+            coh = COH()
+            coh.setData(all_coh_data)  # Set the raw data
+            coh.build()  # Process the data
+            
+            # Get the processed data for UI consumption
+            coh_ui_data = coh.get_data_for_ui()
+            
+            _info(f"Processed COH data with {len(coh_ui_data.get('recommendations', []))} recommendations")
+            
+            return coh_ui_data
+            
+        except Exception as e:
+            _warn(f"Failed to extract COH data: {e}")
+            import traceback
+            traceback.print_exc()
+            return {
+                'executive_summary': {},
+                'recommendations': [],
+                'error_messages': [f'Failed to load Cost Optimization Hub data: {str(e)}'],
+                'data_collection_time': None
+            }

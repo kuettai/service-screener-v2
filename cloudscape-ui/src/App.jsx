@@ -20,6 +20,8 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { 
   loadReportData, 
   getAccountId, 
+  discoverAccounts,
+  switchAccount,
   getServices, 
   getFrameworks,
   getCustomPages,
@@ -35,6 +37,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [accountId, setAccountId] = useState('Unknown');
+  const [availableAccounts, setAvailableAccounts] = useState([]);
   const [services, setServices] = useState([]);
   const [frameworks, setFrameworks] = useState([]);
   const [customPages, setCustomPages] = useState([]);
@@ -54,6 +57,7 @@ function App() {
         
         setData(reportData);
         setAccountId(getAccountId(reportData));
+        setAvailableAccounts(discoverAccounts());
         setServices(getServices(reportData));
         setFrameworks(getFrameworks(reportData));
         setCustomPages(getCustomPages(reportData));
@@ -67,6 +71,25 @@ function App() {
     
     loadData();
   }, []);
+  
+  // Update account ID when URL changes (for account switching)
+  useEffect(() => {
+    const updateAccountId = () => {
+      if (data) {
+        const newAccountId = getAccountId(data);
+        setAccountId(newAccountId);
+      }
+    };
+    
+    // Listen for URL changes (including hash changes)
+    window.addEventListener('popstate', updateAccountId);
+    window.addEventListener('hashchange', updateAccountId);
+    
+    return () => {
+      window.removeEventListener('popstate', updateAccountId);
+      window.removeEventListener('hashchange', updateAccountId);
+    };
+  }, [data]);
   
   // Handle suppression modal
   const handleSuppressionClick = () => {
@@ -117,6 +140,8 @@ function App() {
         <SkipToContent />
         <ServiceScreenerTopNav 
           accountId={accountId}
+          availableAccounts={availableAccounts}
+          onAccountSwitch={switchAccount}
           hasSuppressions={hasSuppressions(data)}
           onSuppressionClick={handleSuppressionClick}
         />

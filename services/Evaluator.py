@@ -156,32 +156,46 @@ class Evaluator():
     
     ## Enhancement 20240117 - Capture all scanned resources    
     def __del__(self):
-        driver = type(self).__name__.lower()
-        classPrefix = Config.getDriversClassPrefix(driver)
-        
-        ConfigKey = 'AllScannedResources.' + classPrefix
-        scanned = Config.get(ConfigKey, [])
-        
-        # print(classPrefix, Config.get(classPrefix))
-        
-        hasError = '1'
-        for check, find in self.results.items():
-            if find[0] == -1:
-                hasError = '-1'
-                break
-        
-        name = ""
-        if hasattr(self, '_resourceName'):
-            name = self._resourceName
-        else:
-            _warn("driver: '{}' need to set self._resourceName".format(driver))
+        try:
+            driver = type(self).__name__.lower()
+            classPrefix = Config.getDriversClassPrefix(driver)
+            
+            ConfigKey = 'AllScannedResources.' + classPrefix
+            scanned = Config.get(ConfigKey, [])
+            
+            # print(classPrefix, Config.get(classPrefix))
+            
+            hasError = '1'
+            for check, find in self.results.items():
+                if find[0] == -1:
+                    hasError = '-1'
+                    break
+            
+            name = ""
+            if hasattr(self, '_resourceName'):
+                name = self._resourceName
+            else:
+                _warn("driver: '{}' need to set self._resourceName".format(driver))
 
-        scanned.append(';'.join([Config.get(classPrefix, ""), driver or "", name or "", hasError or ""]))
-        Config.set(ConfigKey, scanned)
+            # Ensure all values are strings and handle None values
+            config_value = Config.get(classPrefix, "") or ""
+            driver_value = driver or ""
+            name_value = name or ""
+            error_value = hasError or ""
             
-            
-        ## Handle custom page requirement
-        cp = CustomPage()
+            # Join with proper string values
+            scanned.append(';'.join([config_value, driver_value, name_value, error_value]))
+            Config.set(ConfigKey, scanned)
+                
+            ## Handle custom page requirement
+            cp = CustomPage()
+        except Exception as e:
+            # Prevent destructor errors from propagating
+            try:
+                _warn(f"Error in Evaluator destructor for {type(self).__name__}: {str(e)}")
+            except:
+                # If even logging fails, silently ignore to prevent cascade errors
+                pass
         
         emsg = []
         try:

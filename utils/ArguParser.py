@@ -90,6 +90,11 @@ class ArguParser:
             "required": False,
             "default": False,
             "help": "Run checks sequentially instead of concurrent (default: concurrent for better performance)"
+        },
+        'disable-custom-pages': {
+            "required": False,
+            "default": False,
+            "help": "Disable custom pages processing (COH, TA, Findings, Modernize) for faster scans. Only core service analysis will be performed."
         }
     }
 

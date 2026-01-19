@@ -102,32 +102,6 @@ const EnhancedKPICard = ({
   
   return <Container>{content}</Container>;
 };
-
-/**
- * ROI Progress Card component
- */
-const ROIProgressCard = ({ title, current, target, unit = '%' }) => {
-  const percentage = target > 0 ? Math.min((current / target) * 100, 100) : 0;
-  const status = percentage >= 100 ? 'success' : percentage >= 75 ? 'in-progress' : 'error';
-  
-  return (
-    <Container>
-      <SpaceBetween size="s">
-        <Box variant="awsui-key-label">{title}</Box>
-        <ProgressBar
-          value={percentage}
-          variant={status}
-          description={`${current}${unit} of ${target}${unit} target`}
-          label={`${percentage.toFixed(1)}% complete`}
-        />
-        <Box fontSize="body-s" color="text-body-secondary">
-          Current: {current}{unit} | Target: {target}{unit}
-        </Box>
-      </SpaceBetween>
-    </Container>
-  );
-};
-
 /**
  * Priority Breakdown Card component
  */
@@ -293,41 +267,63 @@ const ExecutiveDashboard = ({ cohData, onExport, onDrillDown }) => {
     quality: { trend: 'up', value: '+5%' }
   };
 
-  // Mock service data (in real implementation, this would be calculated from recommendations)
-  const serviceData = [
-    {
-      service: 'ec2',
-      monthlySavings: 1200,
-      recommendationCount: 8,
-      highPriority: 3,
-      mediumPriority: 4,
-      lowPriority: 1,
-      effort: 'medium'
-    },
-    {
-      service: 's3',
-      monthlySavings: 800,
-      recommendationCount: 5,
-      highPriority: 1,
-      mediumPriority: 2,
-      lowPriority: 2,
-      effort: 'low'
-    },
-    {
-      service: 'rds',
-      monthlySavings: 500,
-      recommendationCount: 3,
-      highPriority: 1,
-      mediumPriority: 1,
-      lowPriority: 1,
-      effort: 'high'
-    }
-  ];
+  // Calculate real service data from actual recommendations
+  const calculateServiceData = () => {
+    const recommendations = cohData.recommendations || [];
+    const serviceBreakdown = {};
+    
+    // Process each recommendation to build service breakdown
+    recommendations.forEach(rec => {
+      const service = rec.service || 'other';
+      if (!serviceBreakdown[service]) {
+        serviceBreakdown[service] = {
+          service: service,
+          monthlySavings: 0,
+          recommendationCount: 0,
+          highPriority: 0,
+          mediumPriority: 0,
+          lowPriority: 0,
+          effort: 'medium'
+        };
+      }
+      
+      serviceBreakdown[service].monthlySavings += rec.monthly_savings || 0;
+      serviceBreakdown[service].recommendationCount += 1;
+      
+      // Count by priority
+      const priority = rec.priority_level || 'medium';
+      if (priority === 'high') serviceBreakdown[service].highPriority += 1;
+      else if (priority === 'medium') serviceBreakdown[service].mediumPriority += 1;
+      else serviceBreakdown[service].lowPriority += 1;
+      
+      // Set effort level (use most common or highest effort)
+      const effort = rec.implementation_effort || 'medium';
+      if (effort === 'high' || serviceBreakdown[service].effort !== 'high') {
+        serviceBreakdown[service].effort = effort;
+      }
+    });
+    
+    // Convert to array and sort by savings (highest first)
+    return Object.values(serviceBreakdown)
+      .sort((a, b) => b.monthlySavings - a.monthlySavings)
+      .slice(0, 10); // Limit to top 10 services
+  };
+
+  const serviceData = calculateServiceData();
 
   const priorities = {
-    high: keyMetrics.high_priority_count || 0,
-    medium: keyMetrics.medium_priority_count || 0,
-    low: keyMetrics.low_priority_count || 0
+    high: (() => {
+      const recommendations = cohData.recommendations || [];
+      return recommendations.filter(r => r.priority_level === 'high').length;
+    })(),
+    medium: (() => {
+      const recommendations = cohData.recommendations || [];
+      return recommendations.filter(r => r.priority_level === 'medium').length;
+    })(),
+    low: (() => {
+      const recommendations = cohData.recommendations || [];
+      return recommendations.filter(r => r.priority_level === 'low').length;
+    })()
   };
 
   const handleMetricClick = (metricType) => {
@@ -352,23 +348,6 @@ const ExecutiveDashboard = ({ cohData, onExport, onDrillDown }) => {
           <Header
             variant="h1"
             description="Executive-level cost optimization insights and key performance indicators"
-            actions={
-              <SpaceBetween size="s" direction="horizontal">
-                <Button 
-                  variant="normal"
-                  iconName="download"
-                  onClick={() => setShowExportModal(true)}
-                >
-                  Export Report
-                </Button>
-                <Button 
-                  variant="primary"
-                  iconName="refresh"
-                >
-                  Refresh Data
-                </Button>
-              </SpaceBetween>
-            }
           >
             Executive Dashboard
           </Header>
@@ -388,7 +367,7 @@ const ExecutiveDashboard = ({ cohData, onExport, onDrillDown }) => {
           </Header>
         }
       >
-        <ColumnLayout columns={4} variant="text-grid">
+        <ColumnLayout columns={3} variant="text-grid">
           <EnhancedKPICard
             title="Monthly Savings Potential"
             value={`$${keyMetrics.total_monthly_savings?.toLocaleString() || '0'}`}
@@ -424,48 +403,6 @@ const ExecutiveDashboard = ({ cohData, onExport, onDrillDown }) => {
             clickable={true}
             onClick={() => handleMetricClick('priority')}
           />
-          
-          <EnhancedKPICard
-            title="Data Quality Score"
-            value={`${keyMetrics.data_quality_score || 0}%`}
-            subtitle="recommendation confidence"
-            variant="h2"
-            icon="📊"
-            trend={trendData.quality.trend}
-            trendValue={trendData.quality.value}
-            clickable={true}
-            onClick={() => handleMetricClick('quality')}
-          />
-        </ColumnLayout>
-      </Container>
-
-      {/* ROI and Progress Tracking */}
-      <Container
-        header={
-          <Header variant="h2">
-            ROI & Progress Tracking
-          </Header>
-        }
-      >
-        <ColumnLayout columns={3} variant="text-grid">
-          <ROIProgressCard
-            title="Cost Reduction Target"
-            current={15}
-            target={20}
-            unit="%"
-          />
-          <ROIProgressCard
-            title="Implementation Progress"
-            current={35}
-            target={100}
-            unit="%"
-          />
-          <ROIProgressCard
-            title="Quarterly Savings Goal"
-            current={7500}
-            target={10000}
-            unit=""
-          />
         </ColumnLayout>
       </Container>
 
@@ -497,10 +434,17 @@ const ExecutiveDashboard = ({ cohData, onExport, onDrillDown }) => {
             <Box>
               <Box variant="awsui-key-label">Potential Quick Win Savings</Box>
               <Box fontSize="heading-l" fontWeight="bold" color="text-status-success">
-                ${((keyMetrics.total_monthly_savings || 0) * 0.4).toLocaleString()}
+                ${(() => {
+                  // Calculate actual quick wins savings (same logic as Phase 1)
+                  const recommendations = cohData.recommendations || [];
+                  const quickWinSavings = recommendations
+                    .filter(r => r.implementation_effort === 'low' && (r.monthly_savings || 0) > 0)
+                    .reduce((sum, rec) => sum + (rec.monthly_savings || 0), 0);
+                  return quickWinSavings.toLocaleString();
+                })()}
               </Box>
               <Box fontSize="body-s" color="text-body-secondary">
-                Estimated monthly savings from quick wins
+                Monthly savings from Phase 1 quick wins
               </Box>
             </Box>
 

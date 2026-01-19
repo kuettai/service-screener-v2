@@ -5,8 +5,29 @@ import TopNavigation from '@cloudscape-design/components/top-navigation';
  * TopNavigation component for Service Screener
  * Displays branding, account selector, and suppression indicator
  */
-const ServiceScreenerTopNav = ({ accountId, hasSuppressions, onSuppressionClick }) => {
+const ServiceScreenerTopNav = ({ accountId, availableAccounts = [], onAccountSwitch, hasSuppressions, onSuppressionClick }) => {
   const utilities = [];
+  
+  // Handle account switching
+  const handleUtilityClick = (event) => {
+    console.log('TopNavigation utility clicked:', event.detail);
+    const { id } = event.detail;
+    
+    // Handle account switching
+    if (availableAccounts.find(account => account.id === id)) {
+      console.log('Switching to account:', id);
+      if (onAccountSwitch) {
+        onAccountSwitch(id);
+      }
+    }
+  };
+  
+  // Debug logging
+  console.log('TopNavigation render:', {
+    accountId,
+    availableAccounts,
+    hasMultipleAccounts: availableAccounts.length > 1
+  });
   
   // Add GitHub link
   utilities.push({
@@ -28,19 +49,43 @@ const ServiceScreenerTopNav = ({ accountId, hasSuppressions, onSuppressionClick 
     });
   }
   
-  // Add account info
-  utilities.push({
-    type: 'menu-dropdown',
-    text: accountId || 'Unknown Account',
-    iconName: 'user-profile',
-    items: [
-      {
-        id: 'account',
-        text: `Account: ${accountId || 'Unknown'}`,
-        disabled: true
+  // Add account selector if multiple accounts available
+  if (availableAccounts.length > 1) {
+    utilities.push({
+      type: 'menu-dropdown',
+      text: `${accountId || 'Unknown Account'}`,
+      iconName: 'user-profile',
+      items: availableAccounts.map(account => ({
+        id: account.id,
+        text: account.id === accountId ? `${account.label} (Current)` : account.label,
+        disabled: account.id === accountId
+      })),
+      onItemClick: ({ detail }) => {
+        console.log('Account menu item clicked:', detail);
+        const { id } = detail;
+        if (availableAccounts.find(account => account.id === id)) {
+          console.log('Switching to account:', id);
+          if (onAccountSwitch) {
+            onAccountSwitch(id);
+          }
+        }
       }
-    ]
-  });
+    });
+  } else {
+    // Single account - show as info only
+    utilities.push({
+      type: 'menu-dropdown',
+      text: accountId || 'Unknown Account',
+      iconName: 'user-profile',
+      items: [
+        {
+          id: 'account-info',
+          text: `Account: ${accountId || 'Unknown'}`,
+          disabled: true
+        }
+      ]
+    });
+  }
   
   return (
     <TopNavigation
@@ -53,6 +98,7 @@ const ServiceScreenerTopNav = ({ accountId, hasSuppressions, onSuppressionClick 
         }
       }}
       utilities={utilities}
+      onUtilityClick={handleUtilityClick}
       i18nStrings={{
         searchIconAriaLabel: 'Search',
         searchDismissIconAriaLabel: 'Close search',
