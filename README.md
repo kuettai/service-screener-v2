@@ -12,7 +12,7 @@ This version of Service Screener may not compatible with the Greater China regio
 
 ### Latest Beta Features:
 - **🆕 AWS Cloudscape Design System UI**: Modern React-based interface
-  - 90% smaller file size (2.2MB vs 20MB+)
+  - Self-contained single HTML file (~2.7MB with embedded React and data)
   - Enhanced GuardDuty reporting with interactive charts
   - Cross-service findings aggregation with advanced filtering
   - Interactive modernization recommendations (Sankey diagrams)
