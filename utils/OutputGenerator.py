@@ -176,18 +176,9 @@ class OutputGenerator:
                 else:
                     print(framework + " GATECHECK==FALSE")
         
-        # Generate custom pages
-        cp = CustomPage()
-        try:
-            _cli_options = Config.get('_SS_PARAMS', {})
-            if _cli_options.get('ztestmode') != '1':
-                cp.buildPage()
-        except Exception as e:
-            _warn(f"Custom page generation failed: {e}")
-        
-        reporter.resetDashboard()
-        cp.resetPages()
-        del cp
+        # Custom pages are already built in main.py, no need to rebuild here
+        # This prevents duplicate TA/COH API calls
+        _info("Using CustomPage data already collected in main.py")
         
         # Add metadata including suppressions
         _info("Adding metadata to api-full.json...")

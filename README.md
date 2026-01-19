@@ -18,7 +18,7 @@ This version of Service Screener may not compatible with the Greater China regio
   - Interactive modernization recommendations (Sankey diagrams)
   - Trusted Advisor integration with pillar-based organization
   - Framework compliance reporting with visualizations
-  - Accessibility compliant (WCAG 2.1 Level AA)
+  - Built on AWS Cloudscape Design System (designed for accessibility)
   - Mobile responsive design
 
 - **🔧 API Buttons**: Interactive API call functionality in service pages
