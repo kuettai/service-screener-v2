@@ -837,6 +837,11 @@ class COH(CustomObject):
         Returns JSON data for the COH service
         """
         try:
+            # Ensure build() has been called if no data exists
+            if not self.recommendations and not self.data_already_collected:
+                _pr("COH printInfo called before build(), calling build() now...")
+                self.build()
+            
             # Return the data formatted for UI consumption
             return json.dumps(self.get_data_for_ui(), indent=2, default=str)
         except Exception as e:

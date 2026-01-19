@@ -258,7 +258,19 @@ class TA(CustomObject):
         Return TA data in JSON format for CustomPage system.
         This method is called by CustomPage.writeOutput() to save TA data.
         """
-        # Ensure build() has been called
+        # Check cache first to avoid duplicate builds
+        from utils.Config import Config
+        account_id = Config.get('ACCOUNT_ID', 'default')
+        regions = Config.get('REGIONS_SELECTED', ['us-east-1'])
+        cache_key = f"{account_id}_{'-'.join(regions)}"
+        
+        # If cache exists, load from cache
+        if cache_key in TA._cache and not self.taFindings:
+            cached_data = TA._cache[cache_key]
+            self.taFindings = cached_data.get('taFindings', {})
+            self.taError = cached_data.get('taError', '')
+        
+        # Ensure build() has been called (only if no cache and no data)
         if not self.taFindings and not self.taError:
             print("TA printInfo called before build(), calling build() now...")
             self.build()
