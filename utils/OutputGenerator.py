@@ -277,7 +277,7 @@ class OutputGenerator:
                 return False
         
         # Run npm build
-        _info("Building React app...")
+        _info("Building Cloudscape React UI (this may take 15-20 seconds)...")
         try:
             result = subprocess.run(
                 ['npm', 'run', 'build'],
@@ -291,7 +291,7 @@ class OutputGenerator:
                 _warn(f"npm build failed: {result.stderr}")
                 return False
             
-            _info("React build completed successfully")
+            _info("✓ Cloudscape React UI build completed successfully")
             return True
             
         except subprocess.TimeoutExpired:
@@ -388,6 +388,7 @@ class OutputGenerator:
         """
         Embed JSON data into HTML file for offline access.
         """
+        _info("Embedding scan data into Cloudscape HTML...")
         # Source files
         dist_dir = os.path.join(_C.ROOT_DIR, 'cloudscape-ui', 'dist')
         source_html = os.path.join(dist_dir, 'index.html')
@@ -467,7 +468,7 @@ window.__CONTENT_ENRICHMENT_DATA__ = {escaped_content_data};'''
         with open(dest_html, 'w', encoding='utf-8') as f:
             f.write(html_content)
         
-        _info(f"Data embedded into {dest_html}")
+        _info(f"✓ Data embedded successfully into Cloudscape HTML")
 
     def _add_custompage_data(self, api_result_array):
         """
