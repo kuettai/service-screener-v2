@@ -15,7 +15,7 @@ import Button from '@cloudscape-design/components/button';
 import Pagination from '@cloudscape-design/components/pagination';
 
 import { getFrameworkData } from '../utils/dataLoader';
-import { decodeHtml } from '../utils/htmlDecoder';
+import { renderHtml } from '../utils/htmlDecoder';
 
 /**
  * FrameworkDetail component - displays compliance framework reports
@@ -99,8 +99,8 @@ const FrameworkDetail = ({ data }) => {
       category: row[0] || '',
       ruleId: row[1] || '',
       complianceStatus: row[2], // 0 = Not Available, 1 = Compliant, -1 = Need Attention
-      description: decodeHtml(row[3] || ''),
-      reference: decodeHtml(row[4] || '')
+      description: row[3] || '',
+      reference: row[4] || ''
     }));
   }, [details]);
 
@@ -222,7 +222,7 @@ const FrameworkDetail = ({ data }) => {
       header: 'Description',
       cell: item => (
         <Box>
-          <div dangerouslySetInnerHTML={{ __html: item.description }} />
+          <div dangerouslySetInnerHTML={renderHtml(item.description)} />
         </Box>
       ),
       width: 400
@@ -232,7 +232,7 @@ const FrameworkDetail = ({ data }) => {
       header: 'Reference',
       cell: item => (
         <Box>
-          <div dangerouslySetInnerHTML={{ __html: item.reference }} />
+          <div dangerouslySetInnerHTML={renderHtml(item.reference)} />
         </Box>
       ),
       width: 200
