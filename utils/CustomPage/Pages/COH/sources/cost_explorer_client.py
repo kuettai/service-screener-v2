@@ -75,19 +75,22 @@ class CostExplorerClient(BaseOptimizationClient):
             error_message = e.response['Error']['Message']
             if error_code == 'AccessDeniedException':
                 if 'opt-in only feature' in error_message:
-                    _pr("Cost Explorer Rightsizing is an opt-in feature - skipping rightsizing recommendations")
+                    _pr("[INFO] Cost Explorer Rightsizing is an opt-in feature and not enabled for this account")
+                    _pr("[INFO] To enable: AWS Console → Cost Explorer → Preferences → Enable Rightsizing Recommendations")
+                    _pr("[INFO] Skipping Cost Explorer rightsizing recommendations")
                     return []
                 else:
-                    _warn("Insufficient permissions for Cost Explorer rightsizing. Required: ce:GetRightsizingRecommendation")
+                    _warn("[PERMISSION ERROR] Insufficient permissions for Cost Explorer rightsizing")
+                    _warn("[PERMISSION ERROR] Required IAM permission: ce:GetRightsizingRecommendation")
                     return []
             elif error_code == 'ValidationException':
-                _warn(f"Invalid parameters for rightsizing recommendations: {error_message}")
+                _warn(f"[VALIDATION ERROR] Invalid parameters for rightsizing recommendations: {error_message}")
                 return []
             else:
-                _warn(f"Error getting rightsizing recommendations: {str(e)}")
+                _warn(f"[API ERROR] Error getting rightsizing recommendations: {str(e)}")
                 return []
         except Exception as e:
-            _warn(f"Unexpected error in Cost Explorer rightsizing: {str(e)}")
+            _warn(f"[UNEXPECTED ERROR] Unexpected error in Cost Explorer rightsizing: {str(e)}")
             return []
     
     def get_reserved_instance_coverage(self, lookback_days=30, group_by_service=True):

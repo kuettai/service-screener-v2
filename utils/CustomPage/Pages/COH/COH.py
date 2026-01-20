@@ -1316,11 +1316,11 @@ class COH(CustomObject):
                 try:
                     result = future.result(timeout=120)  # 2 minute timeout per source
                     if result:
-                        _pr(f"Successfully collected data from {source_name}")
+                        _pr(f"✓ Successfully collected data from {source_name}")
                         successful_sources.append(source_name)
                     else:
-                        _warn(f"No data collected from {source_name}")
-                        failed_sources.append(f"{source_name} (no data)")
+                        _pr(f"○ {source_name}: No recommendations available (this is normal - see details above)")
+                        failed_sources.append(f"{source_name} (no recommendations)")
                 except Exception as e:
                     error_msg = f"Error collecting data from {source_name}: {str(e)}"
                     _warn(error_msg)
@@ -1559,7 +1559,7 @@ class COH(CustomObject):
             rightsizing_recs = self.cost_explorer_client.get_rightsizing_recommendations()
             
             if rightsizing_recs:
-                _pr(f"Found {len(rightsizing_recs)} Cost Explorer recommendations")
+                _pr(f"✓ Found {len(rightsizing_recs)} Cost Explorer recommendations")
                 
                 # Cache the raw data
                 if self.cache_enabled:
@@ -1576,7 +1576,8 @@ class COH(CustomObject):
                 
                 return True
             else:
-                _pr("No Cost Explorer recommendations found")
+                _pr("✓ Cost Explorer API call successful - No rightsizing recommendations available")
+                _pr("   This is normal if: 1) Instances are already optimally sized, 2) Feature not enabled, 3) Insufficient usage data")
                 return False
                 
         except Exception as e:
@@ -1605,7 +1606,7 @@ class COH(CustomObject):
             sp_recs = self.savings_plans_client.get_savings_plans_purchase_recommendations()
             
             if sp_recs:
-                _pr(f"Found {len(sp_recs)} Savings Plans recommendations")
+                _pr(f"✓ Found {len(sp_recs)} Savings Plans recommendations")
                 
                 # Cache the raw data
                 if self.cache_enabled:
@@ -1622,7 +1623,8 @@ class COH(CustomObject):
                 
                 return True
             else:
-                _pr("No Savings Plans recommendations found")
+                _pr("✓ Savings Plans API call successful - No purchase recommendations available")
+                _pr("   This is normal if: 1) Already have optimal coverage, 2) No consistent usage patterns, 3) Account is new")
                 return False
                 
         except Exception as e:

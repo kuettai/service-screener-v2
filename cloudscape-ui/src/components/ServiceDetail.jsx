@@ -222,8 +222,8 @@ const ServiceDetail = () => {
     const quickWinCount = findings.filter(finding => isQuickWin(finding)).length;
     
     const formatTime = (seconds) => {
-      if (!seconds || seconds === 0) return '0.00s';
-      return `${parseFloat(seconds).toFixed(3)}s`;
+      if (!seconds || seconds === 0) return '0s';
+      return `${Math.round(parseFloat(seconds))}s`;
     };
     
     return {

@@ -262,7 +262,6 @@ const ContentEnrichment = ({ data }) => {
               <Button 
                 variant="primary" 
                 onClick={handleButtonClick(() => setExpanded(true))}
-                iconName="expand"
                 size={viewportSize === 'mobile' ? 'normal' : 'normal'}
                 style={{
                   minHeight: responsiveConfig.touchTargetSize,
@@ -285,7 +284,7 @@ const ContentEnrichment = ({ data }) => {
                   }
                 }}
               >
-                {viewportSize === 'mobile' ? 'View' : 'View Details'}
+                ▼ {viewportSize === 'mobile' ? 'View' : 'View Details'}
               </Button>
             }
           >
@@ -777,7 +776,6 @@ const ContentEnrichment = ({ data }) => {
             <Button 
               variant="normal" 
               onClick={handleButtonClick(() => setExpanded(false))}
-              iconName="collapse"
               size={viewportSize === 'mobile' ? 'normal' : 'normal'}
               style={{
                 minHeight: responsiveConfig.touchTargetSize,
@@ -800,25 +798,8 @@ const ContentEnrichment = ({ data }) => {
                 }
               }}
             >
-              {viewportSize === 'mobile' ? 'Hide' : 'Collapse'}
+              ▲ {viewportSize === 'mobile' ? 'Hide' : 'Collapse'}
             </Button>
-          }
-          info={
-            !responsiveConfig.compactBadges && (
-              <Link 
-                variant="info" 
-                onFollow={() => {
-                  // Could open a modal with more info about content enrichment
-                }}
-                style={{
-                  minHeight: responsiveConfig.touchTargetSize,
-                  padding: '8px',
-                  borderRadius: '4px'
-                }}
-              >
-                Info
-              </Link>
-            )
           }
         >
           {viewportSize === 'mobile' ? 

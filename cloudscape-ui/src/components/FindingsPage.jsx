@@ -11,6 +11,7 @@ import PropertyFilter from '@cloudscape-design/components/property-filter';
 import Pagination from '@cloudscape-design/components/pagination';
 import CollectionPreferences from '@cloudscape-design/components/collection-preferences';
 import Badge from '@cloudscape-design/components/badge';
+import Button from '@cloudscape-design/components/button';
 
 /**
  * FindingsPage component
@@ -298,26 +299,45 @@ const FindingsPage = ({ data }) => {
           </Header>
         }
         filter={
-          <SpaceBetween size="xs" direction="vertical">
-            <PropertyFilter
-              query={propertyFilterQuery}
-              onChange={({ detail }) => {
-                setPropertyFilterQuery(detail);
-                setCurrentPageIndex(1);
-              }}
-              filteringProperties={filteringProperties}
-              filteringPlaceholder="Filter findings"
-              filteringAriaLabel="Filter findings"
-            />
-            <TextFilter
-              filteringText={filteringText}
-              onChange={({ detail }) => {
-                setFilteringText(detail.filteringText);
-                setCurrentPageIndex(1);
-              }}
-              filteringPlaceholder="Search all fields"
-              filteringAriaLabel="Search findings"
-            />
+          <SpaceBetween size="xs" direction="horizontal">
+            <div style={{ flex: 1 }}>
+              <SpaceBetween size="xs" direction="vertical">
+                <PropertyFilter
+                  query={propertyFilterQuery}
+                  onChange={({ detail }) => {
+                    setPropertyFilterQuery(detail);
+                    setCurrentPageIndex(1);
+                  }}
+                  filteringProperties={filteringProperties}
+                  filteringPlaceholder="Filter findings"
+                  filteringAriaLabel="Filter findings"
+                  customControl={
+                    (propertyFilterQuery.tokens.length > 0 || filteringText) && (
+                      <Button
+                        onClick={() => {
+                          setPropertyFilterQuery({ tokens: [], operation: 'and' });
+                          setFilteringText('');
+                          setCurrentPageIndex(1);
+                        }}
+                        variant="normal"
+                        ariaLabel="Clear all filters"
+                      >
+                        ✕ Clear filters
+                      </Button>
+                    )
+                  }
+                />
+                <TextFilter
+                  filteringText={filteringText}
+                  onChange={({ detail }) => {
+                    setFilteringText(detail.filteringText);
+                    setCurrentPageIndex(1);
+                  }}
+                  filteringPlaceholder="Search all fields"
+                  filteringAriaLabel="Search findings"
+                />
+              </SpaceBetween>
+            </div>
           </SpaceBetween>
         }
         pagination={

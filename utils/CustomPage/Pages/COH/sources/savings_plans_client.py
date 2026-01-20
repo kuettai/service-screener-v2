@@ -94,17 +94,24 @@ class SavingsPlansClient(BaseOptimizationClient):
             
         except ClientError as e:
             error_code = e.response['Error']['Code']
+            error_message = e.response['Error']['Message']
             if error_code == 'AccessDeniedException':
-                _warn("Insufficient permissions for Savings Plans recommendations. Required: ce:GetSavingsPlansRecommendation")
+                if 'opt-in' in error_message.lower() or 'not enabled' in error_message.lower():
+                    _pr("[INFO] Savings Plans recommendations may require opt-in or have no suitable recommendations")
+                    _pr("[INFO] This is normal if: 1) No consistent usage patterns, 2) Already have optimal coverage, 3) Account is new")
+                    _pr("[INFO] Skipping Savings Plans recommendations")
+                else:
+                    _warn("[PERMISSION ERROR] Insufficient permissions for Savings Plans recommendations")
+                    _warn("[PERMISSION ERROR] Required IAM permission: ce:GetSavingsPlansPurchaseRecommendation")
                 return []
             elif error_code == 'ValidationException':
-                _warn(f"Invalid parameters for Savings Plans recommendations: {e.response['Error']['Message']}")
+                _warn(f"[VALIDATION ERROR] Invalid parameters for Savings Plans recommendations: {error_message}")
                 return []
             else:
-                _warn(f"Error getting Savings Plans recommendations: {str(e)}")
+                _warn(f"[API ERROR] Error getting Savings Plans recommendations: {str(e)}")
                 return []
         except Exception as e:
-            _warn(f"Unexpected error in Savings Plans recommendations: {str(e)}")
+            _warn(f"[UNEXPECTED ERROR] Unexpected error in Savings Plans recommendations: {str(e)}")
             return []
     
     def get_savings_plans_utilization(self, start_date=None, end_date=None, granularity='MONTHLY'):
