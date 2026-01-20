@@ -48,14 +48,9 @@ export const loadReportData = async () => {
  * @returns {Array} Array of account objects with id and label
  */
 export const discoverAccounts = () => {
-  // TEMPORARY: Force multiple accounts for testing
-  const testAccounts = ['956288449190', '123456789012', '987654321098'];
-  const accounts = testAccounts.map(accountId => ({
-    id: accountId,
-    label: `Account ${accountId}`
-  }));
-  console.log('FORCED test accounts for debugging:', accounts);
-  return accounts;
+  // In a real multi-account scenario, this would scan the directory structure
+  // For now, return empty array as single-account is the default use case
+  return [];
 };
 
 /**
