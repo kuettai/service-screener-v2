@@ -31,7 +31,6 @@ const ContentEnrichment = ({ data }) => {
   const [touchStartY, setTouchStartY] = useState(null);
   const [contentLoadingProgress, setContentLoadingProgress] = useState(0);
   const [isContentRendering, setIsContentRendering] = useState(false);
-  const [bookmarkedItems, setBookmarkedItems] = useState(new Set());
 
   // Touch interaction handlers
   const handleTouchStart = (e) => {
@@ -71,44 +70,6 @@ const ContentEnrichment = ({ data }) => {
     };
   };
 
-  // Bookmark management functions (localStorage-based for offline persistence)
-  const loadBookmarks = () => {
-    try {
-      const stored = localStorage.getItem('service-screener-bookmarks');
-      if (stored) {
-        const bookmarks = JSON.parse(stored);
-        setBookmarkedItems(new Set(bookmarks));
-      }
-    } catch (error) {
-      console.warn('Failed to load bookmarks from localStorage:', error);
-    }
-  };
-
-  const saveBookmarks = (bookmarks) => {
-    try {
-      localStorage.setItem('service-screener-bookmarks', JSON.stringify(Array.from(bookmarks)));
-    } catch (error) {
-      console.warn('Failed to save bookmarks to localStorage:', error);
-    }
-  };
-
-  const toggleBookmark = (itemId) => {
-    setBookmarkedItems(prev => {
-      const newBookmarks = new Set(prev);
-      if (newBookmarks.has(itemId)) {
-        newBookmarks.delete(itemId);
-      } else {
-        newBookmarks.add(itemId);
-      }
-      saveBookmarks(newBookmarks);
-      return newBookmarks;
-    });
-  };
-
-  const isBookmarked = (itemId) => {
-    return bookmarkedItems.has(itemId);
-  };
-
   // Responsive breakpoints
   const getViewportSize = () => {
     if (typeof window === 'undefined') return 'desktop';
@@ -129,11 +90,6 @@ const ContentEnrichment = ({ data }) => {
     // Add resize listener
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Load bookmarks on component mount
-  useEffect(() => {
-    loadBookmarks();
   }, []);
 
   useEffect(() => {
@@ -261,17 +217,8 @@ const ContentEnrichment = ({ data }) => {
     );
   }
 
-  // Prepare tab data including bookmarks
+  // Prepare tab data (removed Bookmarks tab)
   const categories = [
-    {
-      id: 'bookmarks',
-      label: 'Bookmarks',
-      icon: '❤️',
-      items: contentData ? 
-        Object.values(contentData.contentData || {})
-          .flat()
-          .filter(item => isBookmarked(item.id)) : []
-    },
     {
       id: 'security-reliability',
       label: 'Security & Reliability',
@@ -533,36 +480,6 @@ const ContentEnrichment = ({ data }) => {
               alignItems: 'center',
               minHeight: responsiveConfig.touchTargetSize / 2 // Ensure adequate touch area
             }}>
-              {/* Bookmark button */}
-              <Button
-                variant="icon"
-                iconName={isBookmarked(item.id) ? "heart-filled" : "heart"}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  toggleBookmark(item.id);
-                }}
-                ariaLabel={isBookmarked(item.id) ? "Remove bookmark" : "Add bookmark"}
-                style={{
-                  minHeight: viewportSize === 'mobile' ? '32px' : '28px',
-                  minWidth: viewportSize === 'mobile' ? '32px' : '28px',
-                  padding: '4px',
-                  color: isBookmarked(item.id) ? '#d91515' : '#5f6b7a'
-                }}
-                onTouchStart={(e) => {
-                  if (responsiveConfig.tapHighlight) {
-                    e.currentTarget.style.transform = 'scale(0.9)';
-                  }
-                }}
-                onTouchEnd={(e) => {
-                  if (responsiveConfig.tapHighlight) {
-                    setTimeout(() => {
-                      e.currentTarget.style.transform = 'scale(1)';
-                    }, 100);
-                  }
-                }}
-              />
-              
               {item.is_new && (
                 <Badge 
                   color="green"
