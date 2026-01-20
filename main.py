@@ -445,6 +445,7 @@ for acctId, cred in rolesCred.items():
                 scan_findings=scan_findings
             )
             
+            _info(f"Fetching AWS best practices and security insights (this may take 10-15 seconds)...")
             _info(f"Content enrichment: Processing {len(detected_services)} detected services...")
             
             # Parse enrichment categories from CLI options
@@ -488,7 +489,7 @@ for acctId, cred in rolesCred.items():
             # Serialize content for HTML embedding
             enriched_content_data = content_aggregator.serialize_for_html(processed_content, detected_services)
             
-            _info(f"Content enrichment complete: {total_items} relevant items found")
+            _info(f"✓ Content enrichment complete: {total_items} relevant items found")
             
             # Store enriched content in Config for use by page builders
             Config.set('enriched_content_data', enriched_content_data)
