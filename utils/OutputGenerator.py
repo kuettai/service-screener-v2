@@ -211,11 +211,9 @@ class OutputGenerator:
         if Config.get('disable_custom_pages', False):
             _info("TA data generation skipped (disabled via --disable-custom-pages)")
         else:
-            _info("Generating TA data for Cloudscape UI...")
             try:
                 from Screener import Screener
                 Screener.generateTAData(self.html_folder)
-                _info("TA data generated successfully")
             except Exception as e:
                 _warn(f"Failed to generate TA data: {e}")
     

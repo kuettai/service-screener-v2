@@ -332,6 +332,16 @@ class Screener:
     def generateTAData(htmlFolder):
         """Generate TA data for Cloudscape UI"""
         try:
+            import os
+            import json
+            
+            # Check if ta.json already exists (from CustomPage build)
+            ta_file_path = os.path.join(htmlFolder, 'ta.json')
+            if os.path.exists(ta_file_path):
+                from utils.Tools import _pr
+                _pr(f"TA data already exists: {ta_file_path}")
+                return
+            
             from utils.CustomPage.Pages.TA.TA import TA
             
             # Create TA instance and build data
