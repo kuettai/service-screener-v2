@@ -1342,23 +1342,26 @@ class COH(CustomObject):
         success_rate = len(successful_sources) / total_sources if total_sources > 0 else 0
         
         if success_rate == 1.0:
-            _pr("All cost optimization sources collected successfully")
+            _pr("✓ All cost optimization sources collected successfully")
         elif success_rate >= 0.67:
-            _pr(f"Partial success: {len(successful_sources)}/{total_sources} sources available")
+            _pr(f"⚠ Partial success: {len(successful_sources)}/{total_sources} sources available")
+            _pr(f"   Failed sources: {', '.join(failed_sources)}")
             self.error_messages.append(f"Some data sources unavailable: {', '.join(failed_sources)}")
         elif success_rate >= 0.33:
-            _warn(f"Limited data: Only {len(successful_sources)}/{total_sources} sources available")
+            _warn(f"⚠ Limited data: Only {len(successful_sources)}/{total_sources} sources available")
+            _warn(f"   Failed sources: {', '.join(failed_sources)}")
             self.error_messages.append(f"Limited cost optimization data due to source failures: {', '.join(failed_sources)}")
         else:
-            _warn(f"Minimal data: Only {len(successful_sources)}/{total_sources} sources available")
+            _warn(f"⚠ Minimal data: Only {len(successful_sources)}/{total_sources} sources available")
+            _warn(f"   Failed sources: {', '.join(failed_sources)}")
             self.error_messages.append(f"Severely limited cost optimization data. Most sources failed: {', '.join(failed_sources)}")
         
         # Add specific guidance based on available sources
         if successful_sources:
-            available_msg = f"Available data sources: {', '.join(successful_sources)}"
+            available_msg = f"✓ Available data sources: {', '.join(successful_sources)}"
             _pr(available_msg)
-            self.error_messages.append(available_msg)
         else:
+            _warn("✗ No cost optimization data sources available")
             self.error_messages.append("No cost optimization data sources available")
     
     def _create_fallback_executive_summary(self):
