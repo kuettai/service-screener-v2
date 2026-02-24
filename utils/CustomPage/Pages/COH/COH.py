@@ -1585,12 +1585,12 @@ class COH(CustomObject):
                             self.recommendations.append(unified_rec)
                     except Exception as e:
                         _warn(f"Error transforming Cost Explorer recommendation: {str(e)}")
-                
-                return True
             else:
                 _pr("✓ Cost Explorer API call successful - No rightsizing recommendations available")
                 _pr("   This is normal if: 1) Instances are already optimally sized, 2) Feature not enabled, 3) Insufficient usage data")
-                return False
+            
+            # Return True for successful API call regardless of recommendation count
+            return True
                 
         except Exception as e:
             # Provide user-friendly error messages for common issues
@@ -1640,12 +1640,12 @@ class COH(CustomObject):
                             self.recommendations.append(unified_rec)
                     except Exception as e:
                         _warn(f"Error transforming Savings Plans recommendation: {str(e)}")
-                
-                return True
             else:
                 _pr("✓ Savings Plans API call successful - No purchase recommendations available")
                 _pr("   This is normal if: 1) Already have optimal coverage, 2) No consistent usage patterns, 3) Account is new")
-                return False
+            
+            # Return True for successful API call regardless of recommendation count
+            return True
                 
         except Exception as e:
             error_msg = f"Error collecting Savings Plans recommendations: {str(e)}"
