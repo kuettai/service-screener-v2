@@ -163,12 +163,20 @@ class COH(CustomObject):
         
         Collects data from all sources and generates unified recommendations
         with comprehensive error handling and graceful degradation.
+        
+        Fail-Fast Protection: Sets data_already_collected=True immediately to prevent
+        duplicate API calls even if collection fails. This ensures error messages
+        are only shown once per scan execution.
         """
         try:
             # Check if data was already collected to avoid duplicate collection
             if self.data_already_collected:
                 _pr("COH: Skipping data collection - already completed in previous call")
                 return
+            
+            # Mark as attempted immediately to prevent duplicate calls (fail-fast)
+            # This prevents retries even if collection fails
+            self.data_already_collected = True
             
             _pr("Starting Cost Optimization Hub analysis...")
             self.data_collection_time = datetime.now().isoformat()
@@ -226,8 +234,8 @@ class COH(CustomObject):
                 # Create empty but valid executive summary
                 self._create_empty_executive_summary()
             
-            # Mark data as collected
-            self.data_already_collected = True
+            # Note: data_already_collected is already set to True at the start of build()
+            # This ensures no retries even if collection fails
             
         except Exception as e:
             error_msg = f"Critical error in COH analysis: {str(e)}"
@@ -235,6 +243,7 @@ class COH(CustomObject):
             self.error_messages.append(error_msg)
             # Ensure we always have valid data structures for UI
             self._create_emergency_fallback_data()
+            # Keep data_already_collected = True to prevent retries
     
     def _collect_coh_recommendations(self):
         """Collect recommendations from Cost Optimization Hub (us-east-1 only)"""
@@ -1584,7 +1593,15 @@ class COH(CustomObject):
                 return False
                 
         except Exception as e:
-            error_msg = f"Error collecting Cost Explorer recommendations: {str(e)}"
+            # Provide user-friendly error messages for common issues
+            error_str = str(e)
+            if 'AccessDeniedException' in error_str and 'cost explorer' in error_str.lower():
+                error_msg = "Cost Explorer access not enabled for this account. To enable: AWS Console → Cost Management → Cost Explorer → Enable Cost Explorer. Note: Rightsizing recommendations require additional opt-in."
+            elif 'AccessDeniedException' in error_str:
+                error_msg = f"Access denied to Cost Explorer API. Please check IAM permissions. Error: {error_str}"
+            else:
+                error_msg = f"Error collecting Cost Explorer recommendations: {error_str}"
+            
             _warn(error_msg)
             self.error_messages.append(error_msg)
             raise

@@ -55,6 +55,13 @@ class CustomPage():
                     _pr(f"Deleted: {file_path}")
     
     def writeOutput(self, service):
+        """
+        Write CustomPage output for a specific service.
+        
+        Note: COH (Cost Optimization Hub) is intentionally skipped here to prevent
+        duplicate data collection. COH will collect data once during buildPage() 
+        after all services are scanned, ensuring single execution per scan.
+        """
         # Check if CustomPage processing is disabled
         if Config.get('disable_custom_pages', False):
             return
@@ -62,6 +69,10 @@ class CustomPage():
         ## TODO: save that particular service only
         serv = service.lower()
         for cname, classObj in self.Pages.items():
+            # Skip COH during writeOutput - it will collect data once during buildPage()
+            if cname == 'COH':
+                continue
+            
             pObj, pbObj = classObj
             s = pObj.printInfo(serv)
             if s == None:
