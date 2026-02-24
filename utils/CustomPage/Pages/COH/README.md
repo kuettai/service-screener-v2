@@ -50,10 +50,17 @@ To get complete Cost Optimization Hub data, you need to enable and configure the
 #### CLI Verification:
 ```bash
 # Check if Cost Optimization Hub is enabled
-aws cost-optimization-hub list-recommendations --region us-east-1
+aws cost-optimization-hub list-recommendations --region us-east-1 --max-results 5
 
-# Get recommendation summaries
-aws cost-optimization-hub list-recommendation-summaries --region us-east-1
+# Get recommendation summaries grouped by resource type
+aws cost-optimization-hub list-recommendation-summaries \
+    --group-by "ResourceType" \
+    --region us-east-1
+
+# Or group by recommendation source
+aws cost-optimization-hub list-recommendation-summaries \
+    --group-by "RecommendationSourceType" \
+    --region us-east-1
 ```
 
 ---
