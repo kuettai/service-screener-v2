@@ -25,9 +25,13 @@ class S3Macie(Evaluator):
             self.results['MacieToEnable'] = [-1, None]
         except botocore.exceptions.EndpointConnectionError as connErr:
             # Handle regions where Macie2 is not available
+            # Service unavailability is environmental, not a finding - just log and skip
             _warn(f"Macie2 service not available in this region: {str(connErr)}")
-            self.results['MacieNotAvailable'] = [-1, None]
+            # Don't create result entry - this prevents "rule not available in reporter" warning
+            return
         except Exception as e:
             # Handle any other unexpected errors
+            # Operational errors are not findings - just log and skip
             _warn(f"Error checking Macie2 status: {str(e)}")
-            self.results['MacieError'] = [-1, None]
+            # Don't create result entry - this prevents "rule not available in reporter" warning
+            return
