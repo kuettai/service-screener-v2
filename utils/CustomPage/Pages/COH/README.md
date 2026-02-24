@@ -119,7 +119,7 @@ aws compute-optimizer get-ec2-instance-recommendations --region us-east-1
 2. Go to **"Savings Plans"** → **"Recommendations"**
 3. The service is automatically available if you have Cost Explorer enabled
 4. Configure recommendation preferences:
-   - **Lookback period:** 7, 30, or 60 days
+   - **Lookback period:** 7, 30, or 60 days (SEVEN_DAYS, THIRTY_DAYS, or SIXTY_DAYS in CLI)
    - **Payment option:** No upfront, Partial upfront, All upfront
    - **Term length:** 1 year or 3 years
 
@@ -147,16 +147,16 @@ aws compute-optimizer get-ec2-instance-recommendations --region us-east-1
 
 #### CLI Verification:
 ```bash
-# Get Savings Plans recommendations
+# Get Savings Plans recommendations (1-year, no upfront, 30-day lookback)
 aws ce get-savings-plans-purchase-recommendation \
     --savings-plans-type COMPUTE_SP \
     --term-in-years ONE_YEAR \
     --payment-option NO_UPFRONT \
-    --lookback-period-in-days 30
+    --lookback-period-in-days THIRTY_DAYS
 
 # Get Reserved Instance recommendations
 aws ce get-reservation-purchase-recommendation \
-    --service EC2-Instance
+    --service "Amazon Elastic Compute Cloud - Compute"
 ```
 
 ---
