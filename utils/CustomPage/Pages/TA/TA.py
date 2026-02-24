@@ -1,11 +1,13 @@
 import json
 from utils.Config import Config
 from utils.CustomPage.CustomObject import CustomObject
+import constants as _C
 
 import boto3
 from botocore.exceptions import ClientError
-from datetime import datetime
+from datetime import datetime, timezone
 from collections import defaultdict
+import os
 
 class TA(CustomObject):
     # SHEETS_TO_SKIP = ['Info', 'Appendix']
@@ -28,13 +30,27 @@ class TA(CustomObject):
         regions = Config.get('REGIONS_SELECTED', ['us-east-1'])
         cache_key = f"{account_id}_{'-'.join(regions)}"
         
-        # Check if we already have data for this session
+        # Check if we already have data for this session (in-memory cache)
         if cache_key in TA._cache:
-            print("... Using cached TA data (already collected in this session)")
+            print("... Using in-memory cached TA data (already collected in this session)")
             cached_data = TA._cache[cache_key]
             self.taFindings = cached_data.get('taFindings', {})
             self.taError = cached_data.get('taError', '')
             return
+        
+        # Check file-based cache (persistent across runs)
+        cache_file_path = self._get_cache_file_path(account_id)
+        if self._is_cache_valid(cache_file_path):
+            print(f"... Using cached TA data from file (last updated: {self._get_cache_age(cache_file_path)})")
+            if self._load_from_cache(cache_file_path):
+                # Also populate in-memory cache for this session
+                TA._cache[cache_key] = {
+                    'taFindings': self.taFindings.copy(),
+                    'taError': self.taError
+                }
+                return
+            else:
+                print("... Cache file corrupted, fetching fresh data")
         
         print("... Running CP - TA, it can takes up to 15 seconds")
         ssBoto = Config.get('ssBoto')
@@ -60,6 +76,9 @@ class TA(CustomObject):
             if api_data:
                 self.taFindings = api_data
                 print(f"TA data collection complete. Found pillars: {list(self.taFindings.keys())}")
+                
+                # Save to file cache for future runs
+                self._save_to_cache(cache_file_path, account_id, regions)
             else:
                 errMsg = "Error: TA unable to generate data from Trusted Advisor API."
                 self.taError = errMsg
@@ -69,7 +88,7 @@ class TA(CustomObject):
             self.taError = errMsg
             print(errMsg)
         
-        # Cache the results for this session
+        # Cache the results in memory for this session
         TA._cache[cache_key] = {
             'taFindings': self.taFindings.copy(),
             'taError': self.taError
@@ -251,7 +270,121 @@ class TA(CustomObject):
     def clear_cache(cls):
         """Clear the TA data cache - useful for testing or forcing refresh"""
         cls._cache.clear()
-        print("TA cache cleared")
+        print("TA in-memory cache cleared")
+    
+    @classmethod
+    def clear_file_cache(cls, account_id=None):
+        """
+        Clear the TA file cache.
+        If account_id is provided, clear only that account's cache.
+        Otherwise, clear all TA cache files.
+        """
+        import shutil
+        
+        if account_id:
+            cache_file = cls._get_cache_file_path_static(account_id)
+            if os.path.exists(cache_file):
+                os.remove(cache_file)
+                print(f"TA file cache cleared for account {account_id}")
+            else:
+                print(f"No cache file found for account {account_id}")
+        else:
+            if os.path.exists(_C.TA_CACHE_DIR):
+                shutil.rmtree(_C.TA_CACHE_DIR)
+                print("All TA file caches cleared")
+            else:
+                print("No TA cache directory found")
+    
+    def _get_cache_file_path(self, account_id):
+        """Get the cache file path for the given account ID"""
+        return self._get_cache_file_path_static(account_id)
+    
+    @staticmethod
+    def _get_cache_file_path_static(account_id):
+        """Static method to get cache file path"""
+        cache_dir = os.path.join(_C.TA_CACHE_DIR, account_id)
+        return os.path.join(cache_dir, '__ta.json')
+    
+    def _is_cache_valid(self, cache_file_path, ttl_hours=4):
+        """
+        Check if cache file exists and is less than ttl_hours old.
+        Default TTL is 4 hours.
+        """
+        if not os.path.exists(cache_file_path):
+            return False
+        
+        try:
+            # Get file modification time
+            file_mtime = os.path.getmtime(cache_file_path)
+            file_age_seconds = datetime.now(timezone.utc).timestamp() - file_mtime
+            file_age_hours = file_age_seconds / 3600
+            
+            return file_age_hours < ttl_hours
+        except Exception as e:
+            print(f"Error checking cache validity: {e}")
+            return False
+    
+    def _get_cache_age(self, cache_file_path):
+        """Get human-readable cache age"""
+        try:
+            file_mtime = os.path.getmtime(cache_file_path)
+            file_age_seconds = datetime.now(timezone.utc).timestamp() - file_mtime
+            
+            if file_age_seconds < 60:
+                return f"{int(file_age_seconds)} seconds ago"
+            elif file_age_seconds < 3600:
+                return f"{int(file_age_seconds / 60)} minutes ago"
+            else:
+                return f"{file_age_seconds / 3600:.1f} hours ago"
+        except Exception:
+            return "unknown"
+    
+    def _load_from_cache(self, cache_file_path):
+        """Load TA data from cache file"""
+        try:
+            with open(cache_file_path, 'r') as f:
+                cache_data = json.load(f)
+            
+            # Validate cache structure
+            if 'version' not in cache_data or 'taFindings' not in cache_data:
+                print("Invalid cache file structure")
+                return False
+            
+            # Load data
+            self.taFindings = cache_data.get('taFindings', {})
+            self.taError = cache_data.get('taError', '')
+            
+            return True
+        except Exception as e:
+            print(f"Error loading from cache: {e}")
+            return False
+    
+    def _save_to_cache(self, cache_file_path, account_id, regions):
+        """Save TA data to cache file"""
+        try:
+            # Create cache directory if it doesn't exist
+            cache_dir = os.path.dirname(cache_file_path)
+            os.makedirs(cache_dir, exist_ok=True)
+            
+            # Prepare cache data
+            cache_data = {
+                'version': '1.0',
+                'timestamp': datetime.now(timezone.utc).isoformat(),
+                'account_id': account_id,
+                'regions': regions,
+                'ttl_hours': 4,
+                'taFindings': self.taFindings,
+                'taError': self.taError
+            }
+            
+            # Write to cache file
+            with open(cache_file_path, 'w') as f:
+                json.dump(cache_data, f, indent=2)
+            
+            print(f"TA data cached to: {cache_file_path}")
+        except Exception as e:
+            print(f"Warning: Failed to save TA cache: {e}")
+            # Don't fail the entire operation if caching fails
 
     def printInfo(self, service):
         """
