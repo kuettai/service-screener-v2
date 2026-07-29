@@ -7,7 +7,7 @@ from services.Evaluator import Evaluator
 
 class EcrCommon(Evaluator):
     """
-    All 20 ECR checks per docs/ecr-checks-research.md.
+    All 20 ECR checks.
 
     Input:
       repo -- dict produced by Ecr.py._hydrateRepo. Keys of interest:
