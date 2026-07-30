@@ -140,8 +140,8 @@
 		"ref": [
 			"[Configuring a minimum TLS version for API Gateway REST API domains]<https://docs.aws.amazon.com/apigateway/latest/developerguide/security-policy.html>"
 		],
-		"remediation": null,
-		"remediation_risk": null,
+		"remediation": "aws apigateway update-domain-name --domain-name {ResourceName} --patch-operations op=replace,path=/securityPolicy,value=TLS_1_2",
+		"remediation_risk": "medium",
 		"remediation_doc": "https://docs.aws.amazon.com/apigateway/latest/developerguide/security-policy.html"
 	},
 	"IdleAPIGateway": {

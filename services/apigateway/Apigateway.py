@@ -5,6 +5,7 @@ import requests
 from utils.Config import Config
 from services.Service import Service
 from services.apigateway.drivers.ApiGatewayCommon import ApiGatewayCommon
+from services.apigateway.drivers.ApiGatewayDomainName import ApiGatewayDomainName
 from services.apigateway.drivers.ApiGatewayRest import ApiGatewayRest
 
 from utils.Tools import _pi
@@ -18,7 +19,8 @@ class Apigateway(Service):
 
         self.apis = []
         self.apisv2 = []
-        
+        self.domainNames = []
+
         self.apiClient = ssBoto.client('apigateway', config=self.bConfig)
         self.apiv2Client = ssBoto.client('apigatewayv2', config=self.bConfig)
         self.cloudwatchClient = ssBoto.client('cloudwatch', config=self.bConfig)
@@ -51,6 +53,17 @@ class Apigateway(Service):
         except botocore.exceptions.ClientError as e:
             ecode = e.response['Error']['Code']
             
+    def getDomainNames(self):
+        try:
+            domainNames = self.apiClient.get_domain_names()
+            self.domainNames = domainNames.get('items')
+            while domainNames.get('position') is not None:
+                domainNames = self.apiClient.get_domain_names(position=domainNames.get('position'))
+                self.domainNames = self.domainNames + domainNames.get('items')
+
+        except botocore.exceptions.ClientError as e:
+            ecode = e.response['Error']['Code']
+
     def advise(self):
         try:
             objs = {}
@@ -71,7 +84,16 @@ class Apigateway(Service):
                 obj.run(self.__class__)
                 objs[objName] = obj.getInfo()
                 del obj
-        
+
+            self.getDomainNames()
+            for domainName in self.domainNames:
+                objName = 'DOMAIN' + '::' + domainName['domainName']
+                _pi('APIGateway', objName)
+                obj = ApiGatewayDomainName(domainName, self.apiClient)
+                obj.run(self.__class__)
+                objs[objName] = obj.getInfo()
+                del obj
+
             return objs
         
         except botocore.exceptions.ClientError as e:
