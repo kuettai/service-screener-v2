@@ -122,6 +122,106 @@ export const formatServiceName = (serviceKey) => {
 };
 
 /**
+ * Get color for a remediation_risk value
+ * @param {string} risk - low, medium, or high
+ * @returns {string} Cloudscape badge color
+ */
+export const getRiskColor = (risk) => {
+  switch (risk) {
+    case 'low': return 'severity-low';
+    case 'medium': return 'severity-medium';
+    case 'high': return 'severity-high';
+    default: return 'grey';
+  }
+};
+
+const PLACEHOLDER_RE = /\{(ResourceArn|ResourceId|ResourceName|Region|AccountId)\}/g;
+
+/**
+ * List the distinct placeholders left in a command, in order of appearance.
+ * Mirrors placeholdersIn() in utils/RemediationResolver.py.
+ * @param {string} command - Remediation command
+ * @returns {Array<string>} Placeholder names without braces
+ */
+export const placeholdersIn = (command) => {
+  if (!command) return [];
+
+  const names = (command.match(PLACEHOLDER_RE) || []).map(token => token.slice(1, -1));
+  return [...new Set(names)];
+};
+
+/**
+ * Get the resolved remediation command for one affected resource.
+ *
+ * Placeholder substitution happens in the Python backend
+ * (utils/RemediationResolver.py) because the identifier format is per-service,
+ * so this is a lookup rather than a string replace. Falls back to the raw
+ * command with placeholders intact when the backend produced no entry -- e.g.
+ * a report generated before __remediationByResource existed.
+ *
+ * @param {Object} finding - Finding object
+ * @param {string} region - Region key
+ * @param {string} identifier - Resource identifier as it appears in __affectedResources
+ * @returns {Object|null} { command, unresolved } or null when the check has no remediation
+ */
+export const getRemediationForResource = (finding, region, identifier) => {
+  if (!finding || !finding.remediation) return null;
+
+  const resolved = finding.__remediationByResource?.[region]?.[identifier];
+  if (resolved) return resolved;
+
+  // Nothing pre-resolved for this resource. Report the command's own
+  // placeholders as unresolved so the UI never presents a template as runnable.
+  return {
+    command: finding.remediation,
+    unresolved: placeholdersIn(finding.remediation)
+  };
+};
+
+/**
+ * Look up a check's reporter entry from the flat findings-table row shape.
+ *
+ * The Findings page rows come from workItem.xlsx (one row per resource), which
+ * carries no remediation columns. The reporter entry -- remediation included --
+ * already lives in the report data under the service summary, so this rejoins
+ * the two on service + check rather than widening the spreadsheet.
+ *
+ * @param {Object} data - Full report data (window.__REPORT_DATA__)
+ * @param {Object} row - Findings-table row with `service` and `Check`
+ * @returns {Object|null} The check's summary entry, or null when absent
+ */
+export const findCheckSummary = (data, row) => {
+  if (!data || !row || !row.service || !row.Check) return null;
+
+  const service = data[String(row.service).toLowerCase()];
+  return service?.summary?.[row.Check] || null;
+};
+
+/**
+ * Resolve the CLI command for one findings-table row
+ * @param {Object} data - Full report data
+ * @param {Object} row - Findings-table row with service, Check, Region, ResourceID
+ * @returns {Object|null} { command, unresolved } or null when there is no CLI fix
+ */
+export const getRemediationForRow = (data, row) => {
+  const check = findCheckSummary(data, row);
+  if (!check) return null;
+
+  return getRemediationForResource(check, row.Region, row.ResourceID);
+};
+
+/**
+ * Count findings that ship a runnable CLI command
+ * @param {Array<Object>} findings - Finding objects
+ * @returns {number} Count of findings with a non-null remediation
+ */
+export const countRemediableFindings = (findings) => {
+  if (!Array.isArray(findings)) return 0;
+
+  return findings.filter(finding => finding && finding.remediation).length;
+};
+
+/**
  * Parse links from finding description
  * @param {Object} finding - Finding object with __links array
  * @returns {Array<Object>} Array of link objects with text and url

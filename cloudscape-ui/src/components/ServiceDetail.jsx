@@ -16,19 +16,22 @@ import Grid from '@cloudscape-design/components/grid';
 import Table from '@cloudscape-design/components/table';
 import Button from '@cloudscape-design/components/button';
 import Checkbox from '@cloudscape-design/components/checkbox';
+import Alert from '@cloudscape-design/components/alert';
 
 import { 
   loadReportData,
   getServiceData, 
   getServiceFindings 
 } from '../utils/dataLoader';
-import { 
+import {
   formatServiceName,
   countAffectedResources,
+  countRemediableFindings,
   getImpactTags,
   parseLinks
 } from '../utils/formatters';
 import { renderHtml } from '../utils/htmlDecoder';
+import RemediationSection from './RemediationSection';
 
 /**
  * ServiceDetail component - shows detailed findings for a specific service
@@ -233,7 +236,8 @@ const ServiceDetail = () => {
       uniqueRules: stats.checksCount || 0,  // Use checksCount from stats, not calculated from findings
       suppressed: stats.suppressed || 0,
       timespent: formatTime(stats.timespent),
-      quickWins: quickWinCount
+      quickWins: quickWinCount,
+      remediable: countRemediableFindings(findings)
     };
   }, [serviceData, findings]);
   
@@ -469,13 +473,22 @@ const ServiceDetail = () => {
   return (
     <SpaceBetween size="l">
       {/* Page Header */}
-      <Header 
+      <Header
         variant="h1"
         description={`Detailed findings for ${formatServiceName(serviceName)}`}
       >
         {formatServiceName(serviceName)}
       </Header>
-      
+
+      {metrics.remediable > 0 && (
+        <Alert type="warning" header="Remediation disclaimer">
+          The AWS CLI commands shown are suggestions based on AWS best practices, generated
+          from the check metadata rather than from your account's configuration. Review each
+          command, test it in a non-production environment, and take a backup before applying
+          it. Service Screener is not responsible for unintended impact from running them.
+        </Alert>
+      )}
+
       {/* Stats Section */}
       <Container
         header={
@@ -484,7 +497,7 @@ const ServiceDetail = () => {
           </Header>
         }
       >
-        <ColumnLayout columns={7} variant="default" minColumnWidth={120}>
+        <ColumnLayout columns={8} variant="default" minColumnWidth={120}>
           <Box padding="l" backgroundColor="background-container-content" borderRadius="s">
             <SpaceBetween size="xs">
               <Box variant="awsui-key-label">Resources</Box>
@@ -539,6 +552,16 @@ const ServiceDetail = () => {
             </SpaceBetween>
           </Box>
           
+          <Box padding="l" backgroundColor="background-container-content" borderRadius="s">
+            <SpaceBetween size="xs">
+              <Box variant="awsui-key-label">CLI Fix Available</Box>
+              <Box fontSize="display-l" fontWeight="bold" color="text-status-success">
+                {metrics.remediable}
+                <Box variant="small" display="inline"> / {metrics.totalFindings}</Box>
+              </Box>
+            </SpaceBetween>
+          </Box>
+
           <Box padding="l" backgroundColor="background-container-content" borderRadius="s">
             <SpaceBetween size="xs">
               <Box variant="awsui-key-label">Time Spent</Box>
@@ -912,6 +935,28 @@ const ServiceDetail = () => {
                               </span>
                             )}
                             
+                            {/* Fix availability. Findings here render as
+                                expandable cards rather than table rows, so this
+                                sits in the header alongside Quick Win; the
+                                Findings page carries the equivalent column. */}
+                            {finding.remediation && (
+                              <span
+                                style={{
+                                  backgroundColor: '#d4edda',
+                                  color: '#155724',
+                                  padding: '2px 6px',
+                                  borderRadius: '4px',
+                                  fontSize: '10px',
+                                  fontWeight: '600',
+                                  marginRight: '4px',
+                                  whiteSpace: 'nowrap'
+                                }}
+                                title="A single AWS CLI command can fix this finding"
+                              >
+                                ⚡ CLI Fix
+                              </span>
+                            )}
+
                             {/* Impact Indicators */}
                             {impactIndicators.map((indicator, idx) => (
                               <span
@@ -994,6 +1039,8 @@ const ServiceDetail = () => {
                           </div>
                         )}
                         
+                        <RemediationSection finding={finding} />
+
                         {finding.__links && finding.__links.length > 0 && (
                           <div>
                             <Box variant="awsui-key-label" color={severityStyle.color}>Documentation</Box>

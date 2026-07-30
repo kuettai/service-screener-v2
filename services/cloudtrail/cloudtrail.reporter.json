@@ -46,7 +46,7 @@
 			"[What is log file integrity]<https://docs.aws.amazon.com/awscloudtrail/latest/userguide/best-practices-security.html>",
 			"[Enable Log file integrity]<https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-log-file-validation-intro.html#cloudtrail-log-file-validation-intro-enabling-and-using>"
 		],
-		"remediation": "aws cloudtrail update-trail --name {ResourceArn} --enable-log-file-validation",
+		"remediation": "aws cloudtrail update-trail --name {ResourceName} --enable-log-file-validation",
 		"remediation_risk": "low",
 		"remediation_doc": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-log-file-validation-intro.html#cloudtrail-log-file-validation-intro-enabling-and-using"
 	},
@@ -289,7 +289,7 @@
 		"ref": [
 			"[Stop/Start Logging]<https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-turning-off-logging.html>"
 		],
-		"remediation": "aws cloudtrail start-logging --name {ResourceArn}",
+		"remediation": "aws cloudtrail start-logging --name {ResourceName}",
 		"remediation_risk": "low",
 		"remediation_doc": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-turning-off-logging.html"
 	},
