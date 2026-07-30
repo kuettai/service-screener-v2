@@ -10,7 +10,10 @@
 		"needFullTest": 0,
 		"ref": [
 			"[AWS Docs]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/logging.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/logging.html"
 	},
 	"WAFAssociation": {
 		"category": "S",
@@ -24,7 +27,10 @@
 		"ref": [
 			"[AWS Docs]<https://docs.aws.amazon.com/waf/latest/developerguide/cloudfront-features.html>",
 			"[Developer Guide]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-awswaf.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-awswaf.html"
 	},
 	"defaultRootObject": {
 		"category": "S",
@@ -37,7 +43,10 @@
 		"needFullTest": 1,
 		"ref": [
 			"[AWS Docs]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html"
 	},
 	"compressObjectsAutomatically": {
 		"category": "P",
@@ -50,7 +59,10 @@
 		"needFullTest": 1,
 		"ref": [
 			"[AWS Docs]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/ServingCompressedFiles.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/ServingCompressedFiles.html"
 	},
 	"DeprecatedSSLProtocol": {
 		"category": "S",
@@ -63,7 +75,10 @@
 		"needFullTest": 1,
 		"ref": [
 			"[AWS Docs]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html"
 	},
 	"originFailover": {
 		"category": "R",
@@ -76,8 +91,11 @@
 		"needFullTest": 1,
 		"ref": [
 			"[AWS Docs]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/high_availability_origin_failover.html>"
-		]
-	},	
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/high_availability_origin_failover.html"
+	},
 	"fieldLevelEncryption": {
 		"category": "S",
 		"^description": "Field-level encryption adds an additional layer of security that lets you protect specific data throughout system processing so that only certain applications can see it.",
@@ -89,7 +107,10 @@
 		"needFullTest": 1,
 		"ref": [
 			"[AWS Docs]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/field-level-encryption.html"
 	},
 	"viewerPolicyHttps": {
 		"category": "S",
@@ -102,7 +123,10 @@
 		"needFullTest": 1,
 		"ref": [
 			"[AWS Docs]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-viewers-to-cloudfront.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-viewers-to-cloudfront.html"
 	},
 	"S3OriginAccessControl": {
 		"category": "S",
@@ -116,7 +140,10 @@
 		"ref": [
 			"[Restrict access to an Amazon S3 origin]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html>",
 			"[Migrating from OAI to OAC]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html#migrate-from-oai-to-oac>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html"
 	},
 	"OriginTrafficEncryption": {
 		"category": "S",
@@ -130,7 +157,10 @@
 		"ref": [
 			"[Use HTTPS with CloudFront]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https.html>",
 			"[Require HTTPS for communication between CloudFront and your custom origin]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-cloudfront-to-custom-origin.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-cloudfront-to-custom-origin.html"
 	},
 	"CustomSSLCertificate": {
 		"category": "S",
@@ -144,7 +174,10 @@
 		"ref": [
 			"[Use HTTPS with CloudFront]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https.html>",
 			"[Using alternate domain names and HTTPS]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-alternate-domain-names.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-alternate-domain-names.html"
 	},
 	"SNIConfiguration": {
 		"category": "C",
@@ -158,7 +191,10 @@
 		"ref": [
 			"[Use HTTPS with CloudFront]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https.html>",
 			"[Choosing how CloudFront serves HTTPS requests]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-https-dedicated-ip-or-sni.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-https-dedicated-ip-or-sni.html"
 	},
 	"S3OriginBucketExists": {
 		"category": "R",
@@ -172,7 +208,10 @@
 		"ref": [
 			"[Using Amazon S3 origins]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistS3AndCustomOrigins.html>",
 			"[Troubleshooting error responses from your origin]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/troubleshooting-response-errors.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DownloadDistS3AndCustomOrigins.html"
 	},
 	"OriginShieldEnabled": {
 		"category": "P",
@@ -186,7 +225,10 @@
 		"ref": [
 			"[Using Origin Shield]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html>",
 			"[Caching and availability]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/ConfiguringCaching.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/origin-shield.html"
 	},
 	"GeoRestrictionsConfigured": {
 		"category": "S",
@@ -199,7 +241,10 @@
 		"needFullTest": 0,
 		"ref": [
 			"[Restricting the geographic distribution of your content]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/georestrictions.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/georestrictions.html"
 	},
 	"PriceClassOptimization": {
 		"category": "C",
@@ -213,6 +258,9 @@
 		"ref": [
 			"[Choosing the price class for a CloudFront distribution]<https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PriceClass.html>",
 			"[Cost optimization]<https://docs.aws.amazon.com/whitepapers/latest/amazon-cloudfront-media/cost-optimization.html>"
-		]
+		],
+		"remediation": null,
+		"remediation_risk": null,
+		"remediation_doc": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PriceClass.html"
 	}
 }
