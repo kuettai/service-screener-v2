@@ -275,7 +275,12 @@
                 "wafv2.wafv2NoAccountTakeoverPrevention",
                 "wafv2.wafv2NoAccountCreationFraudPrevention",
                 "wafv2.wafv2NoBotControl",
-                "wafv2.wafv2NoAnonymousIpList"
+                "wafv2.wafv2NoAnonymousIpList",
+                "guardduty.S3ProtectionDisabled",
+                "guardduty.EksAuditLogsDisabled",
+                "guardduty.RdsProtectionDisabled",
+                "guardduty.LambdaProtectionDisabled",
+                "guardduty.AiProtectionDisabled"
             ]
         },
         "SEC05": {
@@ -352,7 +357,12 @@
                 "elasticache.EngineVersion",
                 "elasticache.EngineVersionUnlisted",
                 "rds.EngineVersionMajor",
-                "rds.EngineVersionMinor"
+                "rds.EngineVersionMinor",
+                "guardduty.RuntimeMonitoringDisabled",
+                "guardduty.EksRuntimeMonitoringDisabled",
+                "guardduty.EcsRuntimeMonitoringDisabled",
+                "guardduty.Ec2RuntimeMonitoringDisabled",
+                "guardduty.MalwareProtectionDisabled"
             ],
             "BP02": [
                 "sagemaker.RootAccessDisabled",

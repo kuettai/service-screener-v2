@@ -383,7 +383,10 @@
             "1": []
         },
         "GuardDuty.": {
-            "1": []
+            "1": [
+                "iam.enableGuardDuty",
+                "cloudtrail.GuardDutyIntegration"
+            ]
         },
         "IAM.": {
             "1": [
