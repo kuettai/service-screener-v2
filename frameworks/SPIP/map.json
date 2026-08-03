@@ -13,7 +13,9 @@
                 "iam.rootMfaActive",
                 "iam.mfaActive",
                 "cognito.cognitoMfaNotEnforced",
-                "cognito.cognitoAdvancedSecurityNotEnforced"
+                "cognito.cognitoAdvancedSecurityNotEnforced",
+                "appsync.appsyncNoAuthentication",
+                "emr.emrKerberosNotEnabled"
             ],
             "P1.2": [
                 "iam.hasAccessKeyNoRotate30days",
@@ -44,7 +46,10 @@
                 "s3.PublicWriteAccessBlock",
                 "secretsmanager.smResourcePolicyPublicAccess",
                 "eventbridge.ebBusPublicPolicy",
-                "ecr.ecrRepoPublicAccess"
+                "ecr.ecrRepoPublicAccess",
+                "emr.emrPubliclyAccessible",
+                "emr.emrBlockPublicAccessDisabled",
+                "codebuild.cbProjectVisibilityPublic"
             ],
             "P2.2": [
                 "ec2.EBSSnapshot",
@@ -79,7 +84,16 @@
                 "secretsmanager.smNotEncryptedWithCMK",
                 "eventbridge.ebBusNoEncryption",
                 "backup.backupRecoveryPointNotEncrypted",
-                "kinesis.kinesisSSEDisabled"
+                "kinesis.kinesisSSEDisabled",
+                "emr.emrEncryptionAtRestDisabled",
+                "emr.emrNoSecurityConfiguration",
+                "athena.athenaWorkgroupNotEncrypted",
+                "athena.athenaS3OutputNotEncrypted",
+                "athena.athenaMinimumEncryptionDisabled",
+                "codebuild.cbNoArtifactEncryption",
+                "codebuild.cbS3LogsNotEncrypted",
+                "codebuild.cbReportGroupExportNotEncrypted",
+                "codebuild.cbEncryptionDefaultKey"
             ],
             "P2.4": [
                 "s3.MacieToEnable",
@@ -94,7 +108,9 @@
                 "elasticache.EncInTransitAndRest",
                 "ec2.SGEncryptionInTransit",
                 "cloudfront.viewerPolicyHttps",
-                "eventbridge.ebApiDestinationHttpEndpoint"
+                "eventbridge.ebApiDestinationHttpEndpoint",
+                "emr.emrEncryptionInTransitDisabled",
+                "codebuild.cbInsecureSSL"
             ]
         },
         "Infrastructure Protection and Visibility": {
@@ -109,7 +125,9 @@
                 "cloudfront.WAFAssociation",
                 "wafv2.wafv2NoRules",
                 "wafv2.wafv2NoManagedRuleGroups",
-                "wafv2.wafv2NoRateBasedRules"
+                "wafv2.wafv2NoRateBasedRules",
+                "appsync.appsyncWafNotAssociated",
+                "appsync.appsyncIntrospectionEnabled"
             ],
             "P3.3": [
                 "cloudfront.defaultRootObject"
@@ -133,11 +151,40 @@
                 "stepfunctions.sfnLoggingDisabled",
                 "config.configRecorderNotEnabled",
                 "config.configNoRules",
-                "ssm.ssmSessionManagerNoCloudWatchLogs"
+                "ssm.ssmSessionManagerNoCloudWatchLogs",
+                "securityhub.shubNotEnabled",
+                "securityhub.shubNoStandardsEnabled",
+                "securityhub.shubCISStandardDisabled",
+                "securityhub.shubAutoEnableControlsDisabled",
+                "emr.emrLoggingDisabled",
+                "codebuild.cbLogsDisabled",
+                "appsync.appsyncFieldLevelLogging",
+                "appsync.appsyncCloudWatchLogsNotEnabled",
+                "cloudformation.cfnDriftDetected",
+                "cloudformation.cfnDriftNeverChecked",
+                "cloudformation.cfnStackPolicyMissing"
             ],
             "P4.2": [
                 "guardduty.UsageStat",
-                "guardduty.Findings"
+                "guardduty.Findings",
+                "guardduty.S3ProtectionDisabled",
+                "guardduty.EksAuditLogsDisabled",
+                "guardduty.RdsProtectionDisabled",
+                "guardduty.LambdaProtectionDisabled",
+                "guardduty.RuntimeMonitoringDisabled",
+                "guardduty.MalwareProtectionDisabled",
+                "inspector.inspectorNotEnabled",
+                "inspector.inspectorCriticalFindings",
+                "inspector.inspectorExploitableFindings",
+                "securityhub.shubFindingAggregatorMissing",
+                "inspector.inspectorEc2ScanningDisabled",
+                "inspector.inspectorEcrScanningDisabled",
+                "inspector.inspectorLambdaScanningDisabled",
+                "inspector.inspectorCoverageGap",
+                "inspector.inspectorFixAvailableNotApplied",
+                "emr.emrOldRelease",
+                "codebuild.cbImageOutdated",
+                "codebuild.cbPrivilegedMode"
             ],
             "P4.3": [
                 "cloudtrail.EnableTrailS3BucketLogging"
@@ -158,7 +205,9 @@
                 "rds.DBwithoutSecretManager",
                 "secretsmanager.smRotationNotEnabled",
                 "secretsmanager.smRotationOverdue",
-                "ssm.ssmParameterNotEncrypted"
+                "ssm.ssmParameterNotEncrypted",
+                "codebuild.cbPlaintextCredentialsInEnvVars",
+                "codebuild.cbSourceUrlCredentials"
             ],
             "P5.2": [],
             "P5.3": [],

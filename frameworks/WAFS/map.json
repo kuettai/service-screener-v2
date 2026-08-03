@@ -108,7 +108,8 @@
                 "secretsmanager.smNoVersionStages",
                 "cognito.cognitoClientNoSecret",
                 "codebuild.cbPlaintextCredentialsInEnvVars",
-                "codebuild.cbSourceUrlCredentials"
+                "codebuild.cbSourceUrlCredentials",
+                "codebuild.cbSourceCredentialsInsecure"
             ],
             "BP04": [
                 "iam.hasSSORoles",
@@ -337,7 +338,8 @@
                 "appsync.appsyncWafNotAssociated",
                 "appsync.appsyncIntrospectionEnabled",
                 "emr.emrPubliclyAccessible",
-                "emr.emrBlockPublicAccessDisabled"
+                "emr.emrBlockPublicAccessDisabled",
+                "codebuild.cbNoVpcConfig"
             ],
             "BP02": [
                 "ec2.SGSensitivePortOpenToAll",
@@ -449,7 +451,8 @@
                 "route53.route53MxWithoutSpfDmarc"
             ],
             "BP02": [
-                "s3.BucketOwnerEnforced"
+                "s3.BucketOwnerEnforced",
+                "athena.athenaWorkgroupS3OutputNoPrefix"
             ],
             "BP03": [],
             "BP04": [
@@ -683,7 +686,8 @@
                 "backup.backupNoLogicallyAirGappedVault",
                 "emr.emrTerminationProtectionDisabled",
                 "cloudformation.cfnTerminationProtectionDisabled",
-                "cloudformation.cfnStackPolicyMissing"
+                "cloudformation.cfnStackPolicyMissing",
+                "cloudformation.cfnRollbackFailed"
             ],
             "BP03": [],
             "BP04": []

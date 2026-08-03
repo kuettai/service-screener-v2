@@ -96,7 +96,12 @@
                 "bedrock.bedrockKBNoEncryption",
                 "bedrock.bedrockACMemoryNoEncryption",
                 "sns.snsEncryptionAtRest",
-                "sns.snsPublicAccess"
+                "sns.snsPublicAccess",
+                "emr.emrPubliclyAccessible",
+                "emr.emrBlockPublicAccessDisabled",
+                "codebuild.cbProjectVisibilityPublic",
+                "codebuild.cbPlaintextCredentialsInEnvVars",
+                "codebuild.cbSourceUrlCredentials"
             ],
             "CC6.7 - Restricts the transmission, movement, and removal of information": [
                 "s3.BucketLogging",
@@ -120,7 +125,25 @@
                 "stepfunctions.sfnLoggingDisabled",
                 "sns.snsDeliveryStatusLoggingDisabled",
                 "wafv2.wafv2LoggingNotConfigured",
-                "wafv2.wafv2RulesInCountMode"
+                "wafv2.wafv2RulesInCountMode",
+                "guardduty.S3ProtectionDisabled",
+                "guardduty.EksAuditLogsDisabled",
+                "guardduty.RdsProtectionDisabled",
+                "guardduty.LambdaProtectionDisabled",
+                "guardduty.RuntimeMonitoringDisabled",
+                "guardduty.MalwareProtectionDisabled",
+                "inspector.inspectorNotEnabled",
+                "inspector.inspectorCriticalFindings",
+                "inspector.inspectorExploitableFindings",
+                "securityhub.shubFindingAggregatorMissing",
+                "inspector.inspectorEc2ScanningDisabled",
+                "inspector.inspectorEcrScanningDisabled",
+                "inspector.inspectorLambdaScanningDisabled",
+                "inspector.inspectorCoverageGap",
+                "inspector.inspectorFixAvailableNotApplied",
+                "emr.emrOldRelease",
+                "codebuild.cbImageOutdated",
+                "codebuild.cbPrivilegedMode"
             ],
             "CC7.3 - Manages business continuity": [
                 "backup.backupPlanNotAssigned",
@@ -133,7 +156,10 @@
         },
         "CC8.0 - Change Management": {
             "CC8.1 - Manages changes to infrastructure, software, and data": [
-                "cloudtrail.HasOneMultiRegionTrail"
+                "cloudtrail.HasOneMultiRegionTrail",
+                "cloudformation.cfnDriftDetected",
+                "cloudformation.cfnDriftNeverChecked",
+                "cloudformation.cfnStackPolicyMissing"
             ],
             "CC8.2 - Designs and develops changes to infrastructure and software": [],
             "CC8.3 - Deploys changes to infrastructure and software": []
@@ -168,7 +194,15 @@
                 "bedrock.bedrockGuardrailNoEncryption",
                 "bedrock.bedrockKBNoEncryption",
                 "bedrock.bedrockACMemoryNoEncryption",
-                "bedrock.bedrockGuardrailNoPiiDetection"
+                "bedrock.bedrockGuardrailNoPiiDetection",
+                "emr.emrEncryptionAtRestDisabled",
+                "emr.emrNoSecurityConfiguration",
+                "athena.athenaWorkgroupNotEncrypted",
+                "athena.athenaS3OutputNotEncrypted",
+                "athena.athenaMinimumEncryptionDisabled",
+                "codebuild.cbNoArtifactEncryption",
+                "codebuild.cbS3LogsNotEncrypted",
+                "codebuild.cbReportGroupExportNotEncrypted"
             ]
         },
         "P1.0 - Privacy": {

@@ -47,14 +47,27 @@
                 "s3.S3AccountPublicAccessBlock",
                 "secretsmanager.smResourcePolicyPublicAccess",
                 "eventbridge.ebBusPublicPolicy",
-                "ecr.ecrRepoPublicAccess"
+                "ecr.ecrRepoPublicAccess",
+                "emr.emrPubliclyAccessible",
+                "emr.emrBlockPublicAccessDisabled",
+                "codebuild.cbProjectVisibilityPublic"
             ],
             "ACCT.09": [],
             "ACCT.10": [
                 "iam.enableCostBudget"
             ],
             "ACCT.11": [
-                "iam.enableGuardDuty"
+                "iam.enableGuardDuty",
+                "guardduty.S3ProtectionDisabled",
+                "guardduty.EksAuditLogsDisabled",
+                "guardduty.RdsProtectionDisabled",
+                "guardduty.LambdaProtectionDisabled",
+                "guardduty.RuntimeMonitoringDisabled",
+                "guardduty.MalwareProtectionDisabled",
+                "inspector.inspectorNotEnabled",
+                "inspector.inspectorCriticalFindings",
+                "inspector.inspectorExploitableFindings",
+                "securityhub.shubFindingAggregatorMissing"
             ],
             "ACCT.12": []
         },
@@ -82,7 +95,15 @@
                 "secretsmanager.smNotEncryptedWithCMK",
                 "eventbridge.ebBusNoEncryption",
                 "backup.backupRecoveryPointNotEncrypted",
-                "kinesis.kinesisSSEDisabled"
+                "kinesis.kinesisSSEDisabled",
+                "emr.emrEncryptionAtRestDisabled",
+                "emr.emrNoSecurityConfiguration",
+                "athena.athenaWorkgroupNotEncrypted",
+                "athena.athenaS3OutputNotEncrypted",
+                "athena.athenaMinimumEncryptionDisabled",
+                "codebuild.cbNoArtifactEncryption",
+                "codebuild.cbS3LogsNotEncrypted",
+                "codebuild.cbReportGroupExportNotEncrypted"
             ],
             "WKLD.09": [],
             "WKLD.10": [],

@@ -115,7 +115,11 @@
                 "config.configRecorderNotAllResources",
                 "config.configRecorderExcludesGlobalResources",
                 "config.configRecorderLastStatusFailed",
-                "config.configDeliveryChannelMissing"
+                "config.configDeliveryChannelMissing",
+                "securityhub.shubNotEnabled",
+                "securityhub.shubNoStandardsEnabled",
+                "securityhub.shubCISStandardDisabled",
+                "securityhub.shubAutoEnableControlsDisabled"
             ]
         },
         "EC2.": {
@@ -179,7 +183,8 @@
                 "kms.KeyPolicyWildcardAction",
                 "kms.KeyPolicySensitiveActionsNotRestricted",
                 "ssm.ssmParameterNoEncryptionCMK",
-                "secretsmanager.smNotEncryptedWithCMK"
+                "secretsmanager.smNotEncryptedWithCMK",
+                "codebuild.cbEncryptionDefaultKey"
             ]
         },
         "RDS.": {

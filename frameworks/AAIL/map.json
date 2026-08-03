@@ -95,7 +95,8 @@
                 "dynamodb.disabledPointInTimeRecovery",
                 "bedrock.bedrockAgentMemoryDisabled",
                 "bedrock.bedrockACMemoryNoEncryption",
-                "bedrock.bedrockACMemoryNoNamespace"
+                "bedrock.bedrockACMemoryNoNamespace",
+                "guardduty.AiProtectionDisabled"
             ],
             "BP02": [
                 "bedrock.bedrockGuardrailContentFilterDisabled",

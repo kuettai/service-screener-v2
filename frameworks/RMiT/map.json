@@ -33,7 +33,8 @@
                 "ssm.ssmParameterNoEncryptionCMK",
                 "secretsmanager.smNotEncryptedWithCMK",
                 "secretsmanager.smRotationNotEnabled",
-                "secretsmanager.smRotationOverdue"
+                "secretsmanager.smRotationOverdue",
+                "codebuild.cbEncryptionDefaultKey"
             ],
             "8": [],
             "9": [
@@ -227,7 +228,8 @@
                 "kms.KeyRotationEnabled",
                 "ssm.ssmParameterNoEncryptionCMK",
                 "secretsmanager.smNotEncryptedWithCMK",
-                "secretsmanager.smRotationNotEnabled"
+                "secretsmanager.smRotationNotEnabled",
+                "codebuild.cbEncryptionDefaultKey"
             ],
             "11": [],
             "12": [],

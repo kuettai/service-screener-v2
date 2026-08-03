@@ -24,7 +24,8 @@
                 "kms.KeyCentralizedManagement",
                 "cloudtrail.KMSPolicySourceArn",
                 "ssm.ssmParameterNoEncryptionCMK",
-                "secretsmanager.smNotEncryptedWithCMK"
+                "secretsmanager.smNotEncryptedWithCMK",
+                "codebuild.cbEncryptionDefaultKey"
             ],
             "DS.2": [
                 "s3.ServerSideEncrypted",
@@ -51,7 +52,15 @@
                 "config.configDeliveryChannelS3NotEncrypted",
                 "backup.backupRecoveryPointNotEncrypted",
                 "ecr.ecrEncryptionKms",
-                "kinesis.kinesisSSEDisabled"
+                "kinesis.kinesisSSEDisabled",
+                "emr.emrEncryptionAtRestDisabled",
+                "emr.emrNoSecurityConfiguration",
+                "athena.athenaWorkgroupNotEncrypted",
+                "athena.athenaS3OutputNotEncrypted",
+                "athena.athenaMinimumEncryptionDisabled",
+                "codebuild.cbNoArtifactEncryption",
+                "codebuild.cbS3LogsNotEncrypted",
+                "codebuild.cbReportGroupExportNotEncrypted"
             ],
             "DS.3": [
                 "s3.TlsEnforced",
@@ -64,7 +73,9 @@
                 "glue.SslEnabled",
                 "sagemaker.InterContainerEncryption",
                 "apigateway.MutualTLS",
-                "eventbridge.ebApiDestinationHttpEndpoint"
+                "eventbridge.ebApiDestinationHttpEndpoint",
+                "emr.emrEncryptionInTransitDisabled",
+                "codebuild.cbInsecureSSL"
             ],
             "DS.4": [
                 "s3.PublicReadAccessBlock",
@@ -81,7 +92,10 @@
                 "redshift.VpcDeployment",
                 "secretsmanager.smResourcePolicyPublicAccess",
                 "eventbridge.ebBusPublicPolicy",
-                "ecr.ecrRepoPublicAccess"
+                "ecr.ecrRepoPublicAccess",
+                "emr.emrPubliclyAccessible",
+                "emr.emrBlockPublicAccessDisabled",
+                "codebuild.cbProjectVisibilityPublic"
             ],
             "DS.5": [
                 "s3.BucketVersioning",
@@ -104,7 +118,9 @@
             "IAM.1": [
                 "iam.rootMfaActive",
                 "iam.mfaActive",
-                "iam.iamUsersWithFederationAvailable"
+                "iam.iamUsersWithFederationAvailable",
+                "appsync.appsyncNoAuthentication",
+                "emr.emrKerberosNotEnabled"
             ],
             "IAM.2": [
                 "iam.passwordPolicy",
@@ -117,7 +133,11 @@
                 "iam.missingPolicyConditions",
                 "iam.missingPermissionsBoundaries",
                 "lambda.lambdaRoleTooPermissive",
-                "sqs.WildcardPrincipalDetection"
+                "sqs.WildcardPrincipalDetection",
+                "accessanalyzer.aaNoAnalyzerConfigured",
+                "accessanalyzer.aaNoAccountAnalyzer",
+                "accessanalyzer.aaAnalyzerNotActive",
+                "accessanalyzer.aaUnresolvedExternalAccess"
             ],
             "IAM.4": [
                 "iam.rootHasAccessKey",
@@ -137,7 +157,10 @@
                 "kms.GrantOldAge",
                 "kms.GrantDuplicate",
                 "kms.KeyUnused",
-                "secretsmanager.smNotUsedRecently"
+                "secretsmanager.smNotUsedRecently",
+                "accessanalyzer.aaUnusedAccessAnalyzerMissing",
+                "codebuild.cbPlaintextCredentialsInEnvVars",
+                "codebuild.cbSourceUrlCredentials"
             ],
             "IAM.7": [
                 "iam.FullAdminAccess",
@@ -182,7 +205,9 @@
                 "apigateway.ResourcePolicy",
                 "apigateway.RequestThrottling",
                 "apigateway.RequestValidation",
-                "cloudfront.OriginTrafficEncryption"
+                "cloudfront.OriginTrafficEncryption",
+                "appsync.appsyncWafNotAssociated",
+                "appsync.appsyncIntrospectionEnabled"
             ],
             "NS.5": [
                 "ec2.VPCFlowLogEnabled"
@@ -206,7 +231,14 @@
                 "config.configRecorderNotEnabled",
                 "config.configRecorderNotAllResources",
                 "config.configRecorderLastStatusFailed",
-                "config.configDeliveryChannelMissing"
+                "config.configDeliveryChannelMissing",
+                "securityhub.shubNotEnabled",
+                "securityhub.shubNoStandardsEnabled",
+                "securityhub.shubCISStandardDisabled",
+                "securityhub.shubAutoEnableControlsDisabled",
+                "cloudformation.cfnDriftDetected",
+                "cloudformation.cfnDriftNeverChecked",
+                "cloudformation.cfnStackPolicyMissing"
             ],
             "ML.2": [
                 "cloudtrail.CloudWatchLogsLogGroupArn",
@@ -225,7 +257,17 @@
                 "iam.enableGuardDuty",
                 "cloudtrail.GuardDutyIntegration",
                 "cloudtrail.SecurityHubIntegration",
-                "lambda.lambdaGuardDutyProtectionDisabled"
+                "lambda.lambdaGuardDutyProtectionDisabled",
+                "guardduty.S3ProtectionDisabled",
+                "guardduty.EksAuditLogsDisabled",
+                "guardduty.RdsProtectionDisabled",
+                "guardduty.LambdaProtectionDisabled",
+                "guardduty.RuntimeMonitoringDisabled",
+                "guardduty.MalwareProtectionDisabled",
+                "inspector.inspectorNotEnabled",
+                "inspector.inspectorCriticalFindings",
+                "inspector.inspectorExploitableFindings",
+                "securityhub.shubFindingAggregatorMissing"
             ],
             "ML.4": [
                 "apigateway.ExecutionLogging",
@@ -240,7 +282,11 @@
                 "apigateway.CloudWatchAlarms",
                 "apigateway.PerformanceMonitoring",
                 "s3.CloudWatchRequestMetrics",
-                "route53.route53QueryLoggingNotEnabled"
+                "route53.route53QueryLoggingNotEnabled",
+                "emr.emrLoggingDisabled",
+                "codebuild.cbLogsDisabled",
+                "appsync.appsyncFieldLevelLogging",
+                "appsync.appsyncCloudWatchLogsNotEnabled"
             ],
             "ML.5": [
                 "ec2.VPCFlowLogEnabled",
@@ -267,7 +313,15 @@
                 "sagemaker.DirectInternetAccess",
                 "ecr.ecrCriticalVulnerabilities",
                 "ecr.ecrHighVulnerabilities",
-                "ssm.ssmManagedInstanceNotPatched"
+                "ssm.ssmManagedInstanceNotPatched",
+                "inspector.inspectorEc2ScanningDisabled",
+                "inspector.inspectorEcrScanningDisabled",
+                "inspector.inspectorLambdaScanningDisabled",
+                "inspector.inspectorCoverageGap",
+                "inspector.inspectorFixAvailableNotApplied",
+                "emr.emrOldRelease",
+                "codebuild.cbImageOutdated",
+                "codebuild.cbPrivilegedMode"
             ]
         },
         "Business Continuity and Disaster Recovery": {
@@ -301,7 +355,10 @@
                 "eventbridge.ebArchiveNotConfigured"
             ],
             "BC.3": [
-                "rds.DeleteProtection"
+                "rds.DeleteProtection",
+                "emr.emrTerminationProtectionDisabled",
+                "cloudformation.cfnTerminationProtectionDisabled",
+                "cloudformation.cfnRollbackFailed"
             ],
             "BC.4": [
                 "dynamodb.autoScalingStatus",

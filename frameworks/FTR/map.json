@@ -61,7 +61,21 @@
                 "cloudtrail.HasOneMultiRegionTrail",
                 "iam.enableGuardDuty",
                 "cloudtrail.SecurityHubIntegration",
-                "lambda.lambdaGuardDutyProtectionDisabled"
+                "lambda.lambdaGuardDutyProtectionDisabled",
+                "guardduty.S3ProtectionDisabled",
+                "guardduty.EksAuditLogsDisabled",
+                "guardduty.RdsProtectionDisabled",
+                "guardduty.LambdaProtectionDisabled",
+                "guardduty.RuntimeMonitoringDisabled",
+                "guardduty.MalwareProtectionDisabled",
+                "inspector.inspectorNotEnabled",
+                "inspector.inspectorCriticalFindings",
+                "inspector.inspectorExploitableFindings",
+                "securityhub.shubFindingAggregatorMissing",
+                "securityhub.shubNotEnabled",
+                "securityhub.shubNoStandardsEnabled",
+                "securityhub.shubCISStandardDisabled",
+                "securityhub.shubAutoEnableControlsDisabled"
             ],
             "IAM-002.4": [],
             "IAM-003.1": [
