@@ -17,7 +17,12 @@
             ]
         },
         "ACM.": {
-            "1": []
+            "1": [
+                "acm.acmCertExpired",
+                "acm.acmCertExpiry30Days",
+                "acm.acmCertRenewalFailed",
+                "acm.acmImportedCertNoAutoRenewal"
+            ]
         },
         "APIGateway.": {
             "1": [
@@ -57,7 +62,10 @@
             "9": []
         },
         "Backup.": {
-            "1": []
+            "1": [
+                "backup.backupRecoveryPointNotEncrypted",
+                "backup.backupRecoveryPointNoCMK"
+            ]
         },
         "CloudFront.": {
             "1": [
@@ -141,7 +149,13 @@
             "4": []
         },
         "Config.": {
-            "1": []
+            "1": [
+                "config.configRecorderNotEnabled",
+                "config.configRecorderNotAllResources",
+                "config.configRecorderExcludesGlobalResources",
+                "config.configRecorderLastStatusFailed",
+                "config.configDeliveryChannelMissing"
+            ]
         },
         "DMS.": {
             "1": [],
@@ -235,9 +249,19 @@
             "51": []
         },
         "ECR.": {
-            "1": [],
-            "2": [],
-            "3": []
+            "1": [
+                "ecr.ecrScanOnPush",
+                "ecr.ecrScanFrequency",
+                "ecr.ecrEnhancedScanning",
+                "ecr.ecrImageNeverScanned"
+            ],
+            "2": [
+                "ecr.ecrTagImmutability"
+            ],
+            "3": [
+                "ecr.ecrLifecyclePolicy",
+                "ecr.ecrLifecyclePolicyEffectiveness"
+            ]
         },
         "ECS.": {
             "1": [],
@@ -347,8 +371,13 @@
             "8": []
         },
         "EventBridge.": {
-            "3": [],
-            "4": []
+            "3": [
+                "eventbridge.ebBusPublicPolicy",
+                "eventbridge.ebRuleTargetCrossAccountNoCondition"
+            ],
+            "4": [
+                "eventbridge.ebGlobalEndpointNoReplication"
+            ]
         },
         "FSx.": {
             "1": []
@@ -400,7 +429,10 @@
             ]
         },
         "Kinesis.": {
-            "1": []
+            "1": [
+                "kinesis.kinesisSSEDisabled",
+                "kinesis.kinesisSSEDefaultKey"
+            ]
         },
         "KMS.": {
             "1": [
@@ -616,7 +648,9 @@
             ]
         },
         "Route53.": {
-            "2": []
+            "2": [
+                "route53.route53QueryLoggingNotEnabled"
+            ]
         },
         "S3.": {
             "1": [
@@ -682,10 +716,20 @@
             "3": []
         },
         "SecretsManager.": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": []
+            "1": [
+                "secretsmanager.smRotationNotEnabled",
+                "secretsmanager.smRotationLambdaMissing"
+            ],
+            "2": [
+                "secretsmanager.smRotationOverdue",
+                "secretsmanager.smAutoRotationScheduleInvalid"
+            ],
+            "3": [
+                "secretsmanager.smNotUsedRecently"
+            ],
+            "4": [
+                "secretsmanager.smLastChangedOld"
+            ]
         },
         "SNS.": {
             "1": []
@@ -699,9 +743,17 @@
             ]
         },
         "SSM.": {
-            "1": [],
-            "2": [],
-            "3": [],
+            "1": [
+                "ec2.EC2SSMNotManaged",
+                "ssm.ssmManagedInstanceNotOnline",
+                "ssm.ssmDefaultHostManagementDisabled"
+            ],
+            "2": [
+                "ssm.ssmManagedInstanceNotPatched"
+            ],
+            "3": [
+                "ssm.ssmInventoryNotConfigured"
+            ],
             "4": []
         },
         "WAF.": {
