@@ -1,5 +1,22 @@
 # Task: Add 8 New Services — Security & Developer Tooling
 
+> **REVISED 2026-08-03** after review — see `SPEC_04-8MoreServices-REVIEW.md`.
+> Changes applied below are marked **[FIX]**. Two were blocking:
+> `cfnDriftDetected` must NOT call `detect_stack_drift` (a write operation), and
+> the findings-count checks must not enumerate unbounded finding sets.
+>
+> **READ-ONLY CONTRACT.** Every check in this scanner uses only read
+> (`describe_*` / `list_*` / `get_*`) operations. Before adding a check, confirm
+> the API does not mutate state. `detect_stack_drift`, `create_*`, `put_*`,
+> `update_*` and `enable_*` are all disqualified regardless of how useful the data
+> would be.
+>
+> **Account-level services.** Security Hub, Inspector, Access Analyzer and EMR's
+> block-public-access are account/region-scoped, not per-resource. Follow the
+> SPEC_02 precedent and emit a single aggregate identifier
+> (`SecurityHub::Account`, `Inspector::Account`, `AccessAnalyzer::Account`),
+> mirroring `Config::Account` and `SSM::Account`.
+
 ## Context
 
 You are working on `service-screener-v2` — an open-source AWS security scanning tool at `/Users/kuettai/Documents/project/ss-genai/service-screener-v2`. You need to implement 8 new services following established patterns.
@@ -73,10 +90,14 @@ Set `remediation` to `null` if no safe one-liner exists. Set `remediation_risk` 
 | `appsyncIntrospectionEnabled` | introspectionConfig is ENABLED (production risk) | M | S |
 | `appsyncNoQueryDepthLimit` | queryDepthLimit is 0 or not set | M | P |
 | `appsyncNoResolverCountLimit` | resolverCountLimit is 0 or not set | M | P |
-| `appsyncCachingDisabled` | cachingConfig is not set or ttl=0 | L | P |
+| ~~`appsyncCachingDisabled`~~ | **[FIX] DROPPED.** `cachingConfig` is not a member of `GraphqlApi`; caching requires a separate `get_api_cache()` call. AWS also RETIRED the AppSync cache-encryption controls (AppSync.1, AppSync.6) on 2026-03-09 because caches are now encrypted by default, so there is little left to check here | — | — |
 | `appsyncNoTags` | tags empty | L | O |
 
-**Framework mapping**: WAFS SEC09.BP02 (API protection), SEC06.BP01 (compute)
+**Framework mapping**: **[FIX]** WAFS **SEC05.BP01** (create network layers / edge
+protection) for `appsyncWafNotAssociated` and `appsyncNoAuthentication` — NOT
+SEC09.BP02, which is encryption in transit. SEC02.BP02 (temporary credentials)
+for the API-key expiry checks. SEC04.BP01 (service logging) for the logging
+checks.
 
 ---
 
@@ -95,8 +116,9 @@ Set `remediation` to `null` if no safe one-liner exists. Set `remediation_risk` 
 | `shubAutoEnableControlsDisabled` | describe_hub → AutoEnableControls is false | M | S |
 | `shubFindingAggregatorMissing` | list_finding_aggregators returns empty (no cross-region) | M | O |
 | `shubIntegrationsMissing` | list_enabled_products_for_import returns < 3 integrations | L | O |
-| `shubUnprocessedFindings` | get_findings with workflow status NEW and age >7 days, count > 100 | M | O |
+| `shubUnprocessedFindings` | **[FIX]** `get_findings` paginates without bound (verified: returns `NextToken` on page one). Cap pagination at a documented page limit, report "at least N", and NEVER silently truncate — follow the `INVENTORY_SAMPLE_LIMIT` precedent in `services/ssm/Ssm.py`. Report INFO when the cap is hit | M | O |
 | `shubCISStandardDisabled` | get_enabled_standards doesn't include CIS standard ARN | M | S |
+| `shubLegacyControlFindingGenerator` | **[FIX, new]** `describe_hub().ControlFindingGenerator != 'SECURITY_CONTROL'` — legacy `STANDARD_CONTROL` mode duplicates findings across standards. Verified live: this account returns `STANDARD_CONTROL` | M | O |
 | `shubNoTags` | list_tags_for_resource returns empty | L | O |
 
 **Framework mapping**: WAFS SEC01.BP03 (detective controls), SEC04.BP01 (logging/monitoring)
@@ -118,8 +140,11 @@ Set `remediation` to `null` if no safe one-liner exists. Set `remediation_risk` 
 | `inspectorEcrScanningDisabled` | resourceState.ecr.status != ENABLED | M | S |
 | `inspectorLambdaScanningDisabled` | resourceState.lambda.status != ENABLED | M | S |
 | `inspectorLambdaCodeScanningDisabled` | resourceState.lambdaCode.status != ENABLED | L | S |
+| `inspectorCodeRepositoryScanningDisabled` | **[FIX, new]** `resourceState.codeRepository.status != ENABLED` — present in the live API response, omitted from the original spec | M | S |
 | `inspectorCoverageGap` | list_coverage → resources with scanStatus != ACTIVE (>10%) | M | S |
-| `inspectorCriticalFindings` | list_findings with severity CRITICAL and status ACTIVE | H | S |
+| `inspectorCriticalFindings` | **[FIX]** `list_finding_aggregations(aggregationType='ACCOUNT')` → `severityCounts.critical > 0`. Do **NOT** use `list_findings` — it paginates over every finding (verified: 1,248 in the test account, ~13 calls for one check). The aggregation API returns exact counts in ONE call | H | S |
+| `inspectorExploitableFindings` | **[FIX, new]** same one call → `exploitAvailableCount > 0`. A vulnerability with a known exploit is the highest-priority class in vulnerability management | H | S |
+| `inspectorFixAvailableNotApplied` | **[FIX, new]** same one call → `fixAvailableCount` is a high proportion of `all` (unpatched despite an available fix) | H | S |
 | `inspectorSuppressedFindings` | list_finding_aggregations → suppressedCounts > total*0.5 | L | O |
 
 **Framework mapping**: WAFS SEC01.BP02 (vulnerability management), SEC06.BP01 (compute protection)
@@ -159,18 +184,18 @@ Set `remediation` to `null` if no safe one-liner exists. Set `remediation_risk` 
 
 | Check | FAIL condition | Sev | Pillar |
 | --- | --- | --- | --- |
-| `emrEncryptionAtRestDisabled` | SecurityConfiguration missing or encryption.atRest disabled | H | S |
-| `emrEncryptionInTransitDisabled` | encryption.inTransit disabled | H | S |
-| `emrNoSecurityConfiguration` | Cluster has no SecurityConfiguration attached | H | S |
+| `emrEncryptionAtRestDisabled` | **[FIX]** `describe_cluster` returns only the security configuration NAME. Two-hop: `describe_security_configuration(Name=...)` → its `SecurityConfiguration` field is a **JSON string that must be parsed** → `EncryptionConfiguration.EnableAtRestEncryption`. Report INFO (not FAIL) when no security configuration is attached, so this does not double-report with `emrNoSecurityConfiguration` | H | S |
+| `emrEncryptionInTransitDisabled` | **[FIX]** same two-hop + JSON parse → `EncryptionConfiguration.EnableInTransitEncryption`. Same INFO-when-absent rule | H | S |
+| `emrNoSecurityConfiguration` | Cluster has no SecurityConfiguration attached. **[FIX]** This is the single FAIL for the absent case; the two checks above stay INFO then | H | S |
 | `emrKerberosNotEnabled` | KerberosAttributes is null/empty | M | S |
-| `emrPubliclyAccessible` | Ec2InstanceAttributes.EmrManagedMasterSecurityGroup allows 0.0.0.0/0 on port 22/8443 | H | S |
+| `emrPubliclyAccessible` | **[FIX]** `describe_cluster` returns only the SG **id** in `Ec2InstanceAttributes.EmrManagedMasterSecurityGroup`. Needs an EC2 `describe_security_groups` join to evaluate rules. Check whether `ec2.SGSensitivePortOpenToAll` already covers the same SG before implementing — if so, drop this to avoid duplicate reporting | H | S |
 | `emrLoggingDisabled` | LogUri is null | M | O |
 | `emrStepConcurrencyLow` | StepConcurrencyLevel == 1 (default, underutilized) | L | P |
-| `emrTerminationProtectionDisabled` | TerminationProtection is false | M | R |
+| `emrTerminationProtectionDisabled` | **[FIX]** the field is **`TerminationProtected`**, not `TerminationProtection`. As written the check would always pass | M | R |
 | `emrAutoScalingDisabled` | AutoScalingRole is null AND no instance fleet auto-scaling | M | P |
-| `emrMasterInstanceOnDemand` | Master node not using on-demand (spot for master = risk) | M | R |
-| `emrNoBootstrapActions` | BootstrapActions empty (informational — security hardening usually here) | L | O |
-| `emrBlockPublicAccessDisabled` | get_block_public_access_configuration → BlockPublicAccessConfiguration.BlockPublicSecurityGroupRules is false | H | S |
+| `emrMasterInstanceOnDemand` | **[FIX]** demote to INFO. A spot master is a deliberate cost trade-off in dev/test; as a FAIL it punishes an intentional choice | L | R |
+| ~~`emrNoBootstrapActions`~~ | **[FIX] DROPPED.** Absence of bootstrap actions is not a defect — many clusters need none | — | — |
+| `emrBlockPublicAccessDisabled` | get_block_public_access_configuration → BlockPublicAccessConfiguration.BlockPublicSecurityGroupRules is false. **[FIX]** This is ACCOUNT/region-level (`AWS::::Account`), not per-cluster — put it in a regional driver and emit it once, not once per cluster | H | S |
 | `emrOldRelease` | ReleaseLabel < emr-6.x (very old, missing security patches) | M | S |
 | `emrNoTags` | Tags empty | L | O |
 | `emrIdleCluster` | Status.State == WAITING for > 24hr with 0 running steps | L | C |
@@ -223,11 +248,19 @@ Set `remediation` to `null` if no safe one-liner exists. Set `remediation_risk` 
 | `cbImageOutdated` | environment.image contains deprecated/EOL image (e.g., ubuntu:standard:1.0) | M | S |
 | `cbConcurrentBuildLimitNotSet` | concurrentBuildLimit is null (unlimited) | L | C |
 | `cbS3LogsNotEncrypted` | logsConfig.s3Logs.encryptionDisabled is true | M | S |
-| `cbBadgeEnabled` | badge.badgeEnabled AND badge requires repo visibility | L | S |
+| ~~`cbBadgeEnabled`~~ | **[FIX] DROPPED.** "badge requires repo visibility" is not evaluable from the CodeBuild API, and badge state alone is not a security finding | — | — |
 | `cbInsecureSSL` | source.insecureSsl is true | H | S |
+| `cbPlaintextCredentialsInEnvVars` | **[FIX, new — FSBP CodeBuild.2, CRITICAL]** any `environment.environmentVariables[]` with `type == PLAINTEXT` whose name matches a credential pattern (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and secret/password/token/key fragments). Plaintext AWS keys in build env vars are a well-documented breach vector. **Report the variable NAME only, never the value** | H | S |
+| `cbSourceUrlCredentials` | **[FIX, new — FSBP CodeBuild.1, CRITICAL]** `source.location` or any `secondarySources[].location` contains embedded credentials (`https://user:pass@host` form). **Never emit the matched credential** | H | S |
+| `cbReportGroupExportNotEncrypted` | **[FIX, new — FSBP CodeBuild.7]** `list_report_groups()` → `batch_get_report_groups()` → `exportConfig.s3Destination.encryptionDisabled` is true | M | S |
+| `cbProjectVisibilityPublic` | **[FIX, new]** `projectVisibility == 'PUBLIC_READ'` — build logs are world-readable. Note the enum is `['PUBLIC_READ','PRIVATE']`; match `PUBLIC_READ`, not `PUBLIC` | H | S |
 | `cbNoTags` | tags empty | L | O |
 
-**Framework mapping**: WAFS SEC08.BP01 (encryption), SEC06.BP01 (compute), SEC09.BP01 (network)
+**Framework mapping**: WAFS SEC08.BP01 (encryption at rest) for the encryption
+checks; **SEC02.BP03** (store and use secrets securely) for the two new credential
+checks; SEC06.BP02 (reduce attack surface) for `cbPrivilegedMode`; SEC04.BP01 for
+logging. Also map into **NIST** `CodeBuild.1/2/7` — those section IDs are Security
+Hub control IDs, so the mapping is mechanical.
 
 ---
 
@@ -243,7 +276,8 @@ Set `remediation` to `null` if no safe one-liner exists. Set `remediation_risk` 
 | --- | --- | --- | --- |
 | `cfnTerminationProtectionDisabled` | EnableTerminationProtection is false | M | R |
 | `cfnNoRollbackConfiguration` | RollbackConfiguration is null or MonitoringTimeInMinutes == 0 | L | R |
-| `cfnDriftDetected` | detect_stack_drift → DriftStatus == "DRIFTED" | M | R |
+| `cfnDriftDetected` | **[FIX]** `DriftInformation.StackDriftStatus == "DRIFTED"` from the `describe_stacks` response already fetched. Do **NOT** call `detect_stack_drift` — it is a WRITE operation whose only output is a `StackDriftDetectionId`; it initiates an async, billed, rate-limited detection run that mutates stack state | M | R |
+| `cfnDriftNeverChecked` | **[FIX, new]** `DriftInformation.StackDriftStatus == "NOT_CHECKED"` — drift has never been assessed on this stack. Verified as the common real-world value | L | R |
 | `cfnNoNotifications` | NotificationARNs is empty | L | O |
 | `cfnIAMCapabilityGranted` | Capabilities contains CAPABILITY_IAM or CAPABILITY_NAMED_IAM (informational) | L | S |
 | `cfnStackPolicyMissing` | get_stack_policy returns empty | M | S |
@@ -276,15 +310,38 @@ cd services/{service_name}/simulation ./cleanup_test_resources.sh cd ../../..
 10. Test against real account: `python3 main.py --regions ap-southeast-1 --services {service_name} --beta 1 --sequential 1`
 11. Commit per service: `git commit -m "feat: Add {ServiceName} service (N checks) + framework mappings"`
 
+## Simulation feasibility — read before writing step 8
+
+**[FIX]** Several of these services cannot be simulated safely. Do not discover
+this mid-implementation; plan for it:
+
+| Service | Simulation approach |
+|---|---|
+| Security Hub, Inspector, GuardDuty features | **Read-only posture report.** Enabling these is an account-level mutation with real recurring cost, and disabling them to force a FAIL removes a security control from the account. Follow the `services/config/simulation/` precedent: a script that reports what each check will return and creates nothing. |
+| Access Analyzer | Analyzer creation is cheap, but **findings cannot be manufactured on demand** — they depend on real cross-account policy. Create an analyzer; report the findings-based checks as INFO. |
+| EMR | A cluster costs money per hour. Smallest viable cluster, torn down immediately, or read-only report. |
+| CodeBuild, AppSync, Athena, CloudFormation | Fully simulable. All create cheap or free resources. |
+
+Where a check cannot be forced to FAIL, say so explicitly in the simulation
+README — the SPEC_02 services documented every such case and that proved more
+useful than a fixture that silently exercised nothing.
+
 ## Validation
 
 After all 8 services:
 
-- All reporter.json files are valid JSON
+- All reporter.json files are valid JSON: `python3 scripts/validate_reporter.py`
+- **[FIX]** `python3 scripts/validate_frameworks.py` exits 0. This is now
+  CI-enforced (`.github/workflows/validate-frameworks.yml`) and fails the build on
+  a mapping that points at a nonexistent check. Note a dangling mapping renders as
+  a GREEN COMPLIANT tick, not an error, so this is not optional.
 - All `_check` methods match reporter keys 1:1
 - RuleCount.py reports correct totals
 - Full scan exits 0 with no tracebacks: `python3 main.py --services ALL --regions ap-southeast-1 --beta 1 --sequential 1`
 - Each service has simulation scripts that have been run
+- **[FIX]** No check calls a mutating API. Grep the new drivers for
+  `detect_`, `create_`, `put_`, `update_`, `delete_`, `enable_`, `start_` before
+  committing.
 
 ```
 

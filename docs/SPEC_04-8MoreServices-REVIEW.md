@@ -158,6 +158,16 @@ feature coverage. The existing `guardduty` service has only 5 checks and
 `GuarddutyDriver.py:146` calls `get_detector()` while reading only the
 **deprecated** `DataSources` field, discarding `Features[]`.
 
+**Correction to an earlier claim in this review.** I initially called GuardDuty's
+unconditional `[-1, ...]` status a latent bug. It is not. `Reporter.process()`
+only populates `self.detail` when `info[0] == -1`, so the existing `Findings`,
+`UsageStat`, `FreeTrial` and `Settings` checks use `-1` deliberately as the only
+way to carry payload data through to `GuarddutypageBuilder`, which reads
+`detector['Settings']['value']['Settings']`. Changing those statuses would blank
+the GuardDuty settings table. New feature checks must therefore be *added
+alongside* the existing `Settings` check, leaving it and its `DataSources` payload
+untouched.
+
 Verified live on detector `b6c337ba6115507baf62cd630529d574`:
 
 ```
@@ -170,6 +180,10 @@ That is a **High**-severity failure in this account today that the scanner
 silently ignores. Ten checks, **zero new API calls** — detailed in
 `SPEC_05_CHECK_COVERAGE_EXPANSION.md` §2.1. Strongly recommend folding into this
 spec's scope, since it is cheaper than any of the 8 new services.
+
+Implementation constraint: keep reading `DataSources` for the existing `Settings`
+payload (the page builder depends on it) and read `Features[]` *in addition*, for
+the new pass/fail checks.
 
 ### 4.2 Security Hub — add from FSBP/CIS
 
