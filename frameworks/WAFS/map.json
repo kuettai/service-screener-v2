@@ -75,10 +75,16 @@
                 "cognito.cognitoClientTokenRevocationDisabled",
                 "cognito.cognitoAccountTakeoverProtectionWeak",
                 "cognito.cognitoCompromisedCredentialIncompleteFilter",
-                "cognito.cognitoLongTemporaryPassword"
+                "cognito.cognitoLongTemporaryPassword",
+                "cognito.cognitoNoMfaMethods",
+                "cognito.cognitoSmsOnlyMfa",
+                "cognito.cognitoClientInsecureAuthFlow",
+                "cognito.cognitoSelfServiceSignUpNoVerification"
             ],
             "BP02": [
-                "ec2.EC2IamProfile"
+                "ec2.EC2IamProfile",
+                "cognito.cognitoTokenValidityTooLong",
+                "iam.roleLongSession"
             ],
             "BP03": [
                 "iam.hasAccessKeyNoRotate30days",
@@ -89,7 +95,8 @@
                 "secretsmanager.smRotationLambdaMissing",
                 "secretsmanager.smAutoRotationScheduleInvalid",
                 "secretsmanager.smLastChangedOld",
-                "secretsmanager.smNoVersionStages"
+                "secretsmanager.smNoVersionStages",
+                "cognito.cognitoClientNoSecret"
             ],
             "BP04": [
                 "iam.hasSSORoles",
@@ -111,7 +118,9 @@
                 "kms.GrantOldAge",
                 "bedrock.bedrockAgentIamRoleOverprivileged",
                 "bedrock.bedrockACRuntimeWildcardRole",
-                "stepfunctions.sfnRoleOverprivileged"
+                "stepfunctions.sfnRoleOverprivileged",
+                "cognito.cognitoClientExcessiveScopes",
+                "cognito.cognitoDeviceTrackingDisabled"
             ],
             "BP06": [
                 "iam.userNotUsingGroup",
@@ -150,7 +159,9 @@
                 "sns.snsPublicAccess",
                 "sns.snsPolicyOverlyBroadActions",
                 "stepfunctions.sfnIAMRoleAllowsPassRole",
-                "cognito.cognitoGroupOverlyPermissiveRole"
+                "cognito.cognitoGroupOverlyPermissiveRole",
+                "redshift.IAMRoles",
+                "eks.eksAuthModeConfigMap"
             ],
             "BP03": [
                 "iam.EnableConfigService",
@@ -183,7 +194,9 @@
                 "secretsmanager.smResourcePolicyPublicAccess",
                 "secretsmanager.smResourcePolicyCrossAccount",
                 "eventbridge.ebBusPublicPolicy",
-                "eventbridge.ebRuleTargetCrossAccountNoCondition"
+                "eventbridge.ebRuleTargetCrossAccountNoCondition",
+                "lambda.lambdaURLWithoutAuth",
+                "sns.snsCrossAccountAccessNoCondition"
             ],
             "BP08": [],
             "BP09": [
@@ -230,7 +243,11 @@
                 "route53.route53ResolverQueryLoggingNotEnabled",
                 "route53.route53HealthCheckNoAlarm",
                 "ssm.ssmSessionManagerNoCloudWatchLogs",
-                "ssm.ssmSessionManagerNoS3Logs"
+                "ssm.ssmSessionManagerNoS3Logs",
+                "apigateway.AccessLogging",
+                "cognito.cognitoNoThreatProtectionLogging",
+                "wafv2.wafv2LoggingFilterDropsBlocked",
+                "wafv2.wafv2LoggingMissingRedactedFields"
             ],
             "BP02": [
                 "cloudwatch.missingCloudWatchDashboards",
@@ -251,7 +268,13 @@
                 "s3.MacieToEnable",
                 "cloudtrail.GuardDutyIntegration",
                 "cloudtrail.SecurityHubIntegration",
-                "lambda.lambdaGuardDutyProtectionDisabled"
+                "lambda.lambdaGuardDutyProtectionDisabled",
+                "cognito.cognitoThreatProtectionAuditOnly",
+                "cognito.cognitoAccountTakeoverNoNotification",
+                "wafv2.wafv2NoAccountTakeoverPrevention",
+                "wafv2.wafv2NoAccountCreationFraudPrevention",
+                "wafv2.wafv2NoBotControl",
+                "wafv2.wafv2NoAnonymousIpList"
             ]
         },
         "SEC05": {
@@ -265,7 +288,10 @@
                 "sagemaker.NotebookVpcSettings",
                 "sagemaker.ModelVpcSettings",
                 "sagemaker.TrainingVpcSettings",
-                "redshift.VpcDeployment"
+                "redshift.VpcDeployment",
+                "wafv2.wafv2AppSyncWithoutWebAcl",
+                "wafv2.wafv2CognitoUserPoolWithoutWebAcl",
+                "cognito.cognitoNoWafAssociation"
             ],
             "BP02": [
                 "ec2.SGSensitivePortOpenToAll",
@@ -283,7 +309,10 @@
                 "efs.MountTargetSecurityGroups",
                 "sagemaker.NetworkIsolation",
                 "sagemaker.TrainingNetworkIsolation",
-                "route53.route53ResolverDnsFirewallNotConfigured"
+                "route53.route53ResolverDnsFirewallNotConfigured",
+                "eks.eksClusterSGRestriction",
+                "eks.eksPublicEndpointNoCidrRestriction",
+                "elasticache.DefaultPort"
             ],
             "BP03": [],
             "BP04": [
@@ -315,11 +344,19 @@
                 "ssm.ssmManagedInstanceNotPatched",
                 "ssm.ssmManagedInstanceOldAgent",
                 "ssm.ssmInventoryNotConfigured",
-                "ssm.ssmManagedInstanceNotOnline"
+                "ssm.ssmManagedInstanceNotOnline",
+                "ec2.WindowsOSOutdated",
+                "ec2.WindowsOSNotLatest",
+                "eks.eksClusterVersionUpdate"
             ],
             "BP02": [
                 "sagemaker.RootAccessDisabled",
-                "lambda.lambdaNoEnvironmentVariables"
+                "lambda.lambdaNoEnvironmentVariables",
+                "ec2.EC2IMDSv2",
+                "ec2.EC2KeyPairNotInUse",
+                "lambda.lambdaCodeSigningDisabled",
+                "sagemaker.ModelDataUrlValidation",
+                "cognito.cognitoClientUserExistenceErrors"
             ],
             "BP03": [],
             "BP04": [],
@@ -341,7 +378,8 @@
                 "ecr.ecrKmsDsseEncryption",
                 "ecr.ecrRepoPublicAccess",
                 "ecr.ecrRepoCrossAccount",
-                "route53.route53PublicZoneSensitiveNames"
+                "route53.route53PublicZoneSensitiveNames",
+                "route53.route53MxWithoutSpfDmarc"
             ],
             "BP02": [
                 "s3.BucketOwnerEnforced"
@@ -371,7 +409,8 @@
                 "config.configDeliveryChannelS3NotEncrypted",
                 "ssm.ssmParameterNotEncrypted",
                 "ssm.ssmParameterNoEncryptionCMK",
-                "ssm.ssmSessionManagerNoEncryption"
+                "ssm.ssmSessionManagerNoEncryption",
+                "sns.snsEncryptionNotCMK"
             ],
             "BP02": [
                 "cloudtrail.RequiresKmsKey",
@@ -453,7 +492,9 @@
                 "ecr.ecrCriticalVulnerabilities",
                 "ecr.ecrHighVulnerabilities",
                 "ecr.ecrImageNeverScanned",
-                "ecr.ecrScanFindingsStale"
+                "ecr.ecrScanFindingsStale",
+                "apigateway.MinTLSVersion",
+                "sns.snsSubscriptionEndpointIsIPAddress"
             ],
             "BP02": [
                 "cloudfront.viewerPolicyHttps",
@@ -494,7 +535,10 @@
                 "route53.route53ResolverDnssecValidationDisabled",
                 "route53.route53HealthCheckUsingHttp",
                 "route53.route53HealthCheckSniDisabled",
-                "eventbridge.ebApiDestinationHttpEndpoint"
+                "eventbridge.ebApiDestinationHttpEndpoint",
+                "sns.snsSignatureVersionOld",
+                "sns.snsPolicyVersionOutdated",
+                "sns.snsSubscriptionUnauthenticatedConfirmation"
             ],
             "BP03": [],
             "BP04": [
@@ -512,7 +556,12 @@
                 "wafv2.wafv2RulesInCountMode",
                 "route53.route53DanglingDnsRecords",
                 "route53.route53DomainTransferLockDisabled",
-                "route53.route53DomainPrivacyDisabled"
+                "route53.route53DomainPrivacyDisabled",
+                "wafv2.wafv2ManagedRuleGroupVersionExpiring",
+                "wafv2.wafv2ManagedRuleGroupExcludedRulesExcessive",
+                "wafv2.wafv2RateBasedRuleThresholdTooHigh",
+                "wafv2.wafv2NoKnownBadInputsRuleSet",
+                "wafv2.wafv2RuleGroupEmpty"
             ],
             "BP02": [],
             "BP03": [],

@@ -732,7 +732,10 @@
             ]
         },
         "SNS.": {
-            "1": []
+            "1": [
+                "sns.snsEncryptionAtRest",
+                "sns.snsEncryptionNotCMK"
+            ]
         },
         "SQS.": {
             "1": [
@@ -765,9 +768,22 @@
             "6": [],
             "7": [],
             "8": [],
-            "10": [],
-            "11": [],
-            "12": []
+            "10": [
+                "wafv2.wafv2NoRules",
+                "wafv2.wafv2RuleGroupEmpty",
+                "wafv2.wafv2NoManagedRuleGroups"
+            ],
+            "11": [
+                "wafv2.wafv2LoggingNotConfigured",
+                "wafv2.wafv2LoggingFilterAllDrop",
+                "wafv2.wafv2LoggingFilterDropsBlocked",
+                "wafv2.wafv2LoggingMissingRedactedFields"
+            ],
+            "12": [
+                "wafv2.wafv2CloudWatchMetricsDisabled",
+                "wafv2.wafv2RuleVisibilityDisabled",
+                "wafv2.wafv2SampledRequestsDisabled"
+            ]
         }
     }
 }
