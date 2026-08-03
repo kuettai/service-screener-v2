@@ -196,7 +196,8 @@
                 "eventbridge.ebBusPublicPolicy",
                 "eventbridge.ebRuleTargetCrossAccountNoCondition",
                 "lambda.lambdaURLWithoutAuth",
-                "sns.snsCrossAccountAccessNoCondition"
+                "sns.snsCrossAccountAccessNoCondition",
+                "lambda.lambdaURLInUsed"
             ],
             "BP08": [],
             "BP09": [
@@ -347,7 +348,11 @@
                 "ssm.ssmManagedInstanceNotOnline",
                 "ec2.WindowsOSOutdated",
                 "ec2.WindowsOSNotLatest",
-                "eks.eksClusterVersionUpdate"
+                "eks.eksClusterVersionUpdate",
+                "elasticache.EngineVersion",
+                "elasticache.EngineVersionUnlisted",
+                "rds.EngineVersionMajor",
+                "rds.EngineVersionMinor"
             ],
             "BP02": [
                 "sagemaker.RootAccessDisabled",
@@ -615,7 +620,8 @@
                 "backup.backupVaultLockNotFinalized",
                 "secretsmanager.smReplicationNotConfigured",
                 "eventbridge.ebArchiveNotConfigured",
-                "eventbridge.ebGlobalEndpointNoReplication"
+                "eventbridge.ebGlobalEndpointNoReplication",
+                "s3.BucketReplication"
             ],
             "BP02": [],
             "BP03": [],
