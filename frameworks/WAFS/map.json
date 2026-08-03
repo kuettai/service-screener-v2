@@ -40,7 +40,11 @@
                 "config.configRecorderLastStatusFailed",
                 "config.configNoRules",
                 "config.configRulesNonCompliant",
-                "config.configNoRemediationActions"
+                "config.configNoRemediationActions",
+                "securityhub.shubNotEnabled",
+                "securityhub.shubNoStandardsEnabled",
+                "securityhub.shubCISStandardDisabled",
+                "securityhub.shubAutoEnableControlsDisabled"
             ],
             "BP04": [
                 "iam.enableGuardDuty",
@@ -132,7 +136,12 @@
         "SEC03": {
             "BP01": [
                 "iam.InlinePolicy",
-                "iam.missingPermissionsBoundaries"
+                "iam.missingPermissionsBoundaries",
+                "accessanalyzer.aaNoAnalyzerConfigured",
+                "accessanalyzer.aaNoAccountAnalyzer",
+                "accessanalyzer.aaAnalyzerNotActive",
+                "accessanalyzer.aaUnresolvedExternalAccess",
+                "accessanalyzer.aaNoInternalAccessAnalyzer"
             ],
             "BP02": [
                 "eks.eksClusterRoleLeastPrivilege",
@@ -178,7 +187,10 @@
                 "iam.unnecessaryCustomPolicies",
                 "kms.GrantDuplicate",
                 "kms.KeyUnused",
-                "secretsmanager.smNotUsedRecently"
+                "secretsmanager.smNotUsedRecently",
+                "accessanalyzer.aaUnusedAccessAnalyzerMissing",
+                "accessanalyzer.aaNoArchiveRules",
+                "accessanalyzer.aaNoOrganizationAnalyzer"
             ],
             "BP05": [
                 "iam.SCPEnabled",
@@ -284,7 +296,14 @@
                 "guardduty.EksAuditLogsDisabled",
                 "guardduty.RdsProtectionDisabled",
                 "guardduty.LambdaProtectionDisabled",
-                "guardduty.AiProtectionDisabled"
+                "guardduty.AiProtectionDisabled",
+                "securityhub.shubFindingAggregatorMissing",
+                "securityhub.shubIntegrationsMissing",
+                "securityhub.shubUnprocessedFindings",
+                "securityhub.shubLegacyControlFindingGenerator",
+                "inspector.inspectorNotEnabled",
+                "inspector.inspectorCriticalFindings",
+                "inspector.inspectorExploitableFindings"
             ]
         },
         "SEC05": {
@@ -366,7 +385,14 @@
                 "guardduty.EksRuntimeMonitoringDisabled",
                 "guardduty.EcsRuntimeMonitoringDisabled",
                 "guardduty.Ec2RuntimeMonitoringDisabled",
-                "guardduty.MalwareProtectionDisabled"
+                "guardduty.MalwareProtectionDisabled",
+                "inspector.inspectorEc2ScanningDisabled",
+                "inspector.inspectorEcrScanningDisabled",
+                "inspector.inspectorLambdaScanningDisabled",
+                "inspector.inspectorLambdaCodeScanningDisabled",
+                "inspector.inspectorCodeRepositoryScanningDisabled",
+                "inspector.inspectorCoverageGap",
+                "inspector.inspectorFixAvailableNotApplied"
             ],
             "BP02": [
                 "sagemaker.RootAccessDisabled",

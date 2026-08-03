@@ -440,6 +440,10 @@
             "21": [
                 "iam.ManagedPolicyFullAccessOneServ",
                 "iam.wildcardActionsDetection"
+            ],
+            "28": [
+                "accessanalyzer.aaNoAnalyzerConfigured",
+                "accessanalyzer.aaNoAccountAnalyzer"
             ]
         },
         "Kinesis.": {
