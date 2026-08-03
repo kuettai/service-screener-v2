@@ -1,5 +1,26 @@
 # Task: Add 8 New Services — Security & Developer Tooling
 
+> **STATUS: COMPLETE (2026-08-03).** All 8 services built, tested against
+> account 956288449190 / ap-southeast-1, and committed. 942 -> 1038 checks
+> (+96), 36 -> 44 services.
+>
+> | Phase | Content | Checks | Commit |
+> |---|---|---|---|
+> | 0 | GuardDuty `Features[]` extension (not in this spec; from the review) | 5 -> 15 | `72fed68` |
+> | 1 | CodeBuild | 15 | `064371c` |
+> | 2 | Access Analyzer, Security Hub, Inspector | 26 | `c494b35` |
+> | 3 | Athena, AppSync | 21 | `2e191f2` |
+> | 4 | EMR, CloudFormation | 24 | `b7e6161` |
+>
+> Both blocking issues were fixed in this document before any code was written,
+> and both fixes were verified in the finished services:
+> `cfnDriftDetected` reads `DriftInformation` and never calls
+> `detect_stack_drift`; Inspector uses `list_finding_aggregations` (one call)
+> rather than paginating `list_findings`.
+>
+> Full review, including the ~25 additional checks that were folded in, is in
+> `SPEC_04-8MoreServices-REVIEW.md`.
+
 > **REVISED 2026-08-03** after review — see `SPEC_04-8MoreServices-REVIEW.md`.
 > Changes applied below are marked **[FIX]**. Two were blocking:
 > `cfnDriftDetected` must NOT call `detect_stack_drift` (a write operation), and
