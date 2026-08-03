@@ -44,7 +44,10 @@
             "ACCT.07": [],
             "ACCT.08": [
                 "s3.PublicAccessBlock",
-                "s3.S3AccountPublicAccessBlock"
+                "s3.S3AccountPublicAccessBlock",
+                "secretsmanager.smResourcePolicyPublicAccess",
+                "eventbridge.ebBusPublicPolicy",
+                "ecr.ecrRepoPublicAccess"
             ],
             "ACCT.09": [],
             "ACCT.10": [
@@ -74,7 +77,12 @@
                 "bedrock.bedrockKBNoEncryption",
                 "bedrock.bedrockACMemoryNoEncryption",
                 "stepfunctions.sfnEncryptionAtRest",
-                "sns.snsEncryptionAtRest"
+                "sns.snsEncryptionAtRest",
+                "ssm.ssmParameterNotEncrypted",
+                "secretsmanager.smNotEncryptedWithCMK",
+                "eventbridge.ebBusNoEncryption",
+                "backup.backupRecoveryPointNotEncrypted",
+                "kinesis.kinesisSSEDisabled"
             ],
             "WKLD.09": [],
             "WKLD.10": [],

@@ -41,7 +41,10 @@
             "P2.1": [
                 "s3.PublicAccessBlock",
                 "s3.PublicReadAccessBlock",
-                "s3.PublicWriteAccessBlock"
+                "s3.PublicWriteAccessBlock",
+                "secretsmanager.smResourcePolicyPublicAccess",
+                "eventbridge.ebBusPublicPolicy",
+                "ecr.ecrRepoPublicAccess"
             ],
             "P2.2": [
                 "ec2.EBSSnapshot",
@@ -49,7 +52,10 @@
                 "dynamodb.disabledBackup",
                 "dynamodb.disabledPointInTimeRecovery",
                 "efs.AutomatedBackup",
-                "redshift.AutomaticSnapshots"
+                "redshift.AutomaticSnapshots",
+                "backup.backupNoPlanExists",
+                "backup.backupPlanNotAssigned",
+                "backup.backupCriticalResourcesUnprotected"
             ],
             "P2.3": [
                 "s3.ServerSideEncrypted",
@@ -67,7 +73,13 @@
                 "bedrock.bedrockKBNoEncryption",
                 "bedrock.bedrockACMemoryNoEncryption",
                 "stepfunctions.sfnEncryptionAtRest",
-                "sns.snsEncryptionAtRest"
+                "sns.snsEncryptionAtRest",
+                "ssm.ssmParameterNotEncrypted",
+                "ssm.ssmParameterNoEncryptionCMK",
+                "secretsmanager.smNotEncryptedWithCMK",
+                "eventbridge.ebBusNoEncryption",
+                "backup.backupRecoveryPointNotEncrypted",
+                "kinesis.kinesisSSEDisabled"
             ],
             "P2.4": [
                 "s3.MacieToEnable",
@@ -81,7 +93,8 @@
                 "opensearch.TLSEnforced",
                 "elasticache.EncInTransitAndRest",
                 "ec2.SGEncryptionInTransit",
-                "cloudfront.viewerPolicyHttps"
+                "cloudfront.viewerPolicyHttps",
+                "eventbridge.ebApiDestinationHttpEndpoint"
             ]
         },
         "Infrastructure Protection and Visibility": {
@@ -117,7 +130,10 @@
                 "bedrock.bedrockModelInvocationLoggingDisabled",
                 "bedrock.bedrockModelInvocationNoCloudWatch",
                 "bedrock.bedrockModelInvocationNoS3",
-                "stepfunctions.sfnLoggingDisabled"
+                "stepfunctions.sfnLoggingDisabled",
+                "config.configRecorderNotEnabled",
+                "config.configNoRules",
+                "ssm.ssmSessionManagerNoCloudWatchLogs"
             ],
             "P4.2": [
                 "guardduty.UsageStat",
@@ -139,7 +155,10 @@
         },
         "AppSec & DevSecOps": {
             "P5.1": [
-                "rds.DBwithoutSecretManager"
+                "rds.DBwithoutSecretManager",
+                "secretsmanager.smRotationNotEnabled",
+                "secretsmanager.smRotationOverdue",
+                "ssm.ssmParameterNotEncrypted"
             ],
             "P5.2": [],
             "P5.3": [],

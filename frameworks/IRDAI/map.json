@@ -22,7 +22,9 @@
                 "kms.GrantWildcardPrincipal",
                 "kms.GrantMissingEncryptionContext",
                 "kms.KeyCentralizedManagement",
-                "cloudtrail.KMSPolicySourceArn"
+                "cloudtrail.KMSPolicySourceArn",
+                "ssm.ssmParameterNoEncryptionCMK",
+                "secretsmanager.smNotEncryptedWithCMK"
             ],
             "DS.2": [
                 "s3.ServerSideEncrypted",
@@ -43,7 +45,13 @@
                 "sagemaker.EncryptionEnabled",
                 "sagemaker.VolumeAndOutputEncryption",
                 "s3.SSECBlocking",
-                "s3.BucketOwnerEnforced"
+                "s3.BucketOwnerEnforced",
+                "ssm.ssmParameterNotEncrypted",
+                "eventbridge.ebBusNoEncryption",
+                "config.configDeliveryChannelS3NotEncrypted",
+                "backup.backupRecoveryPointNotEncrypted",
+                "ecr.ecrEncryptionKms",
+                "kinesis.kinesisSSEDisabled"
             ],
             "DS.3": [
                 "s3.TlsEnforced",
@@ -55,7 +63,8 @@
                 "cloudfront.OriginTrafficEncryption",
                 "glue.SslEnabled",
                 "sagemaker.InterContainerEncryption",
-                "apigateway.MutualTLS"
+                "apigateway.MutualTLS",
+                "eventbridge.ebApiDestinationHttpEndpoint"
             ],
             "DS.4": [
                 "s3.PublicReadAccessBlock",
@@ -69,7 +78,10 @@
                 "s3.PublicAccessDocumentation",
                 "glue.PublicAccessibility",
                 "sagemaker.DirectInternetAccess",
-                "redshift.VpcDeployment"
+                "redshift.VpcDeployment",
+                "secretsmanager.smResourcePolicyPublicAccess",
+                "eventbridge.ebBusPublicPolicy",
+                "ecr.ecrRepoPublicAccess"
             ],
             "DS.5": [
                 "s3.BucketVersioning",
@@ -80,7 +92,10 @@
             ],
             "DS.6": [
                 "kms.KeyRotationEnabled",
-                "kms.KeyCentralizedManagement"
+                "kms.KeyCentralizedManagement",
+                "secretsmanager.smRotationNotEnabled",
+                "secretsmanager.smRotationOverdue",
+                "secretsmanager.smLastChangedOld"
             ],
             "DS.7": [],
             "DS.8": []
@@ -121,7 +136,8 @@
                 "iam.unnecessaryCustomPolicies",
                 "kms.GrantOldAge",
                 "kms.GrantDuplicate",
-                "kms.KeyUnused"
+                "kms.KeyUnused",
+                "secretsmanager.smNotUsedRecently"
             ],
             "IAM.7": [
                 "iam.FullAdminAccess",
@@ -186,7 +202,11 @@
                 "cloudtrail.OrganizationTrailEnabled",
                 "cloudtrail.CloudWatchAlarmsConfigured",
                 "cloudtrail.IAMFullAccessRestriction",
-                "cloudtrail.EnableTrailS3BucketLogging"
+                "cloudtrail.EnableTrailS3BucketLogging",
+                "config.configRecorderNotEnabled",
+                "config.configRecorderNotAllResources",
+                "config.configRecorderLastStatusFailed",
+                "config.configDeliveryChannelMissing"
             ],
             "ML.2": [
                 "cloudtrail.CloudWatchLogsLogGroupArn",
@@ -195,7 +215,11 @@
                 "cloudwatch.missingServiceQuotaAlarms",
                 "cloudwatch.missingCompositeAlarms",
                 "cloudwatch.missingCloudWatchDashboards",
-                "cloudwatch.missingCustomMetrics"
+                "cloudwatch.missingCustomMetrics",
+                "config.configDeliveryChannelSNSMissing",
+                "config.configNoRetentionPolicy",
+                "ssm.ssmSessionManagerNoCloudWatchLogs",
+                "ssm.ssmSessionManagerNoS3Logs"
             ],
             "ML.3": [
                 "iam.enableGuardDuty",
@@ -215,7 +239,8 @@
                 "redshift.EventNotifications",
                 "apigateway.CloudWatchAlarms",
                 "apigateway.PerformanceMonitoring",
-                "s3.CloudWatchRequestMetrics"
+                "s3.CloudWatchRequestMetrics",
+                "route53.route53QueryLoggingNotEnabled"
             ],
             "ML.5": [
                 "ec2.VPCFlowLogEnabled",
@@ -239,7 +264,10 @@
                 "rds.PubliclyAccessible",
                 "redshift.PubliclyAccessible",
                 "opensearch.DomainWithinVPC",
-                "sagemaker.DirectInternetAccess"
+                "sagemaker.DirectInternetAccess",
+                "ecr.ecrCriticalVulnerabilities",
+                "ecr.ecrHighVulnerabilities",
+                "ssm.ssmManagedInstanceNotPatched"
             ]
         },
         "Business Continuity and Disaster Recovery": {
@@ -264,7 +292,13 @@
                 "efs.ReplicationEnabled",
                 "elasticache.GlobalDatastoreConfig",
                 "ec2.EBSSnapshotFirstArchived",
-                "ec2.EBSSnapshotLatestArchived"
+                "ec2.EBSSnapshotLatestArchived",
+                "backup.backupNoPlanExists",
+                "backup.backupPlanNotAssigned",
+                "backup.backupCriticalResourcesUnprotected",
+                "backup.backupPlanNoCrossRegionCopy",
+                "secretsmanager.smReplicationNotConfigured",
+                "eventbridge.ebArchiveNotConfigured"
             ],
             "BC.3": [
                 "rds.DeleteProtection"
@@ -318,7 +352,10 @@
                 "s3.BucketVersioning",
                 "s3.BucketLogging",
                 "cloudtrail.LogFileValidationEnabled",
-                "cloudtrail.HasOneMultiRegionTrail"
+                "cloudtrail.HasOneMultiRegionTrail",
+                "backup.backupVaultNoLock",
+                "backup.backupVaultLockNotFinalized",
+                "ecr.ecrTagImmutability"
             ],
             "GRC.9": [],
             "GRC.10": [],

@@ -29,7 +29,11 @@
             ],
             "6": [],
             "7": [
-                "kms.KeyRotationEnabled"
+                "kms.KeyRotationEnabled",
+                "ssm.ssmParameterNoEncryptionCMK",
+                "secretsmanager.smNotEncryptedWithCMK",
+                "secretsmanager.smRotationNotEnabled",
+                "secretsmanager.smRotationOverdue"
             ],
             "8": [],
             "9": [
@@ -192,7 +196,9 @@
         },
         "10.51": {
             "1": [
-                "iam.hasAccessKeyNoRotate90days"
+                "iam.hasAccessKeyNoRotate90days",
+                "secretsmanager.smLastChangedOld",
+                "secretsmanager.smNotUsedRecently"
             ],
             "2": [
                 "iam.hasOrganization"
@@ -218,7 +224,10 @@
             ],
             "9": [],
             "10": [
-                "kms.KeyRotationEnabled"
+                "kms.KeyRotationEnabled",
+                "ssm.ssmParameterNoEncryptionCMK",
+                "secretsmanager.smNotEncryptedWithCMK",
+                "secretsmanager.smRotationNotEnabled"
             ],
             "11": [],
             "12": [],
