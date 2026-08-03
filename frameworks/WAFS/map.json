@@ -83,12 +83,15 @@
                 "cognito.cognitoNoMfaMethods",
                 "cognito.cognitoSmsOnlyMfa",
                 "cognito.cognitoClientInsecureAuthFlow",
-                "cognito.cognitoSelfServiceSignUpNoVerification"
+                "cognito.cognitoSelfServiceSignUpNoVerification",
+                "appsync.appsyncNoAuthentication"
             ],
             "BP02": [
                 "ec2.EC2IamProfile",
                 "cognito.cognitoTokenValidityTooLong",
-                "iam.roleLongSession"
+                "iam.roleLongSession",
+                "appsync.appsyncApiKeyNoExpiry",
+                "appsync.appsyncApiKeyExpiringSoon"
             ],
             "BP03": [
                 "iam.hasAccessKeyNoRotate30days",
@@ -264,7 +267,10 @@
                 "cognito.cognitoNoThreatProtectionLogging",
                 "wafv2.wafv2LoggingFilterDropsBlocked",
                 "wafv2.wafv2LoggingMissingRedactedFields",
-                "codebuild.cbLogsDisabled"
+                "codebuild.cbLogsDisabled",
+                "appsync.appsyncFieldLevelLogging",
+                "appsync.appsyncCloudWatchLogsNotEnabled",
+                "athena.athenaPublishMetricsDisabled"
             ],
             "BP02": [
                 "cloudwatch.missingCloudWatchDashboards",
@@ -320,7 +326,9 @@
                 "redshift.VpcDeployment",
                 "wafv2.wafv2AppSyncWithoutWebAcl",
                 "wafv2.wafv2CognitoUserPoolWithoutWebAcl",
-                "cognito.cognitoNoWafAssociation"
+                "cognito.cognitoNoWafAssociation",
+                "appsync.appsyncWafNotAssociated",
+                "appsync.appsyncIntrospectionEnabled"
             ],
             "BP02": [
                 "ec2.SGSensitivePortOpenToAll",
@@ -345,7 +353,9 @@
             ],
             "BP03": [],
             "BP04": [
-                "apigateway.RequestValidation"
+                "apigateway.RequestValidation",
+                "appsync.appsyncNoQueryDepthLimit",
+                "appsync.appsyncNoResolverCountLimit"
             ]
         },
         "SEC06": {
@@ -461,7 +471,11 @@
                 "codebuild.cbNoArtifactEncryption",
                 "codebuild.cbEncryptionDefaultKey",
                 "codebuild.cbS3LogsNotEncrypted",
-                "codebuild.cbReportGroupExportNotEncrypted"
+                "codebuild.cbReportGroupExportNotEncrypted",
+                "athena.athenaWorkgroupNotEncrypted",
+                "athena.athenaMinimumEncryptionDisabled",
+                "athena.athenaS3OutputNotEncrypted",
+                "athena.athenaWorkgroupNoEnforcement"
             ],
             "BP02": [
                 "cloudtrail.RequiresKmsKey",

@@ -51,7 +51,12 @@
             ]
         },
         "Appsync.": {
-            "5": []
+            "5": [
+                "appsync.appsyncNoAuthentication"
+            ],
+            "2": [
+                "appsync.appsyncFieldLevelLogging"
+            ]
         },
         "Autoscaling.": {
             "1": [],
