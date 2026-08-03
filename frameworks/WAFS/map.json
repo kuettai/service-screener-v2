@@ -96,7 +96,9 @@
                 "secretsmanager.smAutoRotationScheduleInvalid",
                 "secretsmanager.smLastChangedOld",
                 "secretsmanager.smNoVersionStages",
-                "cognito.cognitoClientNoSecret"
+                "cognito.cognitoClientNoSecret",
+                "codebuild.cbPlaintextCredentialsInEnvVars",
+                "codebuild.cbSourceUrlCredentials"
             ],
             "BP04": [
                 "iam.hasSSORoles",
@@ -197,7 +199,8 @@
                 "eventbridge.ebRuleTargetCrossAccountNoCondition",
                 "lambda.lambdaURLWithoutAuth",
                 "sns.snsCrossAccountAccessNoCondition",
-                "lambda.lambdaURLInUsed"
+                "lambda.lambdaURLInUsed",
+                "codebuild.cbProjectVisibilityPublic"
             ],
             "BP08": [],
             "BP09": [
@@ -248,7 +251,8 @@
                 "apigateway.AccessLogging",
                 "cognito.cognitoNoThreatProtectionLogging",
                 "wafv2.wafv2LoggingFilterDropsBlocked",
-                "wafv2.wafv2LoggingMissingRedactedFields"
+                "wafv2.wafv2LoggingMissingRedactedFields",
+                "codebuild.cbLogsDisabled"
             ],
             "BP02": [
                 "cloudwatch.missingCloudWatchDashboards",
@@ -371,7 +375,9 @@
                 "ec2.EC2KeyPairNotInUse",
                 "lambda.lambdaCodeSigningDisabled",
                 "sagemaker.ModelDataUrlValidation",
-                "cognito.cognitoClientUserExistenceErrors"
+                "cognito.cognitoClientUserExistenceErrors",
+                "codebuild.cbPrivilegedMode",
+                "codebuild.cbImageOutdated"
             ],
             "BP03": [],
             "BP04": [],
@@ -425,7 +431,11 @@
                 "ssm.ssmParameterNotEncrypted",
                 "ssm.ssmParameterNoEncryptionCMK",
                 "ssm.ssmSessionManagerNoEncryption",
-                "sns.snsEncryptionNotCMK"
+                "sns.snsEncryptionNotCMK",
+                "codebuild.cbNoArtifactEncryption",
+                "codebuild.cbEncryptionDefaultKey",
+                "codebuild.cbS3LogsNotEncrypted",
+                "codebuild.cbReportGroupExportNotEncrypted"
             ],
             "BP02": [
                 "cloudtrail.RequiresKmsKey",
@@ -553,7 +563,8 @@
                 "eventbridge.ebApiDestinationHttpEndpoint",
                 "sns.snsSignatureVersionOld",
                 "sns.snsPolicyVersionOutdated",
-                "sns.snsSubscriptionUnauthenticatedConfirmation"
+                "sns.snsSubscriptionUnauthenticatedConfirmation",
+                "codebuild.cbInsecureSSL"
             ],
             "BP03": [],
             "BP04": [

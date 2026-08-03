@@ -143,10 +143,21 @@
             ]
         },
         "CodeBuild.": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": []
+            "1": [
+                "codebuild.cbSourceUrlCredentials"
+            ],
+            "2": [
+                "codebuild.cbPlaintextCredentialsInEnvVars"
+            ],
+            "3": [
+                "codebuild.cbS3LogsNotEncrypted"
+            ],
+            "4": [
+                "codebuild.cbLogsDisabled"
+            ],
+            "7": [
+                "codebuild.cbReportGroupExportNotEncrypted"
+            ]
         },
         "Config.": {
             "1": [
