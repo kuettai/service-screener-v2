@@ -20,7 +20,6 @@
                 "iam.rootConsoleLogin30days",
                 "iam.passwordPolicy",
                 "iam.enableGuardDuty",
-                "iam.rootConsoleLogin30days",
                 "cloudtrail.GuardDutyIntegration",
                 "cloudtrail.SecurityHubIntegration",
                 "lambda.lambdaGuardDutyProtectionDisabled"
@@ -269,7 +268,7 @@
                 "redshift.VpcDeployment"
             ],
             "BP02": [
-                "ec.SGSensitivePortOpenToAll",
+                "ec2.SGSensitivePortOpenToAll",
                 "ec2.SGAllTCPOpen",
                 "ec2.SGAllUDPOpen",
                 "ec2.SGDefaultInUsed",
@@ -467,7 +466,6 @@
                 "opensearch.NodeToNodeEncryption",
                 "opensearch.TLSEnforced",
                 "elasticache.EncInTransitAndRest",
-                "cloudfront.viewerPolicyHttps",
                 "sqs.EncryptionInTransit",
                 "cloudfront.OriginTrafficEncryption",
                 "efs.TLSRequired",

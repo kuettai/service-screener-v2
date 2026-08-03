@@ -60,7 +60,7 @@
         "AGENTOPS05": {
             "BP01": [
                 "bedrock.bedrockModelInvocationLoggingDisabled",
-                "cloudtrail.trailEnabled",
+                "cloudtrail.NeedToEnableCloudTrail",
                 "stepfunctions.sfnTracingDisabled",
                 "sns.snsTracingDisabled",
                 "wafv2.wafv2LoggingNotConfigured",
@@ -168,8 +168,8 @@
         "AGENTSEC05": {
             "BP01": [
                 "bedrock.bedrockModelInvocationLoggingDisabled",
-                "cloudtrail.trailEnabled",
-                "cloudtrail.trailMultiRegion",
+                "cloudtrail.NeedToEnableCloudTrail",
+                "cloudtrail.HasOneMultiRegionTrail",
                 "ecr.ecrScanOnPush",
                 "ecr.ecrEnhancedScanning",
                 "ecr.ecrTagImmutability",
@@ -290,7 +290,7 @@
         "AGENTPERF03": {
             "BP01": [
                 "bedrock.bedrockAgentMemoryDisabled",
-                "elasticache.encryptionInTransit"
+                "elasticache.EncInTransitAndRest"
             ]
         },
         "AGENTPERF06": {
