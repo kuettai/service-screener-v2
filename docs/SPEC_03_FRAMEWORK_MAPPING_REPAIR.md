@@ -1,5 +1,28 @@
 # Spec: Repair and Extend Framework Mappings
 
+> **STATUS: COMPLETE (2026-08-03).**
+> Phase 1 repaired all 87 dangling entries (`e688739`). Phase 2 added 165
+> mappings: NIST +35 filling 17 empty Security Hub sections (`8e76312`), and
+> +130 across IRDAI, RBI, SPIP, MSR, RMiT, SSB and CIS (`676daa6`).
+> `scripts/validate_frameworks.py` exits 0 for all 12 frameworks and is enforced
+> in CI by `.github/workflows/validate-frameworks.yml` (`dc5cebc`).
+>
+> Deviations from this spec as written, all recorded in the relevant commit:
+> - **ECR.1** excludes the CVE-count checks. The control text is "isn't
+>   configured for scan on push or continuous scanning" — it is about scanning
+>   *configuration*, and a correctly configured repo can still report CVEs.
+> - **IRDAI's empty sections were left empty.** Its README marks them "manual"
+>   (data localisation, CERT-In empaneled VAPT, DR documentation, HR processes).
+>   They are intentional gaps, not omissions.
+> - **RMiT received only 9 additions** despite being the largest framework. Its
+>   sections are organised per-service within each control, so appending a new
+>   service to a per-service row would be structurally wrong.
+> - **SPIP P2.1** turned out to be public access, not encryption; mapped by
+>   reading the section's existing contents rather than inferring from the ID.
+>
+> Remaining known gap: `SSM.4` ("SSM documents should not be public") has no
+> corresponding check. A candidate for a future check rather than a mapping.
+
 ## Context
 
 `service-screener-v2` ships 12 compliance frameworks under `frameworks/*/map.json`.
