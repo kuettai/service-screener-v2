@@ -373,8 +373,18 @@
             ]
         },
         "EMR.": {
-            "1": [],
-            "2": []
+            "1": [
+                "emr.emrPubliclyAccessible"
+            ],
+            "2": [
+                "emr.emrBlockPublicAccessDisabled"
+            ],
+            "3": [
+                "emr.emrEncryptionAtRestDisabled"
+            ],
+            "4": [
+                "emr.emrEncryptionInTransitDisabled"
+            ]
         },
         "ES.": {
             "1": [],

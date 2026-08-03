@@ -44,7 +44,9 @@
                 "securityhub.shubNotEnabled",
                 "securityhub.shubNoStandardsEnabled",
                 "securityhub.shubCISStandardDisabled",
-                "securityhub.shubAutoEnableControlsDisabled"
+                "securityhub.shubAutoEnableControlsDisabled",
+                "cloudformation.cfnDriftDetected",
+                "cloudformation.cfnDriftNeverChecked"
             ],
             "BP04": [
                 "iam.enableGuardDuty",
@@ -84,7 +86,8 @@
                 "cognito.cognitoSmsOnlyMfa",
                 "cognito.cognitoClientInsecureAuthFlow",
                 "cognito.cognitoSelfServiceSignUpNoVerification",
-                "appsync.appsyncNoAuthentication"
+                "appsync.appsyncNoAuthentication",
+                "emr.emrKerberosNotEnabled"
             ],
             "BP02": [
                 "ec2.EC2IamProfile",
@@ -144,7 +147,8 @@
                 "accessanalyzer.aaNoAccountAnalyzer",
                 "accessanalyzer.aaAnalyzerNotActive",
                 "accessanalyzer.aaUnresolvedExternalAccess",
-                "accessanalyzer.aaNoInternalAccessAnalyzer"
+                "accessanalyzer.aaNoInternalAccessAnalyzer",
+                "cloudformation.cfnIAMCapabilityGranted"
             ],
             "BP02": [
                 "eks.eksClusterRoleLeastPrivilege",
@@ -270,7 +274,8 @@
                 "codebuild.cbLogsDisabled",
                 "appsync.appsyncFieldLevelLogging",
                 "appsync.appsyncCloudWatchLogsNotEnabled",
-                "athena.athenaPublishMetricsDisabled"
+                "athena.athenaPublishMetricsDisabled",
+                "emr.emrLoggingDisabled"
             ],
             "BP02": [
                 "cloudwatch.missingCloudWatchDashboards",
@@ -284,7 +289,9 @@
             "BP03": [
                 "iam.EnableConfigService",
                 "cloudwatch.alarmsWithoutSNS",
-                "config.configDeliveryChannelSNSMissing"
+                "config.configDeliveryChannelSNSMissing",
+                "cloudformation.cfnNoNotifications",
+                "cloudformation.cfnNoRollbackConfiguration"
             ],
             "BP04": [
                 "iam.enableGuardDuty",
@@ -328,7 +335,9 @@
                 "wafv2.wafv2CognitoUserPoolWithoutWebAcl",
                 "cognito.cognitoNoWafAssociation",
                 "appsync.appsyncWafNotAssociated",
-                "appsync.appsyncIntrospectionEnabled"
+                "appsync.appsyncIntrospectionEnabled",
+                "emr.emrPubliclyAccessible",
+                "emr.emrBlockPublicAccessDisabled"
             ],
             "BP02": [
                 "ec2.SGSensitivePortOpenToAll",
@@ -402,7 +411,8 @@
                 "inspector.inspectorLambdaCodeScanningDisabled",
                 "inspector.inspectorCodeRepositoryScanningDisabled",
                 "inspector.inspectorCoverageGap",
-                "inspector.inspectorFixAvailableNotApplied"
+                "inspector.inspectorFixAvailableNotApplied",
+                "emr.emrOldRelease"
             ],
             "BP02": [
                 "sagemaker.RootAccessDisabled",
@@ -475,7 +485,9 @@
                 "athena.athenaWorkgroupNotEncrypted",
                 "athena.athenaMinimumEncryptionDisabled",
                 "athena.athenaS3OutputNotEncrypted",
-                "athena.athenaWorkgroupNoEnforcement"
+                "athena.athenaWorkgroupNoEnforcement",
+                "emr.emrEncryptionAtRestDisabled",
+                "emr.emrNoSecurityConfiguration"
             ],
             "BP02": [
                 "cloudtrail.RequiresKmsKey",
@@ -604,7 +616,8 @@
                 "sns.snsSignatureVersionOld",
                 "sns.snsPolicyVersionOutdated",
                 "sns.snsSubscriptionUnauthenticatedConfirmation",
-                "codebuild.cbInsecureSSL"
+                "codebuild.cbInsecureSSL",
+                "emr.emrEncryptionInTransitDisabled"
             ],
             "BP03": [],
             "BP04": [
@@ -667,7 +680,10 @@
                 "backup.backupPlanInfrequentSchedule",
                 "backup.backupPlanNoCompletionWindow",
                 "backup.backupPlanNoContinuousBackup",
-                "backup.backupNoLogicallyAirGappedVault"
+                "backup.backupNoLogicallyAirGappedVault",
+                "emr.emrTerminationProtectionDisabled",
+                "cloudformation.cfnTerminationProtectionDisabled",
+                "cloudformation.cfnStackPolicyMissing"
             ],
             "BP03": [],
             "BP04": []
