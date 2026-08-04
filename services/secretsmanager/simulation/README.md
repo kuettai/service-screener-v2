@@ -34,7 +34,7 @@ All prefixed with `ss-test-`:
 | `smNoVersionStages` | ✗ a secret with no `AWSCURRENT` stage cannot be created through the API — it only arises from a failed rotation |
 
 The six age- and rotation-dependent checks are exercised by the real secrets in
-an existing account rather than by fixtures. In account `956288449190`
+an existing account rather than by fixtures. In the test account
 (`ap-southeast-1`) the six pre-existing secrets produce FAILs for
 `smLastChangedOld`, `smNotUsedRecently`, `smRotationNotEnabled` and
 `smNotEncryptedWithCMK`.

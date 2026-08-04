@@ -21,7 +21,7 @@ Together they cover both branches.
 
 ## Coverage
 
-Verified against account `956288449190` in `ap-southeast-1`:
+Verified against a test account in `ap-southeast-1`:
 
 | Check | Simulated? |
 |---|---|

@@ -11,7 +11,7 @@ Creates one intentionally-misconfigured GraphQL API.
 
 ## Coverage
 
-Verified against account `956288449190` in `ap-southeast-1` — **9 of 11 FAIL**:
+Verified against a test account in `ap-southeast-1` — **9 of 11 FAIL**:
 
 | Check | Simulated? |
 |---|---|

@@ -11,7 +11,7 @@ Creates one intentionally-misconfigured workgroup plus an S3 results bucket.
 
 ## Coverage
 
-Verified against account `956288449190` in `ap-southeast-1` — 6 FAIL on the
+Verified against a test account in `ap-southeast-1` — 6 FAIL on the
 fixture, and the account's 3 pre-existing workgroups exercise the remaining
 branches.
 

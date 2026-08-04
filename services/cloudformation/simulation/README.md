@@ -11,7 +11,7 @@ free SSM parameter.
 
 ## Coverage
 
-Verified against account `956288449190` in `ap-southeast-1` — 6 FAIL on the
+Verified against a test account in `ap-southeast-1` — 6 FAIL on the
 fixture, and the account's **429 real stacks** exercise every remaining branch
 (including one genuinely `DRIFTED` stack and one in a failed state).
 
