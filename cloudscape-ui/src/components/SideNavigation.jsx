@@ -19,6 +19,11 @@ const ServiceScreenerSideNav = ({ services = [], frameworks = [], customPages = 
       href: '#/'
     },
     {
+      type: 'link',
+      text: 'Risk Summary',
+      href: '#/risk-summary'
+    },
+    {
       type: 'divider'
     }
   ];

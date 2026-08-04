@@ -9,6 +9,7 @@ import '@cloudscape-design/global-styles/index.css';
 import ServiceScreenerTopNav from './components/TopNavigation';
 import ServiceScreenerSideNav from './components/SideNavigation';
 import Dashboard from './components/Dashboard';
+import RiskSummary from './components/RiskSummary';
 import ServiceDetail from './components/ServiceDetail';
 import FrameworkDetail from './components/FrameworkDetail';
 import FrameworkOverview from './components/FrameworkOverview';
@@ -160,6 +161,7 @@ function App() {
             <div id="main-content" tabIndex="-1">
               <Routes>
                 <Route path="/" element={<Dashboard data={data} />} />
+                <Route path="/risk-summary" element={<RiskSummary data={data} />} />
                 <Route 
                   path="/service/guardduty" 
                   element={

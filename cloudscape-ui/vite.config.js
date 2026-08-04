@@ -14,5 +14,11 @@ export default defineConfig({
         inlineDynamicImports: true
       }
     }
+  },
+  test: {
+    // Components render through Cloudscape, which needs a DOM.
+    environment: 'jsdom',
+    globals: true,
+    include: ['src/**/*.{test,spec}.{js,jsx}']
   }
 })
