@@ -826,7 +826,13 @@ class COH(CustomObject):
         """Extract resource type from affected resources"""
         if not resources:
             return "Unknown"
-    
+
+        first = resources[0]
+        if isinstance(first, dict):
+            return first.get('type') or first.get('resourceType') or "Unknown"
+
+        return "Unknown"
+
     def recordItem(self, driver, name, results, inventoryInfo):
         """
         Record item method required by CustomPage framework

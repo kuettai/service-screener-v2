@@ -694,14 +694,32 @@ window.__CONTENT_ENRICHMENT_DATA__ = {escaped_content_data};'''
 
     def _extract_coh_data(self):
         """
-        Extract Cost Optimization Hub data from CustomPage.COH.*.json files.
-        Returns dict with COH recommendations and executive summary.
+        Extract Cost Optimization Hub data.
+
+        COH data is account-wide and is collected once by CustomPage.buildPage()
+        (called from main.py before output generation). That already-built data is
+        stashed in Config under 'custom_page_data' and is the authoritative source -
+        CustomPage.writeOutput() deliberately skips COH, so no per-service
+        CustomPage.COH.*.json files are written during a normal scan.
+
+        Falls back to reading CustomPage.COH.*.json files if the in-memory data is
+        unavailable (e.g. OutputGenerator invoked outside the normal main.py flow).
         """
         try:
             import glob
-            
+
+            # Preferred path: reuse the data already built by CustomPage.buildPage()
+            built = Config.get('custom_page_data', {}) or {}
+            coh_built = built.get('customPage_coh')
+            if coh_built and (coh_built.get('recommendations') or coh_built.get('executive_summary')):
+                _info(
+                    f"Using in-memory COH data with "
+                    f"{len(coh_built.get('recommendations', []))} recommendations"
+                )
+                return coh_built
+
             coh_files = glob.glob(_C.FORK_DIR + '/CustomPage.COH.*.json')
-            
+
             if not coh_files:
                 _info("No COH JSON files found")
                 return {
@@ -710,7 +728,7 @@ window.__CONTENT_ENRICHMENT_DATA__ = {escaped_content_data};'''
                     'error_messages': ['No Cost Optimization Hub data available'],
                     'data_collection_time': None
                 }
-            
+
             # COH data should be aggregated from all service files
             all_coh_data = {}
             
