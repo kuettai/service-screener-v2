@@ -155,7 +155,17 @@ class CloudformationStack(Evaluator):
     # 5. No stack policy
     # ------------------------------------------------------------------ #
     def _checkCfnStackPolicyMissing(self):
-        if self.stackPolicy is None:
+        ## get_stack_policy is sampled (see Cloudformation.STACK_POLICY_SAMPLE_LIMIT)
+        ## because it has no bulk API and costs ~1s per stack. Stacks beyond the
+        ## cap report INFO saying so, rather than a guessed pass or fail.
+        if self.stack.get('_stackPolicyNotSampled'):
+            self.results['cfnStackPolicyMissing'] = [
+                0,
+                f"Stack policy for '{self.name}' was not sampled — the lookup "
+                "needs one API call per stack and is capped; re-run against this "
+                "stack specifically if the answer matters"
+            ]
+        elif self.stackPolicy is None:
             self.results['cfnStackPolicyMissing'] = [
                 0, f"Stack policy for '{self.name}' could not be read"
             ]
