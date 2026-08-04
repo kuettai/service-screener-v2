@@ -238,20 +238,78 @@ class OutputGenerator:
             _warn(f"Failed to embed data: {e}")
             return False
     
+    # Minimum Node versions Vite 8 supports; mirrors the engines field in
+    # cloudscape-ui/package.json.
+    NODE_MIN_20 = (20, 19, 0)
+    NODE_MIN_22 = (22, 12, 0)
+
+    def _warn_on_unsupported_node(self):
+        """
+        Warn when the local Node cannot install Vite's native build binding.
+
+        Node 20.19+ or 22.12+ is required. Anything else (notably 22.0-22.11)
+        installs cleanly but fails at build time with a missing @rolldown/binding
+        module, which reads like a corrupt install rather than a version problem.
+        """
+        try:
+            result = subprocess.run(
+                ['node', '--version'],
+                capture_output=True,
+                text=True,
+                timeout=15
+            )
+        except Exception:
+            # Node missing entirely is reported by the npm steps below.
+            return
+
+        if result.returncode != 0:
+            return
+
+        raw = (result.stdout or '').strip().lstrip('v')
+
+        try:
+            version = tuple(int(part) for part in raw.split('.')[:3])
+        except ValueError:
+            return
+
+        if len(version) < 3:
+            return
+
+        supported = (
+            (self.NODE_MIN_20 <= version < (21, 0, 0))
+            or version >= self.NODE_MIN_22
+        )
+
+        if not supported:
+            _warn(
+                f"Node {raw} is not supported by the Cloudscape build. "
+                "Vite 8 requires Node ^20.19.0 or >=22.12.0, and on other versions "
+                "npm skips its native binding, so the build fails with a missing "
+                "@rolldown/binding module. Upgrade Node (see cloudscape-ui/.nvmrc) "
+                "to generate the Cloudscape UI."
+            )
+
     def _build_react_app(self):
         """
         Run npm build for React app.
-        
+
         Returns:
             bool: True if successful, False otherwise
         """
         cloudscape_ui_dir = os.path.join(_C.ROOT_DIR, 'cloudscape-ui')
-        
+
         # Check if cloudscape-ui directory exists
         if not os.path.exists(cloudscape_ui_dir):
             _warn(f"Cloudscape UI directory not found: {cloudscape_ui_dir}")
             return False
-        
+
+        # Vite 8 / rolldown ship their native binding as an optional dependency
+        # gated on engines ^20.19.0 || >=22.12.0. On an unsupported Node, npm
+        # skips that binding silently and the build then dies with an opaque
+        # "Cannot find module '@rolldown/binding-*'". Check up front so the cause
+        # is reported instead of the symptom.
+        self._warn_on_unsupported_node()
+
         # Check if node_modules exists, if not run npm install
         node_modules = os.path.join(cloudscape_ui_dir, 'node_modules')
         if not os.path.exists(node_modules):

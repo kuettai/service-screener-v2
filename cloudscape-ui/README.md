@@ -85,8 +85,18 @@ The Cloudscape UI is a complete redesign of the Service Screener reporting inter
 
 ### Prerequisites
 ```bash
-node >= 16.x
+node ^20.19.0 || >=22.12.0   # see .nvmrc
 npm >= 8.x
+```
+
+Vite 8 requires one of those Node ranges, and its bundler's native binding is an
+optional dependency gated on the same range. On any other version — Node
+22.0–22.11 in particular — `npm install` succeeds but silently skips the binding,
+and `npm run build` then fails with `Cannot find module
+'@rolldown/binding-darwin-*'`. If you hit that, check `node --version` first.
+
+```bash
+nvm use            # picks up .nvmrc
 ```
 
 ### Development
