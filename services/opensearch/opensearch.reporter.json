@@ -41,7 +41,7 @@
 		"needFullTest": 0,
 		"shortDesc": "We recommend that you add three dedicated master nodes to each production OpenSearch Service domain.",
 		"ref": [
-			"Dedicated master nodes in Amazon OpenSearch Service]<https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-dedicatedmasternodes.html>"
+			"[Dedicated master nodes in Amazon OpenSearch Service]<https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains-dedicatedmasternodes.html>"
 		],
 		"remediation": null,
 		"remediation_risk": null,
@@ -57,7 +57,7 @@
 		"needFullTest": 0,
 		"shortDesc": "We recommend that you add three data nodes to each production OpenSearch Service domain.",
 		"ref": [
-			"Data nodes in Amazon OpenSearch Service]<https://docs.aws.amazon.com/securityhub/latest/userguide/opensearch-controls.html#opensearch-6>"
+			"[Data nodes in Amazon OpenSearch Service]<https://docs.aws.amazon.com/securityhub/latest/userguide/opensearch-controls.html#opensearch-6>"
 		],
 		"remediation": null,
 		"remediation_risk": null,
