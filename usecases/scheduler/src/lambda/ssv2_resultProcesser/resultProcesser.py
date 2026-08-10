@@ -1,8 +1,10 @@
-import boto3 
+import boto3
 import json
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import os
+import shutil
+import tempfile
 import openpyxl
 import logging
 
@@ -79,29 +81,28 @@ def lambda_handler(event, context):
     return successResp
 
 def processXlsx(s3, targetBucket, configId, acct, info):
-    latestObjname = "{}/{}/{}/workItem.xlsx".format(configId, info['currentRun'], acct)
-    s3.download_file(targetBucket, latestObjname, '/tmp/current.xlsx')
-    
-    loadXlsx('/tmp/current.xlsx')
+    tmpdir = tempfile.mkdtemp()
+    try:
+        currentPath = os.path.join(tmpdir, 'current.xlsx')
+        latestObjname = "{}/{}/{}/workItem.xlsx".format(configId, info['currentRun'], acct)
+        s3.download_file(targetBucket, latestObjname, currentPath)
 
-    previousObjname = None
-    hasPreviousObj = False
-    if 'previousRun' in info:
-        hasPreviousObj = True
-        previousObjname = "{}/{}/{}/workItem.xlsx".format(configId, info['previousRun'], acct)
-        s3.download_file(targetBucket, previousObjname, '/tmp/previous.xlsx')
-        loadXlsx('/tmp/previous.xlsx')
+        loadXlsx(currentPath, isCurrent=True)
 
-    compared = compareXlsx(hasPreviousObj)
-    html = formatCompared(compared, hasPreviousObj)
-    
-    os.remove('/tmp/current.xlsx')
-    if 'previousRun' in info:
-        os.remove('/tmp/previous.xlsx')
+        hasPreviousObj = False
+        if 'previousRun' in info:
+            hasPreviousObj = True
+            previousPath = os.path.join(tmpdir, 'previous.xlsx')
+            previousObjname = "{}/{}/{}/workItem.xlsx".format(configId, info['previousRun'], acct)
+            s3.download_file(targetBucket, previousObjname, previousPath)
+            loadXlsx(previousPath, isCurrent=False)
 
-    return html
+        compared = compareXlsx(hasPreviousObj)
+        return formatCompared(compared, hasPreviousObj)
+    finally:
+        shutil.rmtree(tmpdir, ignore_errors=True)
 
-def loadXlsx(filename):
+def loadXlsx(filename, isCurrent):
     wb = openpyxl.load_workbook(filename)
     for sheetName in wb.sheetnames:
         if sheetName in SHEETS_TO_SKIP:
@@ -125,7 +126,7 @@ def loadXlsx(filename):
 
             results.append('::'.join(_row))
             
-        if filename == '/tmp/current.xlsx':
+        if isCurrent:
             currentResults[sheetName] = {'obj': results, 'High': hcnt, 'Total': tcnt}
         else:
             previousResults[sheetName] = {'obj': results, 'High': hcnt, 'Total': tcnt}

@@ -1,23 +1,25 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Container from '@cloudscape-design/components/container';
-import Header from '@cloudscape-design/components/header';
-import SpaceBetween from '@cloudscape-design/components/space-between';
-import Grid from '@cloudscape-design/components/grid';
 import Box from '@cloudscape-design/components/box';
-import Badge from '@cloudscape-design/components/badge';
 import Button from '@cloudscape-design/components/button';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
+import Container from '@cloudscape-design/components/container';
+import Header from '@cloudscape-design/components/header';
+import Link from '@cloudscape-design/components/link';
+import Pagination from '@cloudscape-design/components/pagination';
+import SpaceBetween from '@cloudscape-design/components/space-between';
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
+import Table from '@cloudscape-design/components/table';
+import TextFilter from '@cloudscape-design/components/text-filter';
 
-import { 
-  calculateDashboardStats, 
+import {
+  calculateDashboardStats,
   getServiceStats,
-  getCategoryStats 
+  getCategoryStats
 } from '../utils/dataLoader';
-import { 
-  formatServiceName, 
-  formatCategory, 
-  getCategoryColor,
+import {
+  formatCategory,
+  formatServiceName,
   getCategoryStyle,
   filterUserCategories
 } from '../utils/formatters';
@@ -25,294 +27,286 @@ import EmptyState from './EmptyState';
 import CategoryCard from './CategoryCard';
 import ContentEnrichment from './ContentEnrichment';
 
-/**
- * KPI Card component for displaying key metrics
- */
-const KPICard = ({ title, value, variant = 'default', onClick, clickable = false }) => {
-  const content = (
-    <SpaceBetween size="xs">
-      <Box variant="awsui-key-label">{title}</Box>
-      <Box 
-        fontSize="display-l" 
-        fontWeight="bold" 
-        variant={variant}
-      >
-        {value}
-      </Box>
-    </SpaceBetween>
-  );
-  
-  if (clickable) {
-    return (
-      <Container>
-        <div 
-          onClick={onClick}
-          style={{ cursor: 'pointer' }}
-          role="button"
-          tabIndex={0}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              onClick();
-            }
-          }}
-        >
-          {content}
-        </div>
-      </Container>
-    );
-  }
-  
-  return <Container>{content}</Container>;
+const PILLAR_ORDER = ['S', 'R', 'C', 'P', 'O'];
+const PAGE_SIZE = 12;
+
+// Deep-link labels the findings table filters on.
+const CATEGORY_NAMES = {
+  S: 'Security',
+  R: 'Reliability',
+  C: 'Cost',
+  P: 'Performance',
+  O: 'Operation'
 };
 
-/**
- * Service Card component for displaying service summary
- */
-const ServiceCard = ({ service, onClick, onCategoryClick }) => {
-  const { serviceName, totalFindings, high, medium, low, categories } = service;
-  
-  return (
-    <Container
-      header={
-        <Header
-          variant="h3"
-          actions={
-            <Button 
-              onClick={() => onClick(serviceName)} 
-              iconName="arrow-right"
-              ariaLabel={`View details for ${formatServiceName(serviceName)}`}
-            >
-              View Details
-            </Button>
-          }
-        >
-          {formatServiceName(serviceName)}
-        </Header>
-      }
-    >
-      <SpaceBetween size="m">
-        <ColumnLayout columns={4} variant="text-grid">
-          <div>
-            <Box variant="awsui-key-label">Total Findings</Box>
-            <Box fontSize="heading-l" fontWeight="bold">
-              {totalFindings}
-            </Box>
-          </div>
-          <div>
-            <Box variant="awsui-key-label">High Priority</Box>
-            <Box fontSize="heading-l" fontWeight="bold" color="text-status-error">
-              {high}
-            </Box>
-          </div>
-          <div>
-            <Box variant="awsui-key-label">Medium Priority</Box>
-            <Box fontSize="heading-l" fontWeight="bold" color="text-status-warning">
-              {medium}
-            </Box>
-          </div>
-          <div>
-            <Box variant="awsui-key-label">Low Priority</Box>
-            <Box fontSize="heading-l" fontWeight="bold" color="text-status-info">
-              {low}
-            </Box>
-          </div>
-        </ColumnLayout>
-        
-        {categories.length > 0 && (
-          <div>
-            <Box variant="awsui-key-label" margin={{ bottom: 'xs' }}>
-              Affected Categories
-            </Box>
-            <SpaceBetween size="xs" direction="horizontal">
-              {filterUserCategories(categories).map(category => {
-                const categoryStyle = getCategoryStyle(category);
-                return (
-                  <div 
-                    key={category}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => onCategoryClick(category)}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        padding: '2px 8px',
-                        borderRadius: '4px',
-                        fontSize: '12px',
-                        fontWeight: '500',
-                        ...categoryStyle
-                      }}
-                    >
-                      {formatCategory(category)}
-                    </span>
-                  </div>
-                );
-              })}
-            </SpaceBetween>
-          </div>
-        )}
-      </SpaceBetween>
-    </Container>
-  );
-};
+const SEVERITY_NAMES = { H: 'High', M: 'Medium', L: 'Low', I: 'Informational' };
+
+const StatBlock = ({ label, value, color, description }) => (
+  <div>
+    <Box variant="awsui-key-label">{label}</Box>
+    <Box fontSize="display-l" fontWeight="bold" color={color}>
+      {value}
+    </Box>
+    {description && (
+      <Box variant="small" color="text-body-secondary">{description}</Box>
+    )}
+  </div>
+);
 
 /**
- * Dashboard component - main landing page
- * Displays KPI cards and service summary cards
+ * Dashboard - the report landing page.
+ *
+ * Shows account-wide totals, a per-pillar breakdown, and every scanned service
+ * ranked worst-first. Services are a sorted, filterable, paginated table rather
+ * than a card grid: a full scan covers ~30 services, which as cards is several
+ * screens of near-identical blocks in alphabetical order, burying the services
+ * that actually need attention.
  */
 const Dashboard = ({ data }) => {
   const navigate = useNavigate();
-  
-  // Calculate statistics
-  const stats = calculateDashboardStats(data);
-  const serviceStats = getServiceStats(data);
-  const categoryStats = getCategoryStats(data);
-  
+  const [filterText, setFilterText] = useState('');
+  const [currentPageIndex, setCurrentPageIndex] = useState(1);
+
+  const stats = useMemo(() => calculateDashboardStats(data), [data]);
+  const serviceStats = useMemo(() => getServiceStats(data), [data]);
+  const categoryStats = useMemo(() => getCategoryStats(data), [data]);
+
+  // Worst-first, so the services needing attention are on the first page.
+  const rankedServices = useMemo(() => {
+    return [...serviceStats].sort((a, b) => {
+      if (b.high !== a.high) return b.high - a.high;
+      if (b.medium !== a.medium) return b.medium - a.medium;
+      if (b.totalFindings !== a.totalFindings) return b.totalFindings - a.totalFindings;
+      return a.serviceName.localeCompare(b.serviceName);
+    });
+  }, [serviceStats]);
+
+  const filteredServices = useMemo(() => {
+    if (!filterText.trim()) return rankedServices;
+
+    const needle = filterText.trim().toLowerCase();
+    return rankedServices.filter(service =>
+      service.serviceName.toLowerCase().includes(needle)
+    );
+  }, [rankedServices, filterText]);
+
+  const paginatedServices = useMemo(() => {
+    const start = (currentPageIndex - 1) * PAGE_SIZE;
+    return filteredServices.slice(start, start + PAGE_SIZE);
+  }, [filteredServices, currentPageIndex]);
+
+  // All five pillars always render, so a clean pillar reads as "clean" rather
+  // than silently disappearing.
+  const orderedCategories = useMemo(() => {
+    return PILLAR_ORDER.map(code =>
+      categoryStats.find(c => c.category === code) || {
+        category: code,
+        total: 0,
+        high: 0,
+        medium: 0,
+        low: 0,
+        informational: 0
+      }
+    );
+  }, [categoryStats]);
+
   const handleServiceClick = (serviceName) => {
     navigate(`/service/${serviceName.toLowerCase()}`);
   };
-  
-  const handleFindingsClick = (severity = null) => {
-    if (severity) {
-      // Map severity code to full name for deep-link
-      const severityNameMap = {
-        'H': 'High',
-        'M': 'Medium',
-        'L': 'Low',
-        'I': 'Informational'
-      };
-      const fullSeverityName = severityNameMap[severity] || severity;
-      navigate(`/page/findings?severity=${fullSeverityName}`);
-    } else {
-      navigate(`/page/findings`);
-    }
-  };
-  
+
   const handleCategoryClick = (category, severity = null) => {
-    // Navigate to findings with full category name and optional severity filter
     const params = new URLSearchParams();
-    
-    // Map category code to full name for deep-link
-    const categoryNameMap = {
-      'S': 'Security',
-      'R': 'Reliability',
-      'C': 'Cost',
-      'P': 'Performance',
-      'O': 'Operation'
-    };
-    
-    // Map severity code to full name for deep-link
-    const severityNameMap = {
-      'H': 'High',
-      'M': 'Medium',
-      'L': 'Low',
-      'I': 'Informational'
-    };
-    
-    const fullCategoryName = categoryNameMap[category] || category;
-    params.append('type', fullCategoryName);
-    
+    params.append('type', CATEGORY_NAMES[category] || category);
+
     if (severity) {
-      const fullSeverityName = severityNameMap[severity] || severity;
-      params.append('severity', fullSeverityName);
+      params.append('severity', SEVERITY_NAMES[severity] || severity);
     }
+
     navigate(`/page/findings?${params.toString()}`);
   };
-  
+
+  const columnDefinitions = [
+    {
+      id: 'service',
+      header: 'Service',
+      cell: item => (
+        <Link onFollow={() => handleServiceClick(item.serviceName)}>
+          {formatServiceName(item.serviceName)}
+        </Link>
+      ),
+      sortingField: 'serviceName'
+    },
+    {
+      id: 'total',
+      header: 'Findings',
+      cell: item => <Box fontWeight="bold">{item.totalFindings}</Box>,
+      sortingField: 'totalFindings',
+      width: 120
+    },
+    {
+      id: 'high',
+      header: 'High',
+      cell: item => item.high > 0
+        ? <StatusIndicator type="error">{item.high}</StatusIndicator>
+        : <Box color="text-status-inactive">—</Box>,
+      sortingField: 'high',
+      width: 110
+    },
+    {
+      id: 'medium',
+      header: 'Medium',
+      cell: item => item.medium > 0
+        ? <StatusIndicator type="warning">{item.medium}</StatusIndicator>
+        : <Box color="text-status-inactive">—</Box>,
+      sortingField: 'medium',
+      width: 120
+    },
+    {
+      id: 'low',
+      header: 'Low',
+      cell: item => item.low > 0
+        ? <StatusIndicator type="info">{item.low}</StatusIndicator>
+        : <Box color="text-status-inactive">—</Box>,
+      sortingField: 'low',
+      width: 110
+    },
+    {
+      id: 'categories',
+      header: 'Pillars',
+      cell: item => (
+        <SpaceBetween size="xxs" direction="horizontal">
+          {filterUserCategories(item.categories).map(category => (
+            <span
+              key={category}
+              onClick={() => handleCategoryClick(category)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  handleCategoryClick(category);
+                }
+              }}
+              title={`View ${formatCategory(category)} findings`}
+              style={{
+                cursor: 'pointer',
+                display: 'inline-block',
+                padding: '2px 8px',
+                borderRadius: '4px',
+                fontSize: '12px',
+                fontWeight: 500,
+                ...getCategoryStyle(category)
+              }}
+            >
+              {formatCategory(category)}
+            </span>
+          ))}
+        </SpaceBetween>
+      )
+    }
+  ];
+
   return (
     <SpaceBetween size="l">
       <Header variant="h1" description="AWS Well-Architected Assessment Report">
         Service Screener Dashboard
       </Header>
-      
-      {/* Category Cards - Main KPI Section - Always show all 5 Well-Architected Pillars */}
-      <div>
-        <Header variant="h2" description="Click on cards to filter findings by category and severity" />
-        
-        {(() => {
-          const categoryOrder = ['S', 'R', 'C', 'P', 'O'];
-          const orderedCategories = [];
-          
-          // Ensure all 5 pillars are shown, even if they have 0 findings
-          // Filter out 'T' category
-          categoryOrder.forEach(catCode => {
-            const cat = categoryStats.find(c => c.category === catCode);
-            if (cat) {
-              orderedCategories.push(cat);
-            } else {
-              // Create empty category if no findings exist
-              orderedCategories.push({
-                category: catCode,
-                total: 0,
-                high: 0,
-                medium: 0,
-                low: 0,
-                informational: 0
-              });
-            }
-          });
-          
-          // Split into Security (first row) and other 4 pillars (second row)
-          const securityCategory = orderedCategories.find(cat => cat.category === 'S');
-          const otherCategories = orderedCategories.filter(cat => cat.category !== 'S');
-          
-          return (
-            <SpaceBetween size="l">
-              {/* Row 1: Security - Full Width */}
-              {securityCategory && (
-                <CategoryCard
-                  key={securityCategory.category}
-                  category={securityCategory}
-                  onClick={handleCategoryClick}
-                />
-              )}
-              
-              {/* Row 2: Other 4 Pillars */}
-              <ColumnLayout columns={4} variant="default" minColumnWidth={200}>
-                {otherCategories.map(cat => (
-                  <CategoryCard
-                    key={cat.category}
-                    category={cat}
-                    onClick={handleCategoryClick}
-                  />
-                ))}
-              </ColumnLayout>
-            </SpaceBetween>
-          );
-        })()}
-      </div>
-      
-      {/* Content Enrichment Section */}
-      <ContentEnrichment data={data} />
-      
-      {/* Service Cards */}
+
+      {/* Account-wide totals */}
+      <Container header={<Header variant="h2">Assessment Summary</Header>}>
+        <SpaceBetween size="m">
+          <ColumnLayout columns={4} variant="text-grid">
+            <StatBlock
+              label="Total findings"
+              value={stats.totalFindings}
+              description={`across ${stats.totalServices} ${stats.totalServices === 1 ? 'service' : 'services'}`}
+            />
+            <StatBlock label="High" value={stats.highPriority} color="text-status-error" />
+            <StatBlock label="Medium" value={stats.mediumPriority} color="text-status-warning" />
+            <StatBlock label="Low" value={stats.lowPriority} color="text-status-info" />
+          </ColumnLayout>
+
+          <Box>
+            <Button variant="primary" onClick={() => navigate('/risk-summary')}>
+              What should I fix first?
+            </Button>
+          </Box>
+        </SpaceBetween>
+      </Container>
+
+      {/* Well-Architected pillars, all five at equal weight */}
       <Container
         header={
-          <Header variant="h2" description="Click on a service to view detailed findings">
-            Services Overview
+          <Header
+            variant="h2"
+            description="Select a pillar or severity to open the matching findings"
+          >
+            Findings by Pillar
           </Header>
         }
       >
-        {serviceStats.length === 0 ? (
+        <ColumnLayout columns={5} variant="default" minColumnWidth={170}>
+          {orderedCategories.map(category => (
+            <CategoryCard
+              key={category.category}
+              category={category}
+              onClick={handleCategoryClick}
+            />
+          ))}
+        </ColumnLayout>
+      </Container>
+
+      <ContentEnrichment data={data} />
+
+      {/* Services, ranked worst-first */}
+      <Table
+        variant="container"
+        columnDefinitions={columnDefinitions}
+        items={paginatedServices}
+        header={
+          <Header
+            variant="h2"
+            counter={`(${filteredServices.length})`}
+            description="Ranked by high-severity findings first"
+          >
+            Services
+          </Header>
+        }
+        filter={
+          rankedServices.length > PAGE_SIZE ? (
+            <TextFilter
+              filteringText={filterText}
+              filteringPlaceholder="Find a service"
+              filteringAriaLabel="Filter services"
+              onChange={({ detail }) => {
+                setFilterText(detail.filteringText);
+                setCurrentPageIndex(1);
+              }}
+              countText={`${filteredServices.length} ${filteredServices.length === 1 ? 'match' : 'matches'}`}
+            />
+          ) : undefined
+        }
+        pagination={
+          filteredServices.length > PAGE_SIZE ? (
+            <Pagination
+              currentPageIndex={currentPageIndex}
+              pagesCount={Math.ceil(filteredServices.length / PAGE_SIZE)}
+              onChange={({ detail }) => setCurrentPageIndex(detail.currentPageIndex)}
+            />
+          ) : undefined
+        }
+        empty={
           <EmptyState
-            title="No services found"
-            description="No service data available in this report."
+            title={filterText ? 'No matching services' : 'No services found'}
+            description={
+              filterText
+                ? 'No service name matches your filter.'
+                : 'No service data available in this report.'
+            }
             icon="search"
           />
-        ) : (
-          <ColumnLayout columns={2} variant="default" minColumnWidth={300}>
-            {serviceStats.map(service => (
-              <ServiceCard 
-                key={service.serviceName} 
-                service={service}
-                onClick={handleServiceClick}
-                onCategoryClick={handleCategoryClick}
-              />
-            ))}
-          </ColumnLayout>
-        )}
-      </Container>
+        }
+        wrapLines
+      />
     </SpaceBetween>
   );
 };

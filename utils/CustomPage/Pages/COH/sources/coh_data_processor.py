@@ -72,7 +72,7 @@ class COHDataProcessor:
             savings_percentage = self._calculate_savings_percentage(monthly_savings, monthly_cost)
             
             # Extract resource information
-            resources = raw_recommendation.get('resources', [])
+            resources = self._extract_resources(raw_recommendation)
             affected_resources = self._normalize_affected_resources(resources)
             
             # Build normalized recommendation
@@ -147,11 +147,17 @@ class COHDataProcessor:
     def _extract_recommended_resource_summary(self, recommendation: Dict) -> str:
         """Extract recommended resource summary"""
         try:
+            # The API supplies this directly on ListRecommendations items - prefer it
+            # over inferring from actionType/description.
+            api_summary = recommendation.get('recommendedResourceSummary')
+            if api_summary:
+                return api_summary
+
             action_type = recommendation.get('actionType', '').lower()
             category = recommendation.get('category', '').lower()
             description = recommendation.get('description', '')
-            resources = recommendation.get('resources', [])
-            
+            resources = self._extract_resources(recommendation)
+
             # EBS Volume deletion
             if category == 'storage' and any(keyword in action_type for keyword in ['delete', 'terminate']):
                 if any('volume' in str(res).lower() for res in resources):
@@ -204,10 +210,15 @@ class COHDataProcessor:
     def _extract_current_resource_summary(self, recommendation: Dict) -> str:
         """Extract current resource summary"""
         try:
-            resources = recommendation.get('resources', [])
+            # The API supplies this directly on ListRecommendations items
+            api_summary = recommendation.get('currentResourceSummary')
+            if api_summary:
+                return api_summary
+
+            resources = self._extract_resources(recommendation)
             if not resources:
                 return "Current configuration"
-            
+
             # Extract resource identifiers
             resource_ids = []
             for resource in resources[:3]:  # Limit to first 3
@@ -246,6 +257,32 @@ class COHDataProcessor:
             _warn(f"Error extracting current resource summary: {str(e)}")
             return "Current configuration"
     
+    def _extract_resources(self, recommendation: Dict) -> List:
+        """
+        Get the resource list for a recommendation.
+
+        ListRecommendations returns one resource per recommendation as flat
+        top-level fields (resourceId / resourceArn / currentResourceType), not a
+        'resources' list. GetRecommendation and the Cost Explorer / Savings Plans
+        paths do supply a list. Support both so every recommendation carries a
+        resource identity - without it, deduplication hashes them all to the same
+        key and collapses distinct recommendations into one.
+        """
+        resources = recommendation.get('resources')
+        if resources:
+            return resources
+
+        resource_id = recommendation.get('resourceId') or recommendation.get('resourceArn')
+        if not resource_id:
+            return []
+
+        return [{
+            'resourceId': resource_id,
+            'arn': recommendation.get('resourceArn', resource_id),
+            'resourceType': recommendation.get('currentResourceType', 'Unknown'),
+            'region': recommendation.get('region', recommendation.get('_region', 'us-east-1'))
+        }]
+
     def _normalize_affected_resources(self, resources: List) -> List[Dict]:
         """Normalize affected resources list"""
         normalized_resources = []

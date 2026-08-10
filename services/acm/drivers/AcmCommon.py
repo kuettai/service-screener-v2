@@ -8,8 +8,8 @@ class AcmCommon(Evaluator):
     Per-certificate evaluator for AWS Certificate Manager.
 
     Implements all 13 checks (Tier 1 critical, Tier 2 operational, Tier 3
-    advisory) documented in docs/ACM_checks_research.md. Each _check* method
-    is auto-discovered and executed by services/Evaluator.py.
+    advisory). Each _check* method is auto-discovered and executed by
+    services/Evaluator.py.
     """
 
     def __init__(self, cert, acmClient):

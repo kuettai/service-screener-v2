@@ -12,6 +12,9 @@ import Pagination from '@cloudscape-design/components/pagination';
 import CollectionPreferences from '@cloudscape-design/components/collection-preferences';
 import Badge from '@cloudscape-design/components/badge';
 import Button from '@cloudscape-design/components/button';
+import CopyToClipboard from '@cloudscape-design/components/copy-to-clipboard';
+
+import { getRemediationForRow } from '../utils/formatters';
 
 /**
  * FindingsPage component
@@ -122,6 +125,49 @@ const FindingsPage = ({ data }) => {
       ),
       sortingField: 'Severity',
       width: 120
+    },
+    {
+      id: 'cliFix',
+      header: 'CLI Fix',
+      // The remediation command is not a workItem.xlsx column; it is rejoined
+      // from the report data on service + check, then resolved per resource.
+      cell: item => {
+        const remediation = getRemediationForRow(data, item);
+        if (!remediation) {
+          return <Box fontSize="body-s" color="text-status-inactive">Manual</Box>;
+        }
+
+        // Commands run long, so the cell shows a truncated preview and the
+        // button copies the full command.
+        const preview = remediation.command.length > 44
+          ? `${remediation.command.slice(0, 44)}…`
+          : remediation.command;
+
+        return (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <code
+              style={{
+                fontFamily: 'Monaco, Menlo, "Courier New", monospace',
+                fontSize: '11px',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
+              }}
+              title={remediation.command}
+            >
+              {preview}
+            </code>
+            <CopyToClipboard
+              copyButtonAriaLabel={`Copy CLI command for ${item.ResourceID || item.Check}`}
+              copySuccessText="Command copied"
+              copyErrorText="Failed to copy command"
+              textToCopy={remediation.command}
+              variant="icon"
+            />
+          </div>
+        );
+      },
+      width: 320
     }
   ];
   

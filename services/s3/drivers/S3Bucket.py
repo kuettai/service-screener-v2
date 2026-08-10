@@ -120,17 +120,20 @@ class S3Bucket(Evaluator):
                 self.results['ServerSideEncrypted'] = [-1, 'Off']
 
     def _checkAccess(self):
-        self.results['PublicAccessBlock'] = [1, 'On']
-        
+        self.results['PublicAccessBlock'] = [-1, 'Off']
+
         public_policy_restricted = False
         try:
             resp = self.s3Client.get_public_access_block(
                 Bucket=self.bucket
             )
             public_policy_restricted = resp['PublicAccessBlockConfiguration']['RestrictPublicBuckets']
+            pab_all_true = True
             for param, val in resp['PublicAccessBlockConfiguration'].items():
                 if val == False:
-                   self.results['PublicAccessBlock'] = [-1, 'Off']
+                   pab_all_true = False
+            if pab_all_true:
+                self.results['PublicAccessBlock'] = [1, 'On']
         except botocore.exceptions.ClientError as e:
             if e.response['Error']['Code'] == 'NoSuchPublicAccessBlockConfiguration':
                 return

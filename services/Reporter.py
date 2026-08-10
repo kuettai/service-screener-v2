@@ -4,6 +4,7 @@ import re
 
 from utils.Config import Config
 import utils.Config as cfg
+from utils.RemediationResolver import resolve as resolveRemediation
 from utils.Tools import _warn, _info
 import constants as _C
 
@@ -95,10 +96,38 @@ class Reporter:
         
     def getDetail(self):
         return self.detail
-    
+
     def getCard(self):
         return self.cardSummary
-    
+
+    def _buildRemediationByResource(self, remediation, resourceByRegion):
+        """
+        Resolve a check's remediation command once per affected resource.
+
+        Shape is {region: {identifier: {'command': str, 'unresolved': [str]}}},
+        mirroring __affectedResources so the UI can look up the command for the
+        resource row it is already rendering. 'unresolved' lists the
+        placeholders that could not be filled, so the UI can warn instead of
+        implying the command is ready to run.
+        """
+        stsInfo = Config.get('stsInfo', {})
+        accountId = stsInfo.get('Account') if isinstance(stsInfo, dict) else None
+
+        byRegion = {}
+        for region, identifiers in resourceByRegion.items():
+            byResource = {}
+            for identifier in identifiers:
+                command, unresolved = resolveRemediation(
+                    remediation, identifier, region, accountId, self.service)
+                byResource[identifier] = {
+                    'command': command,
+                    'unresolved': unresolved,
+                }
+
+            byRegion[region] = byResource
+
+        return byRegion
+
     def getSuppressedSummary(self):
         """Get summary of suppressed findings for reporting"""
         return self.suppressedSummary
@@ -326,9 +355,19 @@ class Reporter:
             for region, insts in self.summaryRegion[check].items():
                 self.findingsCount += len(insts)
                 resourceByRegion[region] = insts
-                
+
             self.cardSummary[check]['__affectedResources'] = resourceByRegion
-        
+
+            # Process remediation: resolve the command's placeholders against each
+            # affected resource. Done here rather than in the UI because the
+            # identifier shape is per service (Bucket::name, Ecs::Cluster::name,
+            # Route53::HostedZone=name, a bare ARN, ...) and that parsing belongs
+            # somewhere testable.
+            remediation = self._getConfigValue(check, 'remediation')
+            if remediation:
+                self.cardSummary[check]['__remediationByResource'] = \
+                    self._buildRemediationByResource(remediation, resourceByRegion)
+
         # Generate suppressed card summary while config is still available
         self.suppressedCardSummary = {}
         for check, items in self.suppressedSummary.items():
