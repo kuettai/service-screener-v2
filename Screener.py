@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import os
+import boto3
 import botocore
 import traceback
 
@@ -27,7 +28,12 @@ class Screener:
     @staticmethod
     def scanByService(service, regions, filters):
         _cli_options = Config.get('_SS_PARAMS', {})
-        
+
+        ## Rebuild own Session instead of reusing the parent's forked one, so credential refresh timing desyncs across workers
+        ssBotoKwargs = Config.get('ssBotoKwargs', None)
+        if ssBotoKwargs is not None:
+            Config.set('ssBoto', boto3.session.Session(**ssBotoKwargs))
+
         _zeroCount = {
             'resources': 0,
             'rules': 0,
