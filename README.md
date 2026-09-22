@@ -97,6 +97,12 @@ The stack is automatically created at the start of each run with a unique name (
    
    **Important:** If you skip the Cloudscape UI build step, the `--beta 1` flag will still work but will only generate the legacy AdminLTE UI. To use the new Cloudscape UI features, you must complete the build step above.
 
+5. (Recommended for large accounts or long scans) CloudShell vends credentials through a local proxy that can get overwhelmed under sustained load, causing a scan to fail with `CredentialRetrievalError`. Export static credentials once before running Service Screener to avoid depending on that proxy for the rest of the scan:
+   ``` bash
+   eval "$(aws configure export-credentials --format env)"
+   ```
+   **Note:** These exported credentials expire with your CloudShell session token (typically 1-3 hours). If a scan runs longer than that, re-run this command and restart the scan.
+
 ## Using Service Screener
 When running Service Screener, you will need to specify the regions and services you would like it to run on. For the full list of services currently supported, please see "SERVICES_IDENTIFIER_MAPPING" in [Config.py](./utils/Config.py).
 
