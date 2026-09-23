@@ -95,6 +95,11 @@ class ArguParser:
             "required": False,
             "default": False,
             "help": "Disable custom pages processing (COH, TA, Findings, Modernize) for faster scans. Only core service analysis will be performed."
+        },
+        'resume': {
+            "required": False,
+            "default": None,
+            "help": "Resume a previously interrupted scan (1) or force a fresh scan (0). If omitted and a matching incomplete scan is found in __fork/checkpoint, you'll be prompted."
         }
     }
 

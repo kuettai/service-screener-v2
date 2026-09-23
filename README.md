@@ -179,6 +179,35 @@ This skips processing of:
 screener --regions us-east-1 --services ec2,iam,s3 --disable-custom-pages 1 --beta 1
 ```
 
+## Resuming an Interrupted Scan
+
+If a scan crashes partway through (e.g. a CloudShell credential hiccup, a network blip), you don't have to restart from scratch. Service Screener checkpoints completed resources to disk as it goes.
+
+Just re-run the same command. If Service Screener finds an incomplete scan matching the same `--services`/`--regions`/`--filters`/accounts, it will ask:
+``` text
+Found an incomplete scan matching this request:
+  services: sagemaker
+  regions:  ap-southeast-1
+  accounts: default
+  started:  2026-09-23T06:08:40+00:00
+Resume from where it left off? [y/n]:
+```
+- `y` — skips everything already completed, only scans what's left.
+- `n` — discards the checkpoint and scans everything again.
+
+You can skip the prompt with an explicit flag:
+``` bash
+# Force resume; fails loudly if this command's scope doesn't match the checkpoint
+screener --regions ap-southeast-1 --services sagemaker --resume 1
+
+# Force a fresh scan, ignoring any checkpoint
+screener --regions ap-southeast-1 --services sagemaker --resume 0
+```
+
+If a leftover checkpoint exists but doesn't match the current command (different services/regions), Service Screener won't prompt — it just discards it and starts fresh, since resuming would resume the wrong scan.
+
+**Current scope:** checkpointing is wired into the SageMaker service only. Other services still restart from scratch on failure; more services will get this incrementally.
+
 ## Other parameters
 
 ### Suppression File

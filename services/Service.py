@@ -3,6 +3,7 @@ import time
 import boto3
 from botocore.config import Config as bConfig
 from utils.Config import Config
+from utils.Checkpoint import Checkpoint
 import constants as _C
 
 class Service:
@@ -25,6 +26,7 @@ class Service:
 
         self.RULESPREFIX = classname + '::rules'
         self.region = region
+        Config.set('CURRENT_REGION', region)
         self.bConfig = bConfig(
             region_name = region,
             retries = {
@@ -79,7 +81,16 @@ class Service:
         ## Class method is case insensitive, lower to improve accessibilities
         rules = rules.lower().split('^')
         Config.set(self.RULESPREFIX, rules)
-        
+
+    def registerItems(self, objType, items, idFn=None):
+        """Record the resources to be scanned for objType, return only those
+        not already checkpointed done. Call before any expensive per-item
+        detail fetch, not after (see docs/feature_checkpoints.md)."""
+        acctId = (Config.get('stsInfo', {}) or {}).get('Account', 'default')
+        idFn = idFn or (lambda x: x)
+        return Checkpoint.registerAndFilter(acctId, self.__class__.__name__, self.region, objType, items, idFn)
+
+
     def __del__(self):
         self.processChartData()
         timespent = round(time.time() - self.overallTimeStart, 3)
