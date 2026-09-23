@@ -17,6 +17,7 @@ else:
 import boto3
 
 from utils.Config import Config
+from utils.Checkpoint import Checkpoint
 from utils.ArguParser import ArguParser
 from utils.CfnTrail import CfnTrail
 from utils.CrossAccountsValidator import CrossAccountsValidator
@@ -81,6 +82,8 @@ def collect_fork_results(contexts, serviceStat, scanned):
     hasGlobal = False
     for file in os.listdir(_C.FORK_DIR):
         if file[0] == '.' or file == _C.SESSUID_FILENAME or file == 'tail.txt' or file == 'error.txt' or file == 'empty.txt' or file == 'all.csv' or file[0:10] == 'CustomPage':
+            continue
+        if os.path.isdir(os.path.join(_C.FORK_DIR, file)):
             continue
         f = file.split('.')
         if len(f) == 2:
@@ -221,6 +224,7 @@ beta = _cli_options['beta']
 suppress_file = _cli_options['suppress_file']
 sequential = _cli_options['sequential']
 disable_custom_pages = _cli_options['disable_custom_pages']
+resume = _cli_options['resume']
 
 # print(crossAccounts)
 DEBUG = True if debugFlag in _C.CLI_TRUE_KEYWORD_ARRAY or debugFlag is True else False
@@ -228,6 +232,9 @@ testmode = True if testmode in _C.CLI_TRUE_KEYWORD_ARRAY or testmode is True els
 crossAccounts = True if crossAccounts in _C.CLI_TRUE_KEYWORD_ARRAY or crossAccounts is True else False
 beta = True if beta in _C.CLI_TRUE_KEYWORD_ARRAY or beta is True else False
 disable_custom_pages = True if disable_custom_pages in _C.CLI_TRUE_KEYWORD_ARRAY or disable_custom_pages is True else False
+## Tri-state: None means --resume wasn't specified, so Checkpoint auto-detects and may prompt.
+if resume is not None:
+    resume = True if resume in _C.CLI_TRUE_KEYWORD_ARRAY or resume is True else False
 _cli_options['crossAccounts'] = crossAccounts
 
 # Content enrichment is automatically enabled with beta features
@@ -344,7 +351,12 @@ for acctId, cred in rolesCred.items():
     
     if acctLoop == 1:
         Config.set('REGIONS_SELECTED', regions)
-        
+
+        manifestFilters = filters if isinstance(filters, list) else ([] if filters in (False, None) else [filters])
+        manifest = Checkpoint.buildManifest(services, regions, manifestFilters, crossAccounts, list(rolesCred.keys()))
+        Checkpoint.prepareForRun(resume, manifest)
+
+
     frameworks = []
     if len(_cli_options['frameworks']) > 0:
         frameworks = _cli_options['frameworks'].split(',')

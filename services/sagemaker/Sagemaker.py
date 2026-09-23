@@ -43,15 +43,26 @@ class Sagemaker(Service):
         try:
             paginator = self.sagemakerClient.get_paginator('list_notebook_instances')
             for page in paginator.paginate():
-                for notebook in page.get('NotebookInstances', []):
+                summaries = page.get('NotebookInstances', [])
+                pendingNames = {n['NotebookInstanceName'] for n in self.registerItems(
+                    'NotebookDriver', summaries, idFn=lambda n: n['NotebookInstanceName']
+                )}
+
+                for notebook in summaries:
                     notebookName = notebook['NotebookInstanceName']
-                    
+
+                    if notebookName not in pendingNames:
+                        ## Already checkpointed - keep the lightweight summary so advise()
+                        ## still builds the driver and Evaluator.run() serves the cached result.
+                        resources['notebooks'].append(notebook)
+                        continue
+
                     # Get detailed notebook configuration
                     try:
                         notebookDetails = self.sagemakerClient.describe_notebook_instance(
                             NotebookInstanceName=notebookName
                         )
-                        
+
                         # Handle tag filtering if configured
                         if self.tags:
                             try:
@@ -62,7 +73,7 @@ class Sagemaker(Service):
                                     continue
                             except botocore.exceptions.ClientError:
                                 continue
-                        
+
                         _pi('SageMaker', f"Notebook: {notebookName}")
                         resources['notebooks'].append(notebookDetails)
                     except botocore.exceptions.ClientError as e:
@@ -76,15 +87,24 @@ class Sagemaker(Service):
         try:
             paginator = self.sagemakerClient.get_paginator('list_training_jobs')
             for page in paginator.paginate():
-                for job in page.get('TrainingJobSummaries', []):
+                summaries = page.get('TrainingJobSummaries', [])
+                pendingNames = {j['TrainingJobName'] for j in self.registerItems(
+                    'TrainingJobDriver', summaries, idFn=lambda j: j['TrainingJobName']
+                )}
+
+                for job in summaries:
                     jobName = job['TrainingJobName']
-                    
+
+                    if jobName not in pendingNames:
+                        resources['trainingJobs'].append(job)
+                        continue
+
                     # Get detailed training job configuration
                     try:
                         jobDetails = self.sagemakerClient.describe_training_job(
                             TrainingJobName=jobName
                         )
-                        
+
                         # Handle tag filtering if configured
                         if self.tags:
                             try:
@@ -95,7 +115,7 @@ class Sagemaker(Service):
                                     continue
                             except botocore.exceptions.ClientError:
                                 continue
-                        
+
                         _pi('SageMaker', f"Training Job: {jobName}")
                         resources['trainingJobs'].append(jobDetails)
                     except botocore.exceptions.ClientError as e:
@@ -109,15 +129,24 @@ class Sagemaker(Service):
         try:
             paginator = self.sagemakerClient.get_paginator('list_models')
             for page in paginator.paginate():
-                for model in page.get('Models', []):
+                summaries = page.get('Models', [])
+                pendingNames = {m['ModelName'] for m in self.registerItems(
+                    'ModelDriver', summaries, idFn=lambda m: m['ModelName']
+                )}
+
+                for model in summaries:
                     modelName = model['ModelName']
-                    
+
+                    if modelName not in pendingNames:
+                        resources['models'].append(model)
+                        continue
+
                     # Get detailed model configuration
                     try:
                         modelDetails = self.sagemakerClient.describe_model(
                             ModelName=modelName
                         )
-                        
+
                         # Handle tag filtering if configured
                         if self.tags:
                             try:
@@ -128,7 +157,7 @@ class Sagemaker(Service):
                                     continue
                             except botocore.exceptions.ClientError:
                                 continue
-                        
+
                         _pi('SageMaker', f"Model: {modelName}")
                         resources['models'].append(modelDetails)
                     except botocore.exceptions.ClientError as e:
@@ -142,15 +171,24 @@ class Sagemaker(Service):
         try:
             paginator = self.sagemakerClient.get_paginator('list_endpoint_configs')
             for page in paginator.paginate():
-                for config in page.get('EndpointConfigs', []):
+                summaries = page.get('EndpointConfigs', [])
+                pendingNames = {c['EndpointConfigName'] for c in self.registerItems(
+                    'EndpointConfigDriver', summaries, idFn=lambda c: c['EndpointConfigName']
+                )}
+
+                for config in summaries:
                     configName = config['EndpointConfigName']
-                    
+
+                    if configName not in pendingNames:
+                        resources['endpointConfigs'].append(config)
+                        continue
+
                     # Get detailed endpoint configuration
                     try:
                         configDetails = self.sagemakerClient.describe_endpoint_config(
                             EndpointConfigName=configName
                         )
-                        
+
                         # Handle tag filtering if configured
                         if self.tags:
                             try:
@@ -161,7 +199,7 @@ class Sagemaker(Service):
                                     continue
                             except botocore.exceptions.ClientError:
                                 continue
-                        
+
                         _pi('SageMaker', f"Endpoint Config: {configName}")
                         resources['endpointConfigs'].append(configDetails)
                     except botocore.exceptions.ClientError as e:
@@ -175,15 +213,24 @@ class Sagemaker(Service):
         try:
             paginator = self.sagemakerClient.get_paginator('list_endpoints')
             for page in paginator.paginate():
-                for endpoint in page.get('Endpoints', []):
+                summaries = page.get('Endpoints', [])
+                pendingNames = {e['EndpointName'] for e in self.registerItems(
+                    'EndpointDriver', summaries, idFn=lambda e: e['EndpointName']
+                )}
+
+                for endpoint in summaries:
                     endpointName = endpoint['EndpointName']
-                    
+
+                    if endpointName not in pendingNames:
+                        resources['endpoints'].append(endpoint)
+                        continue
+
                     # Get detailed endpoint configuration
                     try:
                         endpointDetails = self.sagemakerClient.describe_endpoint(
                             EndpointName=endpointName
                         )
-                        
+
                         # Handle tag filtering if configured
                         if self.tags:
                             try:
@@ -194,7 +241,7 @@ class Sagemaker(Service):
                                     continue
                             except botocore.exceptions.ClientError:
                                 continue
-                        
+
                         _pi('SageMaker', f"Endpoint: {endpointName}")
                         resources['endpoints'].append(endpointDetails)
                     except botocore.exceptions.ClientError as e:
@@ -208,15 +255,24 @@ class Sagemaker(Service):
         try:
             paginator = self.sagemakerClient.get_paginator('list_hyper_parameter_tuning_jobs')
             for page in paginator.paginate():
-                for tuningJob in page.get('HyperParameterTuningJobSummaries', []):
+                summaries = page.get('HyperParameterTuningJobSummaries', [])
+                pendingNames = {t['HyperParameterTuningJobName'] for t in self.registerItems(
+                    'TuningJobDriver', summaries, idFn=lambda t: t['HyperParameterTuningJobName']
+                )}
+
+                for tuningJob in summaries:
                     tuningJobName = tuningJob['HyperParameterTuningJobName']
-                    
+
+                    if tuningJobName not in pendingNames:
+                        resources['tuningJobs'].append(tuningJob)
+                        continue
+
                     # Get detailed tuning job configuration
                     try:
                         tuningJobDetails = self.sagemakerClient.describe_hyper_parameter_tuning_job(
                             HyperParameterTuningJobName=tuningJobName
                         )
-                        
+
                         # Handle tag filtering if configured
                         if self.tags:
                             try:
@@ -227,7 +283,7 @@ class Sagemaker(Service):
                                     continue
                             except botocore.exceptions.ClientError:
                                 continue
-                        
+
                         _pi('SageMaker', f"Tuning Job: {tuningJobName}")
                         resources['tuningJobs'].append(tuningJobDetails)
                     except botocore.exceptions.ClientError as e:

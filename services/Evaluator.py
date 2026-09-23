@@ -9,6 +9,7 @@ import threading
 import concurrent.futures as cf
 
 from utils.Config import Config
+from utils.Checkpoint import Checkpoint
 from utils.Tools import _warn, _info
 from utils.CustomPage.CustomPage import CustomPage
 import constants as _C
@@ -100,9 +101,31 @@ class Evaluator():
         rulePrefix = serviceName.__name__ + '::rules'
         servMethods = servClass + '::methods'
         rules = Config.get(rulePrefix, [])
-        
+
         debugFlag = Config.get('DEBUG')
-        
+
+        checkpointAcct = (Config.get('stsInfo', {}) or {}).get('Account', 'default')
+        checkpointRegion = Config.get('CURRENT_REGION', 'unknown')
+        checkpointResourceId = getattr(self, '_resourceName', None)
+
+        if checkpointResourceId is not None and Checkpoint.isDone(
+            checkpointAcct, serviceName.__name__, checkpointRegion, servClass, checkpointResourceId
+        ):
+            cached = Checkpoint.getCached(
+                checkpointAcct, serviceName.__name__, checkpointRegion, servClass, checkpointResourceId
+            ) or {}
+            self.results = cached.get('results', {})
+            self.InventoryInfo = cached.get('info', {})
+
+            scannedKey = 'scanned_' + serviceName.__name__.lower()
+            scanned = Config.get(scannedKey)
+            Config.set(scannedKey, {
+                'resources': scanned['resources'] + 1,
+                'rules': scanned['rules'],
+                'exceptions': scanned['exceptions']
+            })
+            return
+
         ecnt = cnt = 0
         emsg = []
 
@@ -167,7 +190,13 @@ class Evaluator():
             with open(_C.FORK_DIR + '/error.txt', 'a+') as f:
                 f.write('\n\n'.join(emsg))
                 f.close()
-        
+
+        if checkpointResourceId is not None:
+            Checkpoint.markDone(
+                checkpointAcct, serviceName.__name__, checkpointRegion, servClass,
+                checkpointResourceId, self.results, self.InventoryInfo
+            )
+
         scannedKey = 'scanned_'+serviceName.__name__.lower()
         # print(scannedKey)
         
