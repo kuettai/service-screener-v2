@@ -62,16 +62,23 @@ class Iam(Service):
     ## Groups has no TAG attribute
     ## Unable to implement "TAG" filter
     def getGroups(self):
+        # Use prefetched data if available - carries AttachedManagedPolicies/
+        # GroupPolicyList that a bare list_groups() call doesn't, so drivers
+        # can use it directly instead of falling back to per-group API calls.
+        if self._authDetails and self._authDetails.get('groups'):
+            return self._authDetails['groups']
+
+        # Fallback to API
         arr = []
         results = self.iamClient.list_groups()
         arr = results.get('Groups')
-        
+
         while results.get('Marker') is not None:
             results = self.iamClient.list_groups(
                 Marker = results.get('Marker')
             )
             arr = arr + results.get('Groups')
-            
+
         return arr
     
     def getRoles(self):
