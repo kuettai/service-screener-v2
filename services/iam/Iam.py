@@ -198,11 +198,27 @@ class Iam(Service):
             del obj
         
         roles = self.getRoles()
+        pendingRoleNames = {r['RoleName'] for r in self.registerItems(
+            'IamRole', roles, idFn=lambda r: r['RoleName']
+        )}
+
         for role in roles:
             _pi('IAM::Role', role['RoleName'])
+
+            if role['RoleName'] not in pendingRoleNames:
+                ## Already checkpointed. IamRole.__init__ unconditionally calls get_role()
+                ## via _enrichRoleDetail() whenever 'RoleLastUsed' isn't already present -
+                ## and get_account_authorization_details never includes it. Seed a
+                ## placeholder (on a copy, not the shared _authDetails entry) so that
+                ## early-return check is satisfied and the per-role get_role() call -
+                ## the exact call that crashed a 2,400-role account in the original bug
+                ## report - is skipped for cached roles.
+                role = dict(role)
+                role['RoleLastUsed'] = {}
+
             obj = IamRole(role, self.iamClient, self._authDetails, self._policyDocumentMap)
             obj.run(self.__class__)
-            
+
             objs['Role::' + role['RoleName']] = obj.getInfo()
             del obj
 
