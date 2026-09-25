@@ -5,6 +5,7 @@ import time
 
 from utils.Config import Config
 from utils.Tools import _pr
+from utils.IamRoleLastUsedCache import IamRoleLastUsedCache
 from services.Service import Service
 from services.iam.drivers.IamRole import IamRole
 from services.iam.drivers.IamGroup import IamGroup
@@ -202,6 +203,13 @@ class Iam(Service):
             'IamRole', roles, idFn=lambda r: r['RoleName']
         )}
 
+        ## Persistent, cross-run cache for RoleLastUsed (separate from the per-run
+        ## checkpoint above) - RoleLastUsed doesn't change fast enough to need a
+        ## fresh get_role() call on every scan of the same account.
+        accountId = (Config.get('stsInfo', {}) or {}).get('Account', 'default')
+        roleLastUsedCache = IamRoleLastUsedCache.load(accountId)
+        cacheSizeBefore = len(roleLastUsedCache)
+
         for role in roles:
             _pi('IAM::Role', role['RoleName'])
 
@@ -216,11 +224,14 @@ class Iam(Service):
                 role = dict(role)
                 role['RoleLastUsed'] = {}
 
-            obj = IamRole(role, self.iamClient, self._authDetails, self._policyDocumentMap)
+            obj = IamRole(role, self.iamClient, self._authDetails, self._policyDocumentMap, roleLastUsedCache)
             obj.run(self.__class__)
 
             objs['Role::' + role['RoleName']] = obj.getInfo()
             del obj
+
+        if len(roleLastUsedCache) != cacheSizeBefore:
+            IamRoleLastUsedCache.save(accountId, roleLastUsedCache)
 
         groups = self.getGroups()
         for group in groups:
